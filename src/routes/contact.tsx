@@ -113,26 +113,26 @@ function ContactPage() {
                     <label className="label-caps mb-2 block text-outline" htmlFor="first_name">
                       First Name
                     </label>
-                    <input id="first_name" type="text" required className={FIELD} />
+                    <input id="first_name" name="first_name" type="text" required className={FIELD} />
                   </div>
                   <div>
                     <label className="label-caps mb-2 block text-outline" htmlFor="last_name">
                       Last Name
                     </label>
-                    <input id="last_name" type="text" required className={FIELD} />
+                    <input id="last_name" name="last_name" type="text" required className={FIELD} />
                   </div>
                 </div>
                 <div>
                   <label className="label-caps mb-2 block text-outline" htmlFor="email">
                     Email Address
                   </label>
-                  <input id="email" type="email" required className={FIELD} />
+                  <input id="email" name="email" type="email" required className={FIELD} />
                 </div>
                 <div>
                   <label className="label-caps mb-2 block text-outline" htmlFor="inquiry_type">
                     Inquiry Type
                   </label>
-                  <select id="inquiry_type" defaultValue="" required className={FIELD}>
+                  <select id="inquiry_type" name="inquiry_type" defaultValue="" required className={FIELD}>
                     <option value="" disabled>
                       Select Inquiry Type
                     </option>
@@ -146,7 +146,7 @@ function ContactPage() {
                   <label className="label-caps mb-2 block text-outline" htmlFor="message">
                     Message
                   </label>
-                  <textarea id="message" rows={4} required className={`${FIELD} resize-none`} />
+                  <textarea id="message" name="message" rows={4} required className={`${FIELD} resize-none`} />
                 </div>
                 <div className="pt-4">
                   <button
