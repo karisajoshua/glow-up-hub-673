@@ -17,8 +17,13 @@ export function SiteHeader() {
   return (
     <header className="fixed top-0 z-50 w-full border-b border-outline-variant/20 bg-surface/85 backdrop-blur-xl">
       <div className="container-max flex h-20 items-center justify-between px-margin-mobile md:px-margin-desktop">
-        <Link to="/" className="font-display text-headline-md font-bold text-primary">
-          S-STC
+        <Link to="/" className="flex items-center gap-3">
+          <img
+            src={logoAsset.url}
+            alt="SustainaSpace Training Center crest"
+            className="h-12 w-12 rounded-full object-contain"
+          />
+          <span className="font-display text-headline-md font-bold text-primary">S-STC</span>
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
