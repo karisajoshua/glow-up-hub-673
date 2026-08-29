@@ -13,7 +13,7 @@ export const Route = createFileRoute("/contact")({
       {
         name: "description",
         content:
-          "Contact SustainaSpace Training Center for admissions, partnerships and media enquiries. Email learn.sstc@gmail.com or visit learn.sstc.ac.ke.",
+          "Contact SustainaSpace Training Center for admissions, partnerships and media enquiries. Email info@sstc.co.ke or visit sstc.co.ke.",
       },
       { property: "og:title", content: "Get in Touch — S-STC" },
       {
@@ -54,19 +54,19 @@ function ContactPage() {
             <div>
               <h2 className="label-caps mb-4 text-outline">Email</h2>
               <a
-                href="mailto:learn.sstc@gmail.com"
+                href="mailto:info@sstc.co.ke"
                 className="inline-block border-b border-secondary pb-1 text-body-lg text-secondary transition-colors hover:border-primary hover:text-primary"
               >
-                learn.sstc@gmail.com
+                info@sstc.co.ke
               </a>
             </div>
             <div>
               <h2 className="label-caps mb-4 text-outline">Website</h2>
               <a
-                href="https://learn.sstc.ac.ke"
+                href="https://sstc.co.ke"
                 className="inline-block border-b border-secondary pb-1 text-body-lg text-secondary transition-colors hover:border-primary hover:text-primary"
               >
-                learn.sstc.ac.ke
+                sstc.co.ke
               </a>
             </div>
             <div className="group relative mt-8 aspect-[4/5] w-full overflow-hidden border border-outline-variant/30">

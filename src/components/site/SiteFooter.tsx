@@ -1,11 +1,19 @@
 import { Link } from "@tanstack/react-router";
+import logoAsset from "@/assets/sstc-logo.jpg.asset.json";
 
 export function SiteFooter() {
   return (
     <footer className="w-full bg-primary py-section-gap">
       <div className="container-max grid grid-cols-1 gap-gutter px-margin-mobile md:grid-cols-4 md:px-margin-desktop">
         <div>
-          <span className="mb-6 block font-display text-headline-md text-surface-bright">S-STC</span>
+          <div className="mb-6 flex items-center gap-3">
+            <img
+              src={logoAsset.url}
+              alt="SustainaSpace Training Center crest"
+              className="h-14 w-14 rounded-full bg-surface-bright object-contain"
+            />
+            <span className="font-display text-headline-md text-surface-bright">S-STC</span>
+          </div>
           <p className="max-w-xs text-body-md text-surface-variant/80">
             Bridging the gap with sustainability learning pathways that complement existing
             qualifications.
@@ -18,21 +26,22 @@ export function SiteFooter() {
             <li>
               <a
                 className="text-surface-variant/80 transition-colors hover:text-secondary-fixed-dim"
-                href="https://learn.sstc.ac.ke"
+                href="https://sstc.co.ke"
               >
-                learn.sstc.ac.ke
+                sstc.co.ke
               </a>
             </li>
             <li>
               <a
                 className="text-surface-variant/80 transition-colors hover:text-secondary-fixed-dim"
-                href="mailto:learn.sstc@gmail.com"
+                href="mailto:info@sstc.co.ke"
               >
-                learn.sstc@gmail.com
+                info@sstc.co.ke
               </a>
             </li>
           </ul>
         </div>
+
 
         <div>
           <h4 className="label-caps mb-6 text-surface-variant">Admissions</h4>

@@ -43,7 +43,7 @@ function DeliveryPage() {
               <h1 className="font-display text-display-lg text-primary">Delivery Mode</h1>
               <p className="border-l-2 border-secondary pl-6 text-body-lg text-on-surface-variant">
                 Programs are delivered 100% online but candidates who wish to have face to face are
-                also welcome. Communicate your preference through learn.sstc@gmail.com
+                also welcome. Communicate your preference through info@sstc.co.ke
               </p>
               <div className="rounded-lg border border-outline-variant/30 bg-surface-container-low p-8">
                 <p className="mb-6 text-body-md text-on-surface">
@@ -51,10 +51,10 @@ function DeliveryPage() {
                   between.
                 </p>
                 <a
-                  href="https://learn.sstc.ac.ke"
+                  href="https://sstc.co.ke"
                   className="group inline-flex items-center text-button text-secondary"
                 >
-                  learn.sstc.ac.ke
+                  sstc.co.ke
                   <span className="material-symbols-outlined ml-2 transition-transform group-hover:translate-x-1">
                     arrow_forward
                   </span>

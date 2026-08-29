@@ -36,7 +36,7 @@ const SECTIONS = [
   },
   {
     title: "Your Rights",
-    body: "You may request access to, correction of, or deletion of your personal information at any time by writing to learn.sstc@gmail.com.",
+    body: "You may request access to, correction of, or deletion of your personal information at any time by writing to info@sstc.co.ke.",
   },
 ];
 
