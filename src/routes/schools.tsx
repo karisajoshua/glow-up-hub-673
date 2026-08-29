@@ -24,7 +24,13 @@ export const Route = createFileRoute("/schools")({
       },
       { property: "og:image", content: SSPP_IMG },
       { name: "twitter:image", content: SSPP_IMG },
+      { property: "og:url", content: "https://sstc.co.ke/schools" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "S-STC Schools \u2014 Centers of Excellence" },
+      { name: "twitter:description", content: "Two schools, one mission: the School of Sustainable Professional Practice and the School of Community Based Green Skilling." },
     ],
+    links: [{ rel: "canonical", href: "https://sstc.co.ke/schools" }],
   }),
   component: SchoolsPage,
 });

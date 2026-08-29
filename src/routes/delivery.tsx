@@ -26,7 +26,13 @@ export const Route = createFileRoute("/delivery")({
       },
       { property: "og:image", content: ONLINE_IMG },
       { name: "twitter:image", content: ONLINE_IMG },
+      { property: "og:url", content: "https://sstc.co.ke/delivery" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Delivery Mode \u2014 S-STC" },
+      { name: "twitter:description", content: "S-STC programs are delivered 100% online with optional face-to-face sessions. Short courses run for 12 weeks with live classes in between." },
     ],
+    links: [{ rel: "canonical", href: "https://sstc.co.ke/delivery" }],
   }),
   component: DeliveryPage,
 });

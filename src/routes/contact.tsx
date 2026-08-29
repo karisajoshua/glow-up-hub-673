@@ -23,7 +23,13 @@ export const Route = createFileRoute("/contact")({
       },
       { property: "og:image", content: COVER },
       { name: "twitter:image", content: COVER },
+      { property: "og:url", content: "https://sstc.co.ke/contact" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Get in Touch \u2014 S-STC" },
+      { name: "twitter:description", content: "Contact SustainaSpace Training Center for admissions, partnerships and media enquiries. Email info@sstc.co.ke or visit sstc.co.ke." },
     ],
+    links: [{ rel: "canonical", href: "https://sstc.co.ke/contact" }],
   }),
   component: ContactPage,
 });

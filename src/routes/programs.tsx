@@ -76,7 +76,13 @@ export const Route = createFileRoute("/programs")({
       },
       { property: "og:image", content: CATALOGUE_COVER },
       { name: "twitter:image", content: CATALOGUE_COVER },
+      { property: "og:url", content: "https://sstc.co.ke/programs" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Program Catalogue \u2014 S-STC" },
+      { name: "twitter:description", content: "Browse S-STC academic pathways by level and delivery mode — rigorous programs bridging professional practice with environmental stewardship." },
     ],
+    links: [{ rel: "canonical", href: "https://sstc.co.ke/programs" }],
   }),
   component: ProgramsPage,
 });

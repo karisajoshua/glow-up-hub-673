@@ -17,7 +17,13 @@ export const Route = createFileRoute("/fees")({
         property: "og:description",
         content: "Special fees, grant and instalment payment plans at SustainaSpace Training Center.",
       },
+      { property: "og:url", content: "https://sstc.co.ke/fees" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Fees & Support \u2014 S-STC" },
+      { name: "twitter:description", content: "Special fees, grants and instalment payment plans designed to make S-STC sustainable practice programs accessible to dedicated professionals." },
     ],
+    links: [{ rel: "canonical", href: "https://sstc.co.ke/fees" }],
   }),
   component: FeesPage,
 });

@@ -26,7 +26,13 @@ export const Route = createFileRoute("/apply")({
       },
       { property: "og:image", content: FORM_IMG },
       { name: "twitter:image", content: FORM_IMG },
+      { property: "og:url", content: "https://sstc.co.ke/apply" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "How to Apply \u2014 S-STC" },
+      { name: "twitter:description", content: "Three steps to join S-STC: download the application form, email it to admissions, and receive your review outcome within two weeks. Intake is on a rolling basis." },
     ],
+    links: [{ rel: "canonical", href: "https://sstc.co.ke/apply" }],
   }),
   component: ApplyPage,
 });

@@ -22,7 +22,13 @@ export const Route = createFileRoute("/about")({
       },
       { property: "og:image", content: COVER },
       { name: "twitter:image", content: COVER },
+      { property: "og:url", content: "https://sstc.co.ke/about" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "About S-STC \u2014 Our Core Ethos" },
+      { name: "twitter:description", content: "Our core ethos: sustainability is not a subject to be studied but a pathway to be lived and practised, transforming professional competence into Green Practice." },
     ],
+    links: [{ rel: "canonical", href: "https://sstc.co.ke/about" }],
   }),
   component: AboutPage,
 });
