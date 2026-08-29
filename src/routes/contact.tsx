@@ -160,20 +160,25 @@ function ContactPage() {
                   </label>
                   <textarea id="message" name="message" rows={4} required className={`${FIELD} resize-none`} />
                 </div>
-                <div className="pt-4">
+                <div className="pt-4 space-y-3">
                   <button
                     type="submit"
                     className="inline-flex items-center gap-2 bg-primary px-8 py-4 text-button text-on-primary transition-colors hover:bg-secondary"
                   >
-                    Submit Inquiry
-                    <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+                    Open Inquiry in Email App
+                    <span className="material-symbols-outlined text-[18px]">mail</span>
                   </button>
+                  <p className="text-body-sm text-secondary">
+                    This prepares your message in your own email app — nothing is sent from this page until you press send there.
+                  </p>
                 </div>
                 {sent && (
                   <p className="text-body-md text-secondary" role="status">
-                    Your email app should now be open with the inquiry ready to send. If it didn't open, write to info@sstc.co.ke.
+                    Your inquiry is prepared in your email app. Please press send there to deliver it. If your email app did not
+                    open, write to info@sstc.co.ke directly.
                   </p>
                 )}
+
               </form>
             </div>
           </div>
