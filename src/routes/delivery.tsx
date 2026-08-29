@@ -33,6 +33,12 @@ export const Route = createFileRoute("/delivery")({
       { name: "twitter:description", content: "S-STC programs are delivered 100% online with optional face-to-face sessions. Short courses run for 12 weeks with live classes in between." },
     ],
     links: [{ rel: "canonical", href: "https://sstc.co.ke/delivery" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://sstc.co.ke/"}, {"@type": "ListItem", "position": 2, "name": "Delivery Mode", "item": "https://sstc.co.ke/delivery"}]}),
+      },
+    ],
   }),
   component: DeliveryPage,
 });

@@ -29,6 +29,12 @@ export const Route = createFileRoute("/about")({
       { name: "twitter:description", content: "Our core ethos: sustainability is not a subject to be studied but a pathway to be lived and practised, transforming professional competence into Green Practice." },
     ],
     links: [{ rel: "canonical", href: "https://sstc.co.ke/about" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://sstc.co.ke/"}, {"@type": "ListItem", "position": 2, "name": "About", "item": "https://sstc.co.ke/about"}]}),
+      },
+    ],
   }),
   component: AboutPage,
 });

@@ -24,6 +24,12 @@ export const Route = createFileRoute("/fees")({
       { name: "twitter:description", content: "Special fees, grants and instalment payment plans designed to make S-STC sustainable practice programs accessible to dedicated professionals." },
     ],
     links: [{ rel: "canonical", href: "https://sstc.co.ke/fees" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://sstc.co.ke/"}, {"@type": "ListItem", "position": 2, "name": "Fees & Support", "item": "https://sstc.co.ke/fees"}]}),
+      },
+    ],
   }),
   component: FeesPage,
 });

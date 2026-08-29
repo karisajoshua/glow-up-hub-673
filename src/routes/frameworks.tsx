@@ -60,6 +60,12 @@ export const Route = createFileRoute("/frameworks")({
       { name: "twitter:description", content: "S-STC aligns with Education for Sustainable Development, the UN SDGs and the ILO agenda on Skills for a Greener Future and decent work in a green economy." },
     ],
     links: [{ rel: "canonical", href: "https://sstc.co.ke/frameworks" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://sstc.co.ke/"}, {"@type": "ListItem", "position": 2, "name": "Frameworks", "item": "https://sstc.co.ke/frameworks"}]}),
+      },
+    ],
   }),
   component: FrameworksPage,
 });

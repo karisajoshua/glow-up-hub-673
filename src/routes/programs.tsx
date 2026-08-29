@@ -83,6 +83,12 @@ export const Route = createFileRoute("/programs")({
       { name: "twitter:description", content: "Browse S-STC academic pathways by level and delivery mode — rigorous programs bridging professional practice with environmental stewardship." },
     ],
     links: [{ rel: "canonical", href: "https://sstc.co.ke/programs" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://sstc.co.ke/"}, {"@type": "ListItem", "position": 2, "name": "Programs", "item": "https://sstc.co.ke/programs"}]}),
+      },
+    ],
   }),
   component: ProgramsPage,
 });
