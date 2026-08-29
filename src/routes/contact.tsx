@@ -1,0 +1,154 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { SiteHeader } from "@/components/site/SiteHeader";
+import { SiteFooter } from "@/components/site/SiteFooter";
+
+const COVER =
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuDnmbf2HXEQpDP6EbzObWPBwZiPX8cGt8ESRNE6eHlfI8X1CFAj4cbrbJJESGpnu7-orSLJSMHIuKo-u9YwDCGcsmMoDFluoRg1EztNsBCQ00u7yBg5HFfx96u9A0g6GpnOFdf6VgLGtN3F5wCUv2iJ8NTQ3kl-U4NDP35hObyqdFfKXtbqzWuj6nlbuqO1I7pJZGFGvk348rwGBNSOWRdw3v3l8MW9QkdG3Kk7ItxCVADWWE5gKep4";
+
+export const Route = createFileRoute("/contact")({
+  head: () => ({
+    meta: [
+      { title: "Contact S-STC | Get in Touch" },
+      {
+        name: "description",
+        content:
+          "Contact SustainaSpace Training Center for admissions, partnerships and media enquiries. Email learn.sstc@gmail.com or visit learn.sstc.ac.ke.",
+      },
+      { property: "og:title", content: "Get in Touch — S-STC" },
+      {
+        property: "og:description",
+        content:
+          "Inquiries from prospective students, institutional partners and global change-makers are welcome.",
+      },
+      { property: "og:image", content: COVER },
+      { name: "twitter:image", content: COVER },
+    ],
+  }),
+  component: ContactPage,
+});
+
+const FIELD =
+  "peer block w-full border-0 border-b border-outline bg-transparent px-0 py-3 text-body-md text-on-surface outline-none transition-colors placeholder:text-outline focus:border-primary";
+
+function ContactPage() {
+  const [sent, setSent] = useState(false);
+
+  return (
+    <div className="flex min-h-screen flex-col">
+      <SiteHeader />
+      <main className="container-max w-full flex-grow px-margin-mobile pb-section-gap pt-32 md:px-margin-desktop">
+        <div className="mb-16 md:mb-24">
+          <h1 className="mb-6 font-display text-display-lg text-primary md:text-display-xl">
+            Get in Touch
+          </h1>
+          <p className="max-w-2xl text-body-lg text-on-surface-variant">
+            We invite inquiries from prospective students, institutional partners, and global
+            change-makers interested in advancing sustainable practices through rigorous academic
+            training.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-gutter md:grid-cols-12">
+          <div className="flex flex-col gap-12 md:col-span-4">
+            <div>
+              <h2 className="label-caps mb-4 text-outline">Email</h2>
+              <a
+                href="mailto:learn.sstc@gmail.com"
+                className="inline-block border-b border-secondary pb-1 text-body-lg text-secondary transition-colors hover:border-primary hover:text-primary"
+              >
+                learn.sstc@gmail.com
+              </a>
+            </div>
+            <div>
+              <h2 className="label-caps mb-4 text-outline">Website</h2>
+              <a
+                href="https://learn.sstc.ac.ke"
+                className="inline-block border-b border-secondary pb-1 text-body-lg text-secondary transition-colors hover:border-primary hover:text-primary"
+              >
+                learn.sstc.ac.ke
+              </a>
+            </div>
+            <div className="group relative mt-8 aspect-[4/5] w-full overflow-hidden border border-outline-variant/30">
+              <div
+                className="h-full w-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                style={{ backgroundImage: `url('${COVER}')` }}
+                role="img"
+                aria-label="An academic building integrated with lush green foliage"
+              />
+            </div>
+          </div>
+
+          <div className="md:col-span-7 md:col-start-6">
+            <div className="border border-outline-variant/20 bg-surface-bright p-8 md:p-12">
+              <h2 className="mb-8 font-display text-headline-md text-primary">Send an Inquiry</h2>
+              <form
+                className="space-y-8"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setSent(true);
+                }}
+              >
+                <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+                  <div>
+                    <label className="label-caps mb-2 block text-outline" htmlFor="first_name">
+                      First Name
+                    </label>
+                    <input id="first_name" type="text" required className={FIELD} />
+                  </div>
+                  <div>
+                    <label className="label-caps mb-2 block text-outline" htmlFor="last_name">
+                      Last Name
+                    </label>
+                    <input id="last_name" type="text" required className={FIELD} />
+                  </div>
+                </div>
+                <div>
+                  <label className="label-caps mb-2 block text-outline" htmlFor="email">
+                    Email Address
+                  </label>
+                  <input id="email" type="email" required className={FIELD} />
+                </div>
+                <div>
+                  <label className="label-caps mb-2 block text-outline" htmlFor="inquiry_type">
+                    Inquiry Type
+                  </label>
+                  <select id="inquiry_type" defaultValue="" required className={FIELD}>
+                    <option value="" disabled>
+                      Select Inquiry Type
+                    </option>
+                    <option value="admissions">Admissions</option>
+                    <option value="partnerships">Partnerships</option>
+                    <option value="media">Media &amp; Press</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="label-caps mb-2 block text-outline" htmlFor="message">
+                    Message
+                  </label>
+                  <textarea id="message" rows={4} required className={`${FIELD} resize-none`} />
+                </div>
+                <div className="pt-4">
+                  <button
+                    type="submit"
+                    className="inline-flex items-center gap-2 bg-primary px-8 py-4 text-button text-on-primary transition-colors hover:bg-secondary"
+                  >
+                    Submit Inquiry
+                    <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+                  </button>
+                </div>
+                {sent && (
+                  <p className="text-body-md text-secondary" role="status">
+                    Thank you for your inquiry — our team will respond shortly.
+                  </p>
+                )}
+              </form>
+            </div>
+          </div>
+        </div>
+      </main>
+      <SiteFooter />
+    </div>
+  );
+}
