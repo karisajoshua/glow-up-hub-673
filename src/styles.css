@@ -168,21 +168,7 @@
   font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
 }
 
-/* Scroll-reveal + smooth interaction polish */
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition:
-    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, transform;
-}
-
-.reveal-in {
-  opacity: 1;
-  transform: none;
-}
-
+/* Smooth interaction polish */
 a,
 button {
   transition:
@@ -193,8 +179,29 @@ button {
     box-shadow 250ms ease;
 }
 
-img {
-  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+/* Scroll-driven reveal: no JS, no hydration side effects */
+@keyframes reveal-rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  main section > *,
+  main section > div > * {
+    animation: reveal-rise linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 22%;
+  }
+
+  main > section:first-of-type * {
+    animation: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -202,10 +209,8 @@ img {
     scroll-behavior: auto;
   }
 
-  .reveal,
-  .reveal-in {
-    opacity: 1;
-    transform: none;
-    transition: none;
+  main section > *,
+  main section > div > * {
+    animation: none !important;
   }
 }
