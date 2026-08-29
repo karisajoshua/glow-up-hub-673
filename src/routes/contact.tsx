@@ -171,7 +171,7 @@ function ContactPage() {
                 </div>
                 {sent && (
                   <p className="text-body-md text-secondary" role="status">
-                    Thank you for your inquiry — our team will respond shortly.
+                    Your email app should now be open with the inquiry ready to send. If it didn't open, write to info@sstc.co.ke.
                   </p>
                 )}
               </form>

@@ -149,7 +149,7 @@ function FeesPage() {
                 </button>
                 {sent && (
                   <p className="text-body-md text-secondary" role="status">
-                    Thank you — our admissions team will send the fee schedule to {email}.
+                    Your email app should now be open with the request ready to send from {email}. If it didn't open, write to info@sstc.co.ke.
                   </p>
                 )}
               </form>
