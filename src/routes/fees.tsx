@@ -22,9 +22,18 @@ export const Route = createFileRoute("/fees")({
   component: FeesPage,
 });
 
+const PROGRAMS = [
+  "Certificate in Sustainable Professional Practice",
+  "Diploma in Sustainable Professional Practice",
+  "Community Based Green Skilling",
+  "Not sure yet",
+];
+
 function FeesPage() {
   const [email, setEmail] = useState("");
+  const [program, setProgram] = useState(PROGRAMS[0]);
   const [sent, setSent] = useState(false);
+
 
   return (
     <div className="flex min-h-screen flex-col">
