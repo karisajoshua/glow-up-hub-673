@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
-import logoAsset from "@/assets/sstc-logo.jpg.asset.json";
+
 
 const HERO_IMG =
   "https://lh3.googleusercontent.com/aida-public/AB6AXuA4TBDgdehGhnklIP8PybBJyoobw5edWsbJKj_8UDTQe_DxDbudLLSLfs_yzk-Js4DHPd1dpIoL6sp5y2CN0Ho86IyMFjYQbOF6aUfyboMceIuZxbIp4Sp1g-3RM25L8hs7X7be9Ou69mxQdpTul-W5TDC_RPyMlu-KxHUSl-ClRfFr4eNFj57LvFzV9DDVOb4auChO54smeTwuSPI_3H9D67m7UbJAq3U1xlpGVgPGFwm4FanXwPct";
