@@ -9,7 +9,7 @@ const HERO_IMG =
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "S-STC | SustainaSpace Training Center — Shaping Green Practice" },
+      { title: "S-STC | Sustainability & Green Skills Training Kenya" },
       {
         name: "description",
         content:
@@ -23,7 +23,13 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:image", content: HERO_IMG },
       { name: "twitter:image", content: HERO_IMG },
+      { property: "og:url", content: "https://sstc.co.ke/" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "S-STC \u2014 Shaping Green Practice" },
+      { name: "twitter:description", content: "S-STC links professional qualifications with sustainability learning pathways, building the green competencies employers, investors and regulators now expect." },
     ],
+    links: [{ rel: "canonical", href: "https://sstc.co.ke/" }],
   }),
   component: Index,
 });

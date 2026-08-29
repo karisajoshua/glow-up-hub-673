@@ -12,7 +12,7 @@ const VIRTUAL_IMG =
 export const Route = createFileRoute("/delivery")({
   head: () => ({
     meta: [
-      { title: "Delivery Mode | S-STC" },
+      { title: "Online Delivery Mode | S-STC Green Skills Courses" },
       {
         name: "description",
         content:
@@ -26,6 +26,18 @@ export const Route = createFileRoute("/delivery")({
       },
       { property: "og:image", content: ONLINE_IMG },
       { name: "twitter:image", content: ONLINE_IMG },
+      { property: "og:url", content: "https://sstc.co.ke/delivery" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Delivery Mode \u2014 S-STC" },
+      { name: "twitter:description", content: "S-STC programs are delivered 100% online with optional face-to-face sessions. Short courses run for 12 weeks with live classes in between." },
+    ],
+    links: [{ rel: "canonical", href: "https://sstc.co.ke/delivery" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://sstc.co.ke/"}, {"@type": "ListItem", "position": 2, "name": "Delivery Mode", "item": "https://sstc.co.ke/delivery"}]}),
+      },
     ],
   }),
   component: DeliveryPage,

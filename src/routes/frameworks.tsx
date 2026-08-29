@@ -53,6 +53,18 @@ export const Route = createFileRoute("/frameworks")({
       },
       { property: "og:image", content: POLLUTION_IMG },
       { name: "twitter:image", content: POLLUTION_IMG },
+      { property: "og:url", content: "https://sstc.co.ke/frameworks" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Our Foundational Frameworks \u2014 S-STC" },
+      { name: "twitter:description", content: "S-STC aligns with Education for Sustainable Development, the UN SDGs and the ILO agenda on Skills for a Greener Future and decent work in a green economy." },
+    ],
+    links: [{ rel: "canonical", href: "https://sstc.co.ke/frameworks" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://sstc.co.ke/"}, {"@type": "ListItem", "position": 2, "name": "Frameworks", "item": "https://sstc.co.ke/frameworks"}]}),
+      },
     ],
   }),
   component: FrameworksPage,

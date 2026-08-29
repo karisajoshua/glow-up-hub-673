@@ -16,6 +16,18 @@ export const Route = createFileRoute("/privacy")({
         property: "og:description",
         content: "Our commitment to protecting the personal data of applicants and enquirers.",
       },
+      { property: "og:url", content: "https://sstc.co.ke/privacy" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Privacy Policy \u2014 S-STC" },
+      { name: "twitter:description", content: "How SustainaSpace Training Center collects, uses and protects personal information shared through applications and enquiries." },
+    ],
+    links: [{ rel: "canonical", href: "https://sstc.co.ke/privacy" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://sstc.co.ke/"}, {"@type": "ListItem", "position": 2, "name": "Privacy Policy", "item": "https://sstc.co.ke/privacy"}]}),
+      },
     ],
   }),
   component: PrivacyPage,

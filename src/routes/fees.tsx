@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/site/SiteFooter";
 export const Route = createFileRoute("/fees")({
   head: () => ({
     meta: [
-      { title: "Fees & Support | S-STC" },
+      { title: "Course Fees, Grants & Payment Plans | S-STC" },
       {
         name: "description",
         content:
@@ -17,14 +17,35 @@ export const Route = createFileRoute("/fees")({
         property: "og:description",
         content: "Special fees, grant and instalment payment plans at SustainaSpace Training Center.",
       },
+      { property: "og:url", content: "https://sstc.co.ke/fees" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Fees & Support \u2014 S-STC" },
+      { name: "twitter:description", content: "Special fees, grants and instalment payment plans designed to make S-STC sustainable practice programs accessible to dedicated professionals." },
+    ],
+    links: [{ rel: "canonical", href: "https://sstc.co.ke/fees" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://sstc.co.ke/"}, {"@type": "ListItem", "position": 2, "name": "Fees & Support", "item": "https://sstc.co.ke/fees"}]}),
+      },
     ],
   }),
   component: FeesPage,
 });
 
+const PROGRAMS = [
+  "Certificate in Sustainable Professional Practice",
+  "Diploma in Sustainable Professional Practice",
+  "Community Based Green Skilling",
+  "Not sure yet",
+];
+
 function FeesPage() {
   const [email, setEmail] = useState("");
+  const [program, setProgram] = useState(PROGRAMS[0]);
   const [sent, setSent] = useState(false);
+
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -78,9 +99,35 @@ function FeesPage() {
                 className="space-y-4"
                 onSubmit={(e) => {
                   e.preventDefault();
+                  const subject = `Fee schedule request — ${program}`;
+                  const body = [
+                    "Hello S-STC admissions team,",
+                    "",
+                    `Please send me the fee schedule and payment plan options for: ${program}.`,
+                    "",
+                    `My email address: ${email}`,
+                  ].join("\n");
+                  window.location.href = `mailto:info@sstc.co.ke?subject=${encodeURIComponent(
+                    subject,
+                  )}&body=${encodeURIComponent(body)}`;
                   setSent(true);
                 }}
               >
+                <label className="sr-only" htmlFor="fees-program">
+                  Programme of interest
+                </label>
+                <select
+                  id="fees-program"
+                  value={program}
+                  onChange={(e) => setProgram(e.target.value)}
+                  className="w-full border-b-2 border-outline-variant bg-surface px-0 py-3 text-body-md text-on-surface outline-none transition-colors focus:border-secondary"
+                >
+                  {PROGRAMS.map((p) => (
+                    <option key={p} value={p}>
+                      {p}
+                    </option>
+                  ))}
+                </select>
                 <label className="sr-only" htmlFor="fees-email">
                   Email Address
                 </label>
@@ -93,6 +140,7 @@ function FeesPage() {
                   placeholder="Your Email Address"
                   className="w-full border-b-2 border-outline-variant bg-surface px-0 py-3 text-body-md text-on-surface outline-none transition-colors placeholder:text-outline focus:border-secondary"
                 />
+
                 <button
                   type="submit"
                   className="mt-4 w-full rounded-md bg-primary px-6 py-4 text-button text-on-primary transition-colors hover:bg-secondary"
@@ -101,7 +149,7 @@ function FeesPage() {
                 </button>
                 {sent && (
                   <p className="text-body-md text-secondary" role="status">
-                    Thank you — our admissions team will send the fee schedule to {email}.
+                    Your email app should now be open with the request ready to send from {email}. If it didn't open, write to info@sstc.co.ke.
                   </p>
                 )}
               </form>

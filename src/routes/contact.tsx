@@ -23,6 +23,18 @@ export const Route = createFileRoute("/contact")({
       },
       { property: "og:image", content: COVER },
       { name: "twitter:image", content: COVER },
+      { property: "og:url", content: "https://sstc.co.ke/contact" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Get in Touch \u2014 S-STC" },
+      { name: "twitter:description", content: "Contact SustainaSpace Training Center for admissions, partnerships and media enquiries. Email info@sstc.co.ke or visit sstc.co.ke." },
+    ],
+    links: [{ rel: "canonical", href: "https://sstc.co.ke/contact" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://sstc.co.ke/"}, {"@type": "ListItem", "position": 2, "name": "Contact", "item": "https://sstc.co.ke/contact"}]}),
+      },
     ],
   }),
   component: ContactPage,
@@ -86,34 +98,53 @@ function ContactPage() {
                 className="space-y-8"
                 onSubmit={(e) => {
                   e.preventDefault();
+                  const form = e.currentTarget;
+                  const data = new FormData(form);
+                  const first = String(data.get("first_name") ?? "");
+                  const last = String(data.get("last_name") ?? "");
+                  const email = String(data.get("email") ?? "");
+                  const type = String(data.get("inquiry_type") ?? "");
+                  const message = String(data.get("message") ?? "");
+                  const subject = `S-STC ${type} enquiry — ${first} ${last}`.trim();
+                  const body = [
+                    `Name: ${first} ${last}`,
+                    `Email: ${email}`,
+                    `Inquiry type: ${type}`,
+                    "",
+                    message,
+                  ].join("\n");
+                  window.location.href = `mailto:info@sstc.co.ke?subject=${encodeURIComponent(
+                    subject,
+                  )}&body=${encodeURIComponent(body)}`;
                   setSent(true);
                 }}
               >
+
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
                   <div>
                     <label className="label-caps mb-2 block text-outline" htmlFor="first_name">
                       First Name
                     </label>
-                    <input id="first_name" type="text" required className={FIELD} />
+                    <input id="first_name" name="first_name" type="text" required className={FIELD} />
                   </div>
                   <div>
                     <label className="label-caps mb-2 block text-outline" htmlFor="last_name">
                       Last Name
                     </label>
-                    <input id="last_name" type="text" required className={FIELD} />
+                    <input id="last_name" name="last_name" type="text" required className={FIELD} />
                   </div>
                 </div>
                 <div>
                   <label className="label-caps mb-2 block text-outline" htmlFor="email">
                     Email Address
                   </label>
-                  <input id="email" type="email" required className={FIELD} />
+                  <input id="email" name="email" type="email" required className={FIELD} />
                 </div>
                 <div>
                   <label className="label-caps mb-2 block text-outline" htmlFor="inquiry_type">
                     Inquiry Type
                   </label>
-                  <select id="inquiry_type" defaultValue="" required className={FIELD}>
+                  <select id="inquiry_type" name="inquiry_type" defaultValue="" required className={FIELD}>
                     <option value="" disabled>
                       Select Inquiry Type
                     </option>
@@ -127,7 +158,7 @@ function ContactPage() {
                   <label className="label-caps mb-2 block text-outline" htmlFor="message">
                     Message
                   </label>
-                  <textarea id="message" rows={4} required className={`${FIELD} resize-none`} />
+                  <textarea id="message" name="message" rows={4} required className={`${FIELD} resize-none`} />
                 </div>
                 <div className="pt-4">
                   <button
@@ -140,7 +171,7 @@ function ContactPage() {
                 </div>
                 {sent && (
                   <p className="text-body-md text-secondary" role="status">
-                    Thank you for your inquiry — our team will respond shortly.
+                    Your email app should now be open with the inquiry ready to send. If it didn't open, write to info@sstc.co.ke.
                   </p>
                 )}
               </form>
