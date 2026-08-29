@@ -9,7 +9,7 @@ const HERO_IMG =
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "S-STC | SustainaSpace Training Center — Shaping Green Practice" },
+      { title: "S-STC | Sustainability & Green Skills Training Kenya" },
       {
         name: "description",
         content:
