@@ -86,9 +86,28 @@ function ContactPage() {
                 className="space-y-8"
                 onSubmit={(e) => {
                   e.preventDefault();
+                  const form = e.currentTarget;
+                  const data = new FormData(form);
+                  const first = String(data.get("first_name") ?? "");
+                  const last = String(data.get("last_name") ?? "");
+                  const email = String(data.get("email") ?? "");
+                  const type = String(data.get("inquiry_type") ?? "");
+                  const message = String(data.get("message") ?? "");
+                  const subject = `S-STC ${type} enquiry — ${first} ${last}`.trim();
+                  const body = [
+                    `Name: ${first} ${last}`,
+                    `Email: ${email}`,
+                    `Inquiry type: ${type}`,
+                    "",
+                    message,
+                  ].join("\n");
+                  window.location.href = `mailto:info@sstc.co.ke?subject=${encodeURIComponent(
+                    subject,
+                  )}&body=${encodeURIComponent(body)}`;
                   setSent(true);
                 }}
               >
+
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
                   <div>
                     <label className="label-caps mb-2 block text-outline" htmlFor="first_name">
