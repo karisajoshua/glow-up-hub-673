@@ -49,7 +49,7 @@ function FeesPage() {
                 support dedicated professionals.
               </p>
               <a
-                href="mailto:learn.sstc@gmail.com?subject=Grant%20enquiry"
+                href="mailto:info@sstc.co.ke?subject=Grant%20enquiry"
                 className="inline-flex items-center border-b border-secondary pb-1 text-button text-secondary transition-colors hover:text-primary"
               >
                 Inquire about Grants{" "}

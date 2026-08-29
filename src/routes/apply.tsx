@@ -76,7 +76,7 @@ function ApplyPage() {
                     accurate and supporting documents are attached as requested.
                   </p>
                   <a
-                    href="mailto:admissions@sstc.ac.ke?subject=Request%20for%20S-STC%20application%20form"
+                    href="mailto:admissions@sstc.co.ke?subject=Request%20for%20S-STC%20application%20form"
                     className="mt-6 inline-flex items-center gap-2 rounded-md border border-secondary px-6 py-2 text-button text-secondary transition-colors hover:bg-secondary/10"
                   >
                     <span className="material-symbols-outlined text-sm">download</span>
@@ -121,8 +121,8 @@ function ApplyPage() {
                   </p>
                   <div className="mt-6 flex items-center gap-3 text-button text-secondary">
                     <span className="material-symbols-outlined">mail</span>
-                    <a className="hover:underline" href="mailto:admissions@sstc.ac.ke">
-                      admissions@sstc.ac.ke
+                    <a className="hover:underline" href="mailto:admissions@sstc.co.ke">
+                      admissions@sstc.co.ke
                     </a>
                   </div>
                 </div>
