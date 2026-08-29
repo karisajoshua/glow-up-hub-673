@@ -2,6 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 
+const POLLUTION_IMG =
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuAnNSjAQRrQYglCzHL5RcFFydF9itqyrXUxvTkaWEG2meHDx_4vmuqQq4_hAtu03yY7IHCAhRDK-o61Q8wveC18ke-PtLOXzrcDnjSa9l5w5qn464N0q7oeTpYnShpgMF5MemJOtGcNnZeJ87IHm63ir5ToUJGQOq8wE6CDOsnHsNT-J_BYEwiFbKxROmmM2AdPjo938rHH3cyhYqi99N-En9Ok-TwuGJq6LS8B3_oVCHrQWyUrnMk2";
+
 const CRISES = [
   {
     title: "Pollution",
@@ -48,8 +51,8 @@ export const Route = createFileRoute("/frameworks")({
         content:
           "Addressing the triple-plus-one global crises: pollution, resource depletion, climate change and sustainable livelihoods.",
       },
-      { property: "og:image", content: CRISES[0].img },
-      { name: "twitter:image", content: CRISES[0].img },
+      { property: "og:image", content: POLLUTION_IMG },
+      { name: "twitter:image", content: POLLUTION_IMG },
     ],
   }),
   component: FrameworksPage,

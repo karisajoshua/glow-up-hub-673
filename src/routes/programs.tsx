@@ -3,6 +3,9 @@ import { useState } from "react";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 
+const CATALOGUE_COVER =
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuAGEzZb_6JaZ_W9LLB4ScaCIOKB9pRF32sbVsgXdRHgOu4LviZDIXmtUBejXPmjnIdNbSTWfL-fLYsm7kX3HDSM5YnmugtsptbVOab_mmkwvXbu-07N6rHke-BFfP_2GnvjvuRxGzmUZJ3n07nlpxRy7ZAwgQsQW3Gem4qYJBIsOFo98lQh6gA8Lm3Sb-bxHfFnIKorLIW-Fw5OYRKkVx5cPFwUVlZaj32FruM_9cws9Di-LeP12fSS";
+
 type Program = {
   title: string;
   level: string;
@@ -70,8 +73,8 @@ export const Route = createFileRoute("/programs")({
         content:
           "Academic pathways designed to bridge high-level professional practice with profound environmental stewardship.",
       },
-      { property: "og:image", content: PROGRAMS[0].img },
-      { name: "twitter:image", content: PROGRAMS[0].img },
+      { property: "og:image", content: CATALOGUE_COVER },
+      { name: "twitter:image", content: CATALOGUE_COVER },
     ],
   }),
   component: ProgramsPage,
