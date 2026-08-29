@@ -10,7 +10,7 @@ const CBGS_IMG =
 export const Route = createFileRoute("/schools")({
   head: () => ({
     meta: [
-      { title: "Schools | S-STC Centers of Excellence" },
+      { title: "Our Schools: SSPP & Community Green Skilling | S-STC" },
       {
         name: "description",
         content:

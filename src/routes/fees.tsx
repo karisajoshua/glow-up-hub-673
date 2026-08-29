@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/site/SiteFooter";
 export const Route = createFileRoute("/fees")({
   head: () => ({
     meta: [
-      { title: "Fees & Support | S-STC" },
+      { title: "Course Fees, Grants & Payment Plans | S-STC" },
       {
         name: "description",
         content:

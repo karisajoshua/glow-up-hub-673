@@ -62,7 +62,7 @@ const MODES = ["Fully Online", "Online with Optional Face-to-Face"];
 export const Route = createFileRoute("/programs")({
   head: () => ({
     meta: [
-      { title: "Program Catalogue | S-STC" },
+      { title: "Green Skills Courses & Programmes | S-STC" },
       {
         name: "description",
         content:

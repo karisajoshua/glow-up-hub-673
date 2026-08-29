@@ -16,7 +16,7 @@ export const Route = createFileRoute("/apply")({
       {
         name: "description",
         content:
-          "Three steps to join S-STC: download the application form, email it to admissions, and receive your review outcome within two weeks. Intake is on a rolling basis.",
+          "Three steps to join S-STC: request the application form, email it to admissions, and get your outcome within two weeks. Rolling intake.",
       },
       { property: "og:title", content: "How to Apply — S-STC" },
       {
@@ -30,7 +30,7 @@ export const Route = createFileRoute("/apply")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "How to Apply \u2014 S-STC" },
-      { name: "twitter:description", content: "Three steps to join S-STC: download the application form, email it to admissions, and receive your review outcome within two weeks. Intake is on a rolling basis." },
+      { name: "twitter:description", content: "Three steps to join S-STC: request the application form, email it to admissions, and get your outcome within two weeks. Rolling intake." },
     ],
     links: [{ rel: "canonical", href: "https://sstc.co.ke/apply" }],
     scripts: [

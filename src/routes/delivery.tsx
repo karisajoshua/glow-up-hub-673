@@ -12,7 +12,7 @@ const VIRTUAL_IMG =
 export const Route = createFileRoute("/delivery")({
   head: () => ({
     meta: [
-      { title: "Delivery Mode | S-STC" },
+      { title: "Online Delivery Mode | S-STC Green Skills Courses" },
       {
         name: "description",
         content:
