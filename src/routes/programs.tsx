@@ -18,45 +18,46 @@ type Program = {
 
 const PROGRAMS: Program[] = [
   {
-    title: "Program Title Pending Integration",
-    level: "Executive Education",
+    title: "Sustainability Foundations for Professionals",
+    level: "Professional Certificate",
     mode: "Fully Online",
-    body: "A comprehensive description outlining the core competencies, pedagogical approach, and expected global impact of this academic track. Details to follow in upcoming catalogue update.",
-    credits: "Credits TBD",
+    body: "A grounding in Education for Sustainable Development, the UN SDGs and the ILO green skills agenda, translated into practical actions you can apply inside your own profession from week one.",
+    credits: "12 weeks",
     alt: "A sustainable architectural model on a clean wooden desk",
     img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAGEzZb_6JaZ_W9LLB4ScaCIOKB9pRF32sbVsgXdRHgOu4LviZDIXmtUBejXPmjnIdNbSTWfL-fLYsm7kX3HDSM5YnmugtsptbVOab_mmkwvXbu-07N6rHke-BFfP_2GnvjvuRxGzmUZJ3n07nlpxRy7ZAwgQsQW3Gem4qYJBIsOFo98lQh6gA8Lm3Sb-bxHfFnIKorLIW-Fw5OYRKkVx5cPFwUVlZaj32FruM_9cws9Di-LeP12fSS",
   },
   {
-    title: "Future Curriculum Designation",
-    level: "Postgraduate",
-    mode: "Hybrid Structure",
-    body: "This framework represents a future offering focused on advanced methodologies in sustainable practice. Full curriculum specifications are currently under rigorous academic review.",
-    credits: "Credits TBD",
+    title: "Climate Risk and Environmental Compliance",
+    level: "Short Course",
+    mode: "Fully Online",
+    body: "Read climate and environmental risk in operational terms: emissions and resource baselines, regulatory expectations, reporting duties and the evidence organisations need to defend their environmental performance.",
+    credits: "12 weeks",
     alt: "Researcher's hands examining a green seedling in a laboratory",
     img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAQeIkf9aHSKXhWqDjLZQ9lM1NWJjHL9kT5FUQJso5gazaDvqdYPIKG8oo9cPdNs9xUxMgcvg78LmQxjGfEmO2ivn6LkFGlCBcaeBbUaObSQEtwvXnERhen5AdF-4RIAh5P3gpHj0_nY2Pe1iRQSn97p4xW1wf7WAl4K3yxscPSZ4yfY--G2WM38dmC5hiQSa0JVHfC_6_Cq07oKb90ilcTlv3_EitIaekurlX-TX1mkIxyc_dQ-gbu",
   },
   {
-    title: "Academic Pathway Prototype",
-    level: "Undergraduate",
-    mode: "On-Campus",
-    body: "A placeholder for interdisciplinary studies integrating policy, economics, and environmental science. Content is actively being structured for the next enrollment phase.",
-    credits: "Credits TBD",
+    title: "Green Skills for the Built Environment",
+    level: "Professional Certificate",
+    mode: "Online with Optional Face-to-Face",
+    body: "For engineers, architects, quantity surveyors, project managers and facilities teams — resource-efficient design, materials choices, waste reduction and energy performance across the life of a building.",
+    credits: "12 weeks",
     alt: "Aerial view of an eco-campus integrated with a natural landscape",
     img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAM-waeanp_o5N487YJJUt3AiBPV_Ml3c1fjDt8iRmsP4i20FKuwf1FPxrRsYnWphxJfjif5jDaL65Vg2qSfbYPSfrpf0pNhIeqzUFBZcanlIMdSsvf4KQv0IbI-5ZR0ibHLqXpTDEcZqGN00p_z83ZmsMKurDFdTd9_aIXp6CerFdpqeU3PKt7Tb85TXl7HupWsHRGI48qCynUnq4brw3Lo3rDekbUomV4gskFzwRfvXpaaDMacHv4",
   },
   {
-    title: "Specialized Certificate Track",
-    level: "Executive Education",
-    mode: "Hybrid Structure",
-    body: "Intensive, modular learning designed for global change-makers. The specific focus areas and delivery timelines for this module will be published shortly.",
-    credits: "Credits TBD",
+    title: "Community Based Green Skilling",
+    level: "Community Programme",
+    mode: "Online with Optional Face-to-Face",
+    body: "Practical green livelihoods training for community groups, youth cohorts and small enterprises: waste value chains, water stewardship, clean energy basics and income-generating sustainable practice.",
+    credits: "12 weeks",
     alt: "Macro photograph of solar panel textures blended with leaf patterns",
     img: "https://lh3.googleusercontent.com/aida-public/AB6AXuCOlZqSmYdtOZmMxPrI-DYomMunwmbEApjmwlArsc42N0rhhXTOO7vQ1PW3iIlAfCia9DcTp_tQm9h88EWZkkUYBIFAgKa8a1cAFwQMXY9Bdhsd109CyNHtPXPbUQTTzxeDJ0jMj74RtCxl3OnEdSXA59j_Ok0V51kHYZCGWKIsr2N21oHG4d_dI26ISzNQ8QEYoMijM_1EjivgH4zhhY5I0ExTPTVgCHxMtcW0M0WiIAzn2DrNAr5R",
   },
 ];
 
-const LEVELS = ["Undergraduate", "Postgraduate", "Executive Education"];
-const MODES = ["On-Campus", "Hybrid Structure", "Fully Online"];
+const LEVELS = ["Short Course", "Professional Certificate", "Community Programme"];
+const MODES = ["Fully Online", "Online with Optional Face-to-Face"];
+
 
 export const Route = createFileRoute("/programs")({
   head: () => ({
