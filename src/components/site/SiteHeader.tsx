@@ -13,17 +13,33 @@ const NAV = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="fixed top-0 z-50 w-full border-b border-outline-variant/20 bg-surface/85 backdrop-blur-xl">
-      <div className="container-max flex h-20 items-center justify-between px-margin-mobile md:px-margin-desktop">
-        <Link to="/" className="flex items-center gap-3">
+    <header className="fixed top-0 z-50 w-full border-b border-outline-variant/20 bg-surface/85 backdrop-blur-xl transition-all duration-300">
+      <div
+        className={`container-max flex items-center justify-between px-margin-mobile transition-all duration-300 md:px-margin-desktop ${
+          scrolled ? "h-20" : "h-24 md:h-28"
+        }`}
+      >
+        <Link to="/" className="group flex items-center gap-4">
           <img
             src={logoAsset.url}
             alt="SustainaSpace Training Center crest"
-            className="h-12 w-12 rounded-full object-contain"
+            className={`rounded-full object-contain shadow-sm transition-all duration-300 group-hover:scale-105 ${
+              scrolled ? "h-14 w-14" : "h-16 w-16 md:h-20 md:w-20"
+            }`}
           />
-          <span className="font-display text-headline-md font-bold text-primary">S-STC</span>
+          <span className="font-display text-title-lg font-bold text-primary md:text-headline-md">
+            S-STC
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
