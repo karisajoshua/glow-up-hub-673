@@ -86,6 +86,34 @@ export const Route = createFileRoute("/programs")({
     scripts: [
       {
         type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: "S-STC Programme Catalogue",
+          itemListElement: PROGRAMS.map((p, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            item: {
+              "@type": "Course",
+              name: p.title,
+              description: p.body,
+              url: "https://sstc.co.ke/programs",
+              provider: {
+                "@type": "EducationalOrganization",
+                name: "SustainaSpace Training Center",
+                url: "https://sstc.co.ke",
+              },
+              hasCourseInstance: {
+                "@type": "CourseInstance",
+                courseMode: p.mode.includes("Online") ? "online" : "blended",
+                courseWorkload: "P12W",
+              },
+            },
+          })),
+        }),
+      },
+      {
+        type: "application/ld+json",
         children: JSON.stringify({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://sstc.co.ke/"}, {"@type": "ListItem", "position": 2, "name": "Programs", "item": "https://sstc.co.ke/programs"}]}),
       },
     ],
@@ -181,12 +209,14 @@ function ProgramsPage() {
                   <h3 className="mb-4 font-display text-headline-md text-on-surface">{p.title}</h3>
                   <p className="mb-8 flex-grow text-body-md text-on-surface-variant">{p.body}</p>
                   <div className="flex items-center justify-between border-t border-outline-variant/20 pt-4">
-                    <span className="label-caps text-on-surface-variant">{p.credits}</span>
+                    <span className="label-caps text-on-surface-variant">
+                      {p.credits} · {p.mode}
+                    </span>
                     <Link
                       to="/apply"
                       className="inline-flex items-center text-button text-primary transition-colors hover:text-secondary"
                     >
-                      View Details
+                      Apply Now
                       <span className="material-symbols-outlined ml-1 text-[18px]">
                         arrow_forward
                       </span>

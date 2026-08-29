@@ -106,6 +106,24 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "EducationalOrganization",
+          name: "SustainaSpace Training Center",
+          alternateName: "S-STC",
+          url: "https://sstc.co.ke",
+          logo: "https://sstc.co.ke/favicon.png",
+          email: "info@sstc.co.ke",
+          slogan: "Shaping Green Practice",
+          description:
+            "SustainaSpace Training Center (S-STC) delivers sustainability and green skills training that turns professional competence into Green Practice.",
+          address: { "@type": "PostalAddress", addressCountry: "KE" },
+        }),
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
