@@ -48,7 +48,7 @@ function SchoolsPage() {
       <main className="flex-grow pt-[120px] pb-section-gap">
         <header className="container-max mb-24 px-margin-mobile md:px-margin-desktop">
           <h1 className="mb-6 font-display text-display-lg text-primary md:text-display-xl">
-            Schools
+            S-STC Schools: Centers of Excellence in Green Practice
           </h1>
           <div className="h-1 w-24 bg-secondary" />
         </header>

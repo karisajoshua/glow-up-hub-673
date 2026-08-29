@@ -52,7 +52,7 @@ function Index() {
           <div className="container-max relative z-10 w-full px-margin-mobile py-24 md:px-margin-desktop">
             <div className="max-w-4xl">
               <h1 className="mb-8 font-display text-display-lg text-surface-bright md:text-display-xl">
-                The world of work and business is changing. Are you ready?
+                Sustainability and Green Skills Training for Professionals
               </h1>
               <div className="max-w-3xl space-y-6 border-l-2 border-secondary-fixed-dim pl-6 text-body-lg text-surface-bright/90 md:pl-8">
                 <p>
@@ -264,7 +264,7 @@ function Index() {
                     to="/schools"
                     className="inline-flex items-center gap-2 self-start text-button text-secondary"
                   >
-                    Learn More{" "}
+                    Learn about our Schools{" "}
                     <span className="material-symbols-outlined text-sm">arrow_forward</span>
                   </Link>
                 </div>
