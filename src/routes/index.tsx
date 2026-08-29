@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
+import logoAsset from "@/assets/sstc-logo.jpg.asset.json";
 
 const HERO_IMG =
   "https://lh3.googleusercontent.com/aida-public/AB6AXuA4TBDgdehGhnklIP8PybBJyoobw5edWsbJKj_8UDTQe_DxDbudLLSLfs_yzk-Js4DHPd1dpIoL6sp5y2CN0Ho86IyMFjYQbOF6aUfyboMceIuZxbIp4Sp1g-3RM25L8hs7X7be9Ou69mxQdpTul-W5TDC_RPyMlu-KxHUSl-ClRfFr4eNFj57LvFzV9DDVOb4auChO54smeTwuSPI_3H9D67m7UbJAq3U1xlpGVgPGFwm4FanXwPct";
@@ -44,6 +45,19 @@ function Index() {
           </div>
           <div className="container-max relative z-10 w-full px-margin-mobile py-24 md:px-margin-desktop">
             <div className="max-w-4xl">
+              <div className="mb-8 flex items-center gap-5">
+                <img
+                  src={logoAsset.url}
+                  alt="SustainaSpace Training Center crest — Shaping Green Practice"
+                  className="h-32 w-32 rounded-full bg-surface-bright/95 object-contain p-1 shadow-xl md:h-40 md:w-40"
+                />
+                <div>
+                  <p className="font-display text-headline-sm text-surface-bright md:text-headline-md">
+                    SustainaSpace Training Center
+                  </p>
+                  <p className="label-caps text-secondary-fixed-dim">Shaping Green Practice</p>
+                </div>
+              </div>
               <h1 className="mb-8 font-display text-display-lg text-surface-bright md:text-display-xl">
                 The world of work and business is changing. Are you ready?
               </h1>
