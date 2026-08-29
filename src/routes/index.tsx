@@ -44,6 +44,19 @@ function Index() {
           </div>
           <div className="container-max relative z-10 w-full px-margin-mobile py-24 md:px-margin-desktop">
             <div className="max-w-4xl">
+              <div className="mb-8 flex items-center gap-5">
+                <img
+                  src={logoAsset.url}
+                  alt="SustainaSpace Training Center crest — Shaping Green Practice"
+                  className="h-32 w-32 rounded-full bg-surface-bright/95 object-contain p-1 shadow-xl md:h-40 md:w-40"
+                />
+                <div>
+                  <p className="font-display text-headline-sm text-surface-bright md:text-headline-md">
+                    SustainaSpace Training Center
+                  </p>
+                  <p className="label-caps text-secondary-fixed-dim">Shaping Green Practice</p>
+                </div>
+              </div>
               <h1 className="mb-8 font-display text-display-lg text-surface-bright md:text-display-xl">
                 The world of work and business is changing. Are you ready?
               </h1>
