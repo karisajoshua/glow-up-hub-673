@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { supabase } from "@/integrations/supabase/client";
-import { DOC_TYPES, STATUS_LABELS } from "@/lib/application-options";
+import { DOC_TYPES, STATUS_LABELS, type EducationRow } from "@/lib/application-options";
+import { sectionStatuses } from "@/lib/application-progress";
 
 export const Route = createFileRoute("/_authenticated/my-application")({
   head: () => ({
@@ -25,6 +26,8 @@ type AppRow = {
   full_name: string | null;
   email: string | null;
   admin_note: string | null;
+  education: unknown;
+  [key: string]: unknown;
 };
 
 function MyApplication() {
@@ -39,9 +42,7 @@ function MyApplication() {
       if (!uid) return;
       const { data } = await supabase
         .from("applications")
-        .select(
-          "id, status, reference_no, submitted_at, school, course, mode_of_study, preferred_intake, full_name, email, admin_note",
-        )
+        .select("*")
         .eq("user_id", uid)
         .order("created_at", { ascending: false })
         .limit(1)
@@ -72,6 +73,7 @@ function MyApplication() {
               <p className="mb-6 text-body-lg text-on-surface">You have not started an application yet.</p>
               <Link
                 to="/application"
+                search={{}}
                 className="inline-flex rounded-md bg-primary px-6 py-3 text-button text-on-primary transition-colors hover:bg-secondary"
               >
                 Start your application
@@ -101,6 +103,7 @@ function MyApplication() {
                   {row.status === "draft" && (
                     <Link
                       to="/application"
+                      search={{}}
                       className="mt-8 inline-flex rounded-md bg-primary px-6 py-3 text-button text-on-primary transition-colors hover:bg-secondary"
                     >
                       Continue your application
