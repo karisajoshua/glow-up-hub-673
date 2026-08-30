@@ -50,30 +50,80 @@ function Index() {
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/10 to-transparent" />
           </div>
           <div className="container-max relative z-10 w-full px-margin-mobile py-24 md:px-margin-desktop">
-            <div className="max-w-4xl">
+            <div className="max-w-5xl">
               <h1 className="mb-8 font-display text-display-lg text-surface-bright md:text-display-xl">
                 Sustainability and Green Skills Training for Professionals
               </h1>
-              <div className="max-w-3xl space-y-6 border-l-2 border-secondary-fixed-dim pl-6 text-body-lg text-surface-bright/90 md:pl-8">
-                <p>
-                  Sustainability is shaping how we think, what we value, how we act and the choices
-                  we make — and employers, governments, investors and consumers are seeking to
-                  engage with stakeholders who are environmentally responsible, socially accountable
-                  and economically resilient.
-                </p>
-                <p>
-                  The regulatory environment is also shifting in favour of sustainability, meaning
-                  professionals with green skills are more preferred.
-                </p>
-                <p className="pt-2 font-display text-headline-md text-surface-bright">
-                  Are you ready?
-                </p>
-                <p>
-                  SustainaSpace Training Center (S-STC) bridges this gap by linking this emerging
-                  reality with sustainability learning pathways that complement existing academic
-                  and professional qualifications with missing green competencies.
-                </p>
+
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <div
+                  className="hero-card hero-card-1 rounded-md border border-surface-bright/20 bg-surface-bright/10 p-6 backdrop-blur-sm md:p-8"
+                  style={{ animationDelay: "120ms" }}
+                >
+                  <span className="material-symbols-outlined mb-4 block text-3xl text-secondary-container">
+                    public
+                  </span>
+                  <h2 className="mb-3 font-display text-headline-sm text-surface-bright">
+                    The Sustainability Imperative
+                  </h2>
+                  <p className="text-body-md text-surface-bright/90">
+                    Sustainability is shaping how we think, what we value, how we act and the choices
+                    we make — and employers, governments, investors and consumers are seeking to
+                    engage with stakeholders who are environmentally responsible, socially accountable
+                    and economically resilient.
+                  </p>
+                </div>
+
+                <div
+                  className="hero-card hero-card-2 rounded-md border border-surface-bright/20 bg-surface-bright/10 p-6 backdrop-blur-sm md:p-8"
+                  style={{ animationDelay: "260ms" }}
+                >
+                  <span className="material-symbols-outlined mb-4 block text-3xl text-secondary-container">
+                    trending_up
+                  </span>
+                  <h2 className="mb-3 font-display text-headline-sm text-surface-bright">
+                    Why Green Skills Matter
+                  </h2>
+                  <p className="text-body-md text-surface-bright/90">
+                    The regulatory environment is also shifting in favour of sustainability, meaning
+                    professionals with green skills are more preferred.
+                  </p>
+                </div>
+
+                <div
+                  className="hero-card hero-card-3 rounded-md border border-secondary-container/40 bg-secondary/20 p-6 backdrop-blur-sm md:p-8"
+                  style={{ animationDelay: "400ms" }}
+                >
+                  <span className="material-symbols-outlined mb-4 block text-3xl text-secondary-container">
+                    workspace_premium
+                  </span>
+                  <h2 className="mb-3 font-display text-headline-sm text-surface-bright">
+                    Are You Ready?
+                  </h2>
+                  <p className="text-body-md text-surface-bright/90">
+                    Step into a future where your expertise meets environmental responsibility and
+                    career resilience.
+                  </p>
+                </div>
+
+                <div
+                  className="hero-card hero-card-4 rounded-md border border-surface-bright/20 bg-surface-bright/10 p-6 backdrop-blur-sm md:p-8"
+                  style={{ animationDelay: "540ms" }}
+                >
+                  <span className="material-symbols-outlined mb-4 block text-3xl text-secondary-container">
+                    handshake
+                  </span>
+                  <h2 className="mb-3 font-display text-headline-sm text-surface-bright">
+                    How S-STC Helps
+                  </h2>
+                  <p className="text-body-md text-surface-bright/90">
+                    SustainaSpace Training Center (S-STC) bridges this gap by linking this emerging
+                    reality with sustainability learning pathways that complement existing academic
+                    and professional qualifications with missing green competencies.
+                  </p>
+                </div>
               </div>
+
               <div className="mt-12 flex flex-col gap-6 sm:flex-row">
                 <Link
                   to="/apply"
