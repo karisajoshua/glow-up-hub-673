@@ -225,6 +225,24 @@ function ProgramsPage() {
           <aside className="hidden lg:col-span-3 lg:block">
             <div className="sticky top-[120px] pr-8">
               <div className="mb-10">
+                <h2 className="label-caps mb-4 text-secondary">School</h2>
+                <div className="space-y-3">
+                  {SCHOOL_FILTERS.map((s) => (
+                    <label key={s} className="group flex cursor-pointer items-start gap-3">
+                      <input
+                        type="checkbox"
+                        checked={schools.includes(s)}
+                        onChange={() => toggle(schools, setSchools, s)}
+                        className="mt-1 size-4 rounded-sm border border-outline-variant accent-secondary"
+                      />
+                      <span className="text-body-md text-on-surface-variant transition-colors group-hover:text-on-surface">
+                        {s}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+              <div className="mb-10">
                 <h2 className="label-caps mb-4 text-secondary">Academic Level</h2>
                 <div className="space-y-3">
                   {LEVELS.map((l) => (
