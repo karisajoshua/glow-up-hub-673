@@ -19,12 +19,12 @@ import {
 } from "@/lib/application-options";
 
 export const Route = createFileRoute("/_authenticated/application")({
-  validateSearch: (search: Record<string, unknown>) => {
+  validateSearch: (search: Record<string, unknown>): { step?: number } => {
     const raw = Number(search["step"]);
-    return {
-      step: Number.isFinite(raw) && raw >= 0 && raw <= 8 ? Math.floor(raw) : undefined,
-    };
+    if (Number.isFinite(raw) && raw >= 0 && raw <= 8) return { step: Math.floor(raw) };
+    return {};
   },
+
   head: () => ({
     meta: [
       { title: "Application Wizard | S-STC" },
