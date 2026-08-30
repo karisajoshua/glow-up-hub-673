@@ -228,6 +228,7 @@ button {
 }
 
 /* Hero card staggered entrance — overrides the first-section exclusion */
+main > section:first-of-type .hero-card,
 .hero-card {
   opacity: 0;
   transform: translateY(24px);
