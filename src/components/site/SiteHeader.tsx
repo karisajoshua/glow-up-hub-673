@@ -1,6 +1,8 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import logoAsset from "@/assets/sstc-logo.jpg.asset.json";
+import { useIsAdmin, useSession } from "@/hooks/useSession";
+import { supabase } from "@/integrations/supabase/client";
 
 const NAV = [
   { to: "/", label: "Home" },
@@ -12,6 +14,11 @@ const NAV = [
 ] as const;
 
 export function SiteHeader() {
+  const navigate = useNavigate();
+  const { user } = useSession();
+  const isAdmin = useIsAdmin(user?.id);
+  const accountTo = isAdmin ? "/admin" : "/my-application";
+  const accountLabel = isAdmin ? "Dashboard" : "My Application";
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -21,6 +28,12 @@ export function SiteHeader() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  async function signOut() {
+    await supabase.auth.signOut();
+    setOpen(false);
+    navigate({ to: "/", replace: true });
+  }
 
   return (
     <header className="fixed top-0 z-50 w-full border-b border-outline-variant/20 bg-surface/85 backdrop-blur-xl transition-all duration-300">
@@ -57,12 +70,38 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link
-            to="/apply"
-            className="hidden rounded-md bg-primary px-6 py-3 text-button text-on-primary transition-colors hover:bg-secondary md:inline-flex"
-          >
-            Apply Now
-          </Link>
+          {user ? (
+            <>
+              <Link
+                to={accountTo}
+                className="hidden rounded-md bg-primary px-6 py-3 text-button text-on-primary transition-colors hover:bg-secondary md:inline-flex"
+              >
+                {accountLabel}
+              </Link>
+              <button
+                type="button"
+                onClick={() => void signOut()}
+                className="hidden label-caps px-3 py-3 text-on-surface-variant transition-colors hover:text-secondary md:inline-flex"
+              >
+                Sign out
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/auth"
+                className="hidden label-caps px-3 py-3 text-on-surface-variant transition-colors hover:text-secondary md:inline-flex"
+              >
+                Sign in
+              </Link>
+              <Link
+                to="/apply"
+                className="hidden rounded-md bg-primary px-6 py-3 text-button text-on-primary transition-colors hover:bg-secondary md:inline-flex"
+              >
+                Apply Now
+              </Link>
+            </>
+          )}
           <button
             type="button"
             aria-label="Toggle menu"
@@ -89,13 +128,41 @@ export function SiteHeader() {
                 {item.label}
               </Link>
             ))}
-            <Link
-              to="/apply"
-              onClick={() => setOpen(false)}
-              className="mt-6 inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-button text-on-primary"
-            >
-              Apply Now
-            </Link>
+            {user ? (
+              <>
+                <Link
+                  to={accountTo}
+                  onClick={() => setOpen(false)}
+                  className="mt-6 inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-button text-on-primary"
+                >
+                  {accountLabel}
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => void signOut()}
+                  className="label-caps mt-4 py-2 text-left text-on-surface-variant"
+                >
+                  Sign out
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/auth"
+                  onClick={() => setOpen(false)}
+                  className="label-caps border-b border-outline-variant/20 py-4 text-on-surface-variant"
+                >
+                  Sign in
+                </Link>
+                <Link
+                  to="/apply"
+                  onClick={() => setOpen(false)}
+                  className="mt-6 inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-button text-on-primary"
+                >
+                  Apply Now
+                </Link>
+              </>
+            )}
           </nav>
         </div>
       )}
