@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import logoAsset from "@/assets/sstc-logo.jpg.asset.json";
-import greeningAsset from "@/assets/greening-partnership.jpeg.asset.json";
+import greeningAsset from "@/assets/greening-partnership-member.png.asset.json";
 
 export function SiteFooter() {
   return (
