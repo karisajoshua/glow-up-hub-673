@@ -222,7 +222,7 @@ function AdminApplicationDetail() {
                     >
                       {saving ? "Saving…" : "Save review"}
                     </button>
-                    {row["email"] && (
+                    {Boolean(row["email"]) && (
                       <a
                         href={`mailto:${String(row["email"])}?subject=${encodeURIComponent(
                           `S-STC application ${String(row["reference_no"] ?? "")}`,
