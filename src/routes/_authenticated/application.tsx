@@ -326,16 +326,22 @@ function ApplicationWizard() {
                 key={label}
                 type="button"
                 onClick={() => setStep(i)}
-                className={`rounded-full border px-4 py-2 text-body-sm transition-colors ${
+                className={`flex items-center gap-1.5 rounded-full border px-4 py-2 text-body-sm transition-colors ${
                   i === step
                     ? "border-secondary bg-secondary text-on-primary"
-                    : "border-outline-variant/40 text-on-surface-variant hover:border-secondary"
+                    : sections[i]?.complete
+                      ? "border-secondary/50 text-secondary hover:border-secondary"
+                      : "border-outline-variant/40 text-on-surface-variant hover:border-secondary"
                 }`}
               >
+                {sections[i]?.complete && (
+                  <span className="material-symbols-outlined text-base">check_circle</span>
+                )}
                 {i + 1}. {label}
               </button>
             ))}
           </div>
+
 
           <div className="rounded-lg border border-outline-variant/30 bg-surface p-6 shadow-sm md:p-10">
             {step === 0 && (
