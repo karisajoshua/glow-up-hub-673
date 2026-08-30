@@ -87,7 +87,7 @@ function AuthPage() {
         });
         if (error) throw error;
         toast.success("Account created. Let's start your application.");
-        navigate({ to: "/application" });
+        navigate({ to: await landing() });
         return;
       }
 
@@ -97,7 +97,7 @@ function AuthPage() {
       });
       if (error) throw error;
       toast.success("Welcome back.");
-      navigate({ to: "/application" });
+      navigate({ to: await landing() });
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Something went wrong.");
     } finally {
