@@ -1,18 +1,23 @@
 import { Link } from "@tanstack/react-router";
 import logoAsset from "@/assets/sstc-logo.jpg.asset.json";
+import greeningAsset from "@/assets/greening-partnership.jpeg.asset.json";
 
 export function SiteFooter() {
   return (
     <footer className="w-full bg-primary py-section-gap">
       <div className="container-max grid grid-cols-1 gap-gutter px-margin-mobile md:grid-cols-4 md:px-margin-desktop">
         <div>
-          <div className="mb-6 flex items-center gap-4">
+          <div className="mb-6 flex flex-wrap items-center gap-4">
             <img
               src={logoAsset.url}
               alt="SustainaSpace Training Center crest"
               className="h-20 w-20 rounded-full bg-surface-bright object-contain p-1 shadow-md md:h-24 md:w-24"
             />
-            <span className="font-display text-headline-md text-surface-bright">S-STC</span>
+            <img
+              src={greeningAsset.url}
+              alt="Greening Education Partnership logo"
+              className="h-16 w-auto rounded bg-surface-bright object-contain p-1 shadow-md md:h-20"
+            />
           </div>
           <p className="max-w-xs text-body-md text-surface-variant/80">
             Bridging the gap with sustainability learning pathways that complement existing
