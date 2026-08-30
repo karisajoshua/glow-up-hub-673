@@ -3,7 +3,7 @@ import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SCHOOL_LIST } from "@/lib/schools";
 
-const COVER = SCHOOL_LIST[0].img;
+const COVER = SCHOOL_LIST[0]!.img;
 
 export const Route = createFileRoute("/schools")({
   head: () => ({
