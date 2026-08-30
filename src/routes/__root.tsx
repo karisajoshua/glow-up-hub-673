@@ -8,6 +8,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { Toaster } from "sonner";
 
 import { PageTransition } from "@/components/site/PageTransition";
 import appCss from "../styles.css?url";
@@ -154,6 +155,7 @@ function RootComponent() {
           {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
           <Outlet />
       </PageTransition>
+      <Toaster position="top-center" richColors />
     </QueryClientProvider>
   );
 }

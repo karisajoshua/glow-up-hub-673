@@ -56,17 +56,28 @@ function ApplyPage() {
               </h1>
               <div className="max-w-2xl rounded-lg border border-outline-variant/30 bg-surface-container-low p-8">
                 <p className="mb-6 text-body-lg text-on-surface">
-                  To apply for any of our programs, view the catalogue and pick your pathway.
+                  Applications are completed online. Create your applicant account, work through the
+                  guided form at your own pace, and submit when you are ready — admissions replies with
+                  payment details and your start date.
                 </p>
-                <Link
-                  to="/programs"
-                  className="group inline-flex items-center gap-2 text-button text-secondary transition-colors hover:text-primary"
-                >
-                  View Catalogue
-                  <span className="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">
-                    arrow_forward
-                  </span>
-                </Link>
+                <div className="flex flex-wrap items-center gap-4">
+                  <Link
+                    to="/auth"
+                    className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-button text-on-primary transition-colors hover:bg-secondary"
+                  >
+                    Start your application
+                    <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                  </Link>
+                  <Link
+                    to="/programs"
+                    className="group inline-flex items-center gap-2 text-button text-secondary transition-colors hover:text-primary"
+                  >
+                    View Catalogue
+                    <span className="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">
+                      arrow_forward
+                    </span>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -81,19 +92,19 @@ function ApplyPage() {
               <div className="order-2 mt-4 pl-16 md:order-1 md:mt-0 md:w-1/2 md:pl-0 md:pr-16 md:text-right">
                 <div className="rounded-lg border border-outline-variant/30 bg-surface p-8 shadow-sm transition-shadow hover:shadow-md">
                   <h2 className="mb-4 font-display text-headline-md text-primary">
-                    Application Form
+                    Create Your Account
                   </h2>
                   <p className="text-body-md text-on-surface-variant">
-                    Download and fill out the official S-STC application form. Ensure all details are
-                    accurate and supporting documents are attached as requested.
+                    Sign up with your email to open your applicant account. You can save your progress
+                    and come back at any time before submitting.
                   </p>
-                  <a
-                    href="mailto:admissions@sstc.co.ke?subject=Request%20for%20S-STC%20application%20form"
+                  <Link
+                    to="/auth"
                     className="mt-6 inline-flex items-center gap-2 rounded-md border border-secondary px-6 py-2 text-button text-secondary transition-colors hover:bg-secondary/10"
                   >
-                    <span className="material-symbols-outlined text-sm">download</span>
-                    Request Form
-                  </a>
+                    <span className="material-symbols-outlined text-sm">person_add</span>
+                    Create Account
+                  </Link>
                 </div>
               </div>
               <StepNode n="01" />
@@ -125,11 +136,11 @@ function ApplyPage() {
               <div className="order-2 mt-4 pl-16 md:order-3 md:mt-0 md:w-1/2">
                 <div className="rounded-lg border border-outline-variant/30 bg-surface p-8 shadow-sm transition-shadow hover:shadow-md">
                   <h2 className="mb-4 font-display text-headline-md text-primary">
-                    Submit Application
+                    Complete &amp; Submit Online
                   </h2>
                   <p className="text-body-md text-on-surface-variant">
-                    Email your completed application form and all supporting documentation directly
-                    to our admissions team.
+                    Complete the guided wizard — personal details, education history, course choice and
+                    document uploads — then submit. You receive a reference number instantly.
                   </p>
                   <div className="mt-6 flex items-center gap-3 text-button text-secondary">
                     <span className="material-symbols-outlined">mail</span>
@@ -146,11 +157,11 @@ function ApplyPage() {
               <div className="order-2 mt-4 pl-16 md:order-1 md:mt-0 md:w-1/2 md:pl-0 md:pr-16 md:text-right">
                 <div className="rounded-lg border border-outline-variant/30 bg-surface p-8 shadow-sm transition-shadow hover:shadow-md">
                   <h2 className="mb-4 font-display text-headline-md text-primary">
-                    Review &amp; Offer Letter
+                    Review &amp; Next Steps
                   </h2>
                   <p className="mb-6 text-body-md text-on-surface-variant">
-                    Once we have received your application, the Binary Graduate School (BGS) will
-                    review and notify you of the outcome within two weeks.
+                    Admissions reviews your application and posts the outcome, payment details and your
+                    start date to your account. You are notified within two weeks.
                   </p>
                   <div className="flex gap-4 rounded-md border-l-2 border-secondary bg-surface-container-low p-4 text-left">
                     <span className="material-symbols-outlined mt-1 text-secondary">schedule</span>

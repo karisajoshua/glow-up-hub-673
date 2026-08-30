@@ -10,20 +10,31 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ApplyRouteImport } from './routes/apply'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DeliveryRouteImport } from './routes/delivery'
 import { Route as FeesRouteImport } from './routes/fees'
 import { Route as FrameworksRouteImport } from './routes/frameworks'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ProgramsRouteImport } from './routes/programs'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SchoolsRouteImport } from './routes/schools'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedApplicationRouteImport } from './routes/_authenticated/application'
+import { Route as AuthenticatedMyApplicationRouteImport } from './routes/_authenticated/my-application'
+import { Route as AuthenticatedAdminIdRouteImport } from './routes/_authenticated/admin.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -34,6 +45,11 @@ const AboutRoute = AboutRouteImport.update({
 const ApplyRoute = ApplyRouteImport.update({
   id: '/apply',
   path: '/apply',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -66,6 +82,11 @@ const ProgramsRoute = ProgramsRouteImport.update({
   path: '/programs',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SchoolsRoute = SchoolsRouteImport.update({
   id: '/schools',
   path: '/schools',
@@ -76,46 +97,87 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedApplicationRoute =
+  AuthenticatedApplicationRouteImport.update({
+    id: '/application',
+    path: '/application',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedMyApplicationRoute =
+  AuthenticatedMyApplicationRouteImport.update({
+    id: '/my-application',
+    path: '/my-application',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminIdRoute = AuthenticatedAdminIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/apply': typeof ApplyRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/delivery': typeof DeliveryRoute
   '/fees': typeof FeesRoute
   '/frameworks': typeof FrameworksRoute
   '/privacy': typeof PrivacyRoute
   '/programs': typeof ProgramsRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/schools': typeof SchoolsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/application': typeof AuthenticatedApplicationRoute
+  '/my-application': typeof AuthenticatedMyApplicationRoute
+  '/admin/$id': typeof AuthenticatedAdminIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/apply': typeof ApplyRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/delivery': typeof DeliveryRoute
   '/fees': typeof FeesRoute
   '/frameworks': typeof FrameworksRoute
   '/privacy': typeof PrivacyRoute
   '/programs': typeof ProgramsRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/schools': typeof SchoolsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/application': typeof AuthenticatedApplicationRoute
+  '/my-application': typeof AuthenticatedMyApplicationRoute
+  '/admin/$id': typeof AuthenticatedAdminIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/apply': typeof ApplyRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/delivery': typeof DeliveryRoute
   '/fees': typeof FeesRoute
   '/frameworks': typeof FrameworksRoute
   '/privacy': typeof PrivacyRoute
   '/programs': typeof ProgramsRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/schools': typeof SchoolsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/_authenticated/application': typeof AuthenticatedApplicationRoute
+  '/_authenticated/my-application': typeof AuthenticatedMyApplicationRoute
+  '/_authenticated/admin/$id': typeof AuthenticatedAdminIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -123,52 +185,74 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/apply'
+    | '/auth'
     | '/contact'
     | '/delivery'
     | '/fees'
     | '/frameworks'
     | '/privacy'
     | '/programs'
+    | '/reset-password'
     | '/schools'
     | '/sitemap.xml'
+    | '/admin'
+    | '/application'
+    | '/my-application'
+    | '/admin/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/apply'
+    | '/auth'
     | '/contact'
     | '/delivery'
     | '/fees'
     | '/frameworks'
     | '/privacy'
     | '/programs'
+    | '/reset-password'
     | '/schools'
     | '/sitemap.xml'
+    | '/admin'
+    | '/application'
+    | '/my-application'
+    | '/admin/$id'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/about'
     | '/apply'
+    | '/auth'
     | '/contact'
     | '/delivery'
     | '/fees'
     | '/frameworks'
     | '/privacy'
     | '/programs'
+    | '/reset-password'
     | '/schools'
     | '/sitemap.xml'
+    | '/_authenticated/admin'
+    | '/_authenticated/application'
+    | '/_authenticated/my-application'
+    | '/_authenticated/admin/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   ApplyRoute: typeof ApplyRoute
+  AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
   DeliveryRoute: typeof DeliveryRoute
   FeesRoute: typeof FeesRoute
   FrameworksRoute: typeof FrameworksRoute
   PrivacyRoute: typeof PrivacyRoute
   ProgramsRoute: typeof ProgramsRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   SchoolsRoute: typeof SchoolsRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
@@ -180,6 +264,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -194,6 +285,13 @@ declare module '@tanstack/react-router' {
       path: '/apply'
       fullPath: '/apply'
       preLoaderRoute: typeof ApplyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -238,6 +336,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProgramsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/schools': {
       id: '/schools'
       path: '/schools'
@@ -252,19 +357,76 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/application': {
+      id: '/_authenticated/application'
+      path: '/application'
+      fullPath: '/application'
+      preLoaderRoute: typeof AuthenticatedApplicationRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/my-application': {
+      id: '/_authenticated/my-application'
+      path: '/my-application'
+      fullPath: '/my-application'
+      preLoaderRoute: typeof AuthenticatedMyApplicationRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/$id': {
+      id: '/_authenticated/admin/$id'
+      path: '/$id'
+      fullPath: '/admin/$id'
+      preLoaderRoute: typeof AuthenticatedAdminIdRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
   }
 }
 
+interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminIdRoute: typeof AuthenticatedAdminIdRoute
+}
+
+const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminIdRoute: AuthenticatedAdminIdRoute,
+}
+
+const AuthenticatedAdminRouteWithChildren =
+  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
+  AuthenticatedApplicationRoute: typeof AuthenticatedApplicationRoute
+  AuthenticatedMyApplicationRoute: typeof AuthenticatedMyApplicationRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
+  AuthenticatedApplicationRoute: AuthenticatedApplicationRoute,
+  AuthenticatedMyApplicationRoute: AuthenticatedMyApplicationRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   ApplyRoute: ApplyRoute,
+  AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
   DeliveryRoute: DeliveryRoute,
   FeesRoute: FeesRoute,
   FrameworksRoute: FrameworksRoute,
   PrivacyRoute: PrivacyRoute,
   ProgramsRoute: ProgramsRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   SchoolsRoute: SchoolsRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
