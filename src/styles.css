@@ -307,9 +307,25 @@ button {
 
   main section > *,
   main section > div > *,
-  .hero-card {
+  .hero-card,
+  .hero-dot {
     animation: none !important;
+  }
+
+  .hero-card {
     opacity: 1;
     transform: none;
+    position: relative;
+  }
+
+  .hero-carousel {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    min-height: auto !important;
+  }
+
+  .hero-carousel-dots {
+    display: none;
   }
 }
