@@ -107,12 +107,12 @@ export function SiteFooter() {
           <p className="text-body-md text-surface-variant/60">
             Powered by{" "}
             <a
-              href="https://tecortech.com"
+              href="https://texcortech.com"
               target="_blank"
               rel="noopener noreferrer"
               className="text-secondary-fixed-dim transition-colors hover:text-surface-bright"
             >
-              Tecortech Systems
+              Texcortech Systems
             </a>
           </p>
         </div>
