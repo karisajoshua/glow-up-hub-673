@@ -195,6 +195,7 @@ export const Route = createFileRoute("/programs")({
 function ProgramsPage() {
   const [levels, setLevels] = useState<string[]>([]);
   const [modes, setModes] = useState<string[]>([]);
+  const [schools, setSchools] = useState<string[]>([]);
 
   const toggle = (list: string[], set: (v: string[]) => void, value: string) =>
     set(list.includes(value) ? list.filter((v) => v !== value) : [...list, value]);
@@ -202,7 +203,8 @@ function ProgramsPage() {
   const visible = PROGRAMS.filter(
     (p) =>
       (levels.length === 0 || levels.includes(p.level)) &&
-      (modes.length === 0 || modes.includes(p.mode)),
+      (modes.length === 0 || modes.includes(p.mode)) &&
+      (schools.length === 0 || schools.includes(p.school)),
   );
 
   return (
