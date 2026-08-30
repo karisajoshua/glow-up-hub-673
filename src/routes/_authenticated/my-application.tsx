@@ -10,7 +10,7 @@ export const Route = createFileRoute("/_authenticated/my-application")({
   head: () => ({
     meta: [{ title: "My Application | S-STC" }, { name: "robots", content: "noindex" }],
   }),
-  component: MyApplication;
+  component: MyApplication,
 });
 
 type AppRow = {
