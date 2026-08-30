@@ -8,6 +8,7 @@ const CATALOGUE_COVER =
 
 type Program = {
   title: string;
+  school: string;
   level: string;
   mode: string;
   body: string;
@@ -16,9 +17,16 @@ type Program = {
   img: string;
 };
 
+const SSPP = "School of Sustainable Professional Practice";
+const SST = "School of Sustainable Skills & Technologies";
+
+const SKILLS_IMG =
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuAiRc28byUdcEH6fvY8D8hoac2QQ_O5wz9o2661oZl4I_OP9blSyjUGfG__pLDmmW6_ZC523MpwU6Z6qzbhXCGBhQj-k5EiJ5d8QWgZdwEfdDCTlvP7redXAslOpmmdm81hY4GS4NEK8dtThiXZx_6uAobtYF7zZnPeupf1j0Dy6SP_RxR_pULBVic6BWInE7zX9Tn90ZI8EJZFYyBAbWMnVzuiuWzdWKwk67f6npoz15u3RGomPgIN";
+
 const PROGRAMS: Program[] = [
   {
     title: "Sustainability Foundations for Professionals",
+    school: SSPP,
     level: "Professional Certificate",
     mode: "Fully Online",
     body: "A grounding in Education for Sustainable Development, the UN SDGs and the ILO green skills agenda, translated into practical actions you can apply inside your own profession from week one.",
@@ -28,6 +36,7 @@ const PROGRAMS: Program[] = [
   },
   {
     title: "Climate Risk and Environmental Compliance",
+    school: SSPP,
     level: "Short Course",
     mode: "Fully Online",
     body: "Read climate and environmental risk in operational terms: emissions and resource baselines, regulatory expectations, reporting duties and the evidence organisations need to defend their environmental performance.",
@@ -37,6 +46,7 @@ const PROGRAMS: Program[] = [
   },
   {
     title: "Green Skills for the Built Environment",
+    school: SSPP,
     level: "Professional Certificate",
     mode: "Online with Optional Face-to-Face",
     body: "For engineers, architects, quantity surveyors, project managers and facilities teams — resource-efficient design, materials choices, waste reduction and energy performance across the life of a building.",
@@ -46,6 +56,7 @@ const PROGRAMS: Program[] = [
   },
   {
     title: "Community Based Green Skilling",
+    school: SST,
     level: "Community Programme",
     mode: "Online with Optional Face-to-Face",
     body: "Practical green livelihoods training for community groups, youth cohorts and small enterprises: waste value chains, water stewardship, clean energy basics and income-generating sustainable practice.",
@@ -53,10 +64,70 @@ const PROGRAMS: Program[] = [
     alt: "Macro photograph of solar panel textures blended with leaf patterns",
     img: "https://lh3.googleusercontent.com/aida-public/AB6AXuCOlZqSmYdtOZmMxPrI-DYomMunwmbEApjmwlArsc42N0rhhXTOO7vQ1PW3iIlAfCia9DcTp_tQm9h88EWZkkUYBIFAgKa8a1cAFwQMXY9Bdhsd109CyNHtPXPbUQTTzxeDJ0jMj74RtCxl3OnEdSXA59j_Ok0V51kHYZCGWKIsr2N21oHG4d_dI26ISzNQ8QEYoMijM_1EjivgH4zhhY5I0ExTPTVgCHxMtcW0M0WiIAzn2DrNAr5R",
   },
+  {
+    title: "Upcycled Textile Accessories",
+    school: SST,
+    level: "Practical Skills Certificate",
+    mode: "Face-to-Face Workshop",
+    body: "Turn textile waste into market-ready bags, accessories and homeware using circular design, sorting, cutting and professional finishing techniques.",
+    credits: "8 weeks",
+    alt: "Artisan stitching an upcycled fabric bag in a workshop",
+    img: SKILLS_IMG,
+  },
+  {
+    title: "Eco Footwear",
+    school: SST,
+    level: "Practical Skills Certificate",
+    mode: "Face-to-Face Workshop",
+    body: "Design and craft footwear from reclaimed, plant-based and low-impact materials, covering pattern making, assembly and quality finishing.",
+    credits: "8 weeks",
+    alt: "Handmade footwear crafted from reclaimed materials",
+    img: SKILLS_IMG,
+  },
+  {
+    title: "Solar Dryer Assembling",
+    school: SST,
+    level: "Practical Skills Certificate",
+    mode: "Face-to-Face Workshop",
+    body: "Build, install and maintain solar dryers for food preservation — sizing, airflow, materials, assembly and safe post-harvest handling.",
+    credits: "8 weeks",
+    alt: "A solar food dryer assembled in an open training yard",
+    img: SKILLS_IMG,
+  },
+  {
+    title: "Weave Making",
+    school: SST,
+    level: "Practical Skills Certificate",
+    mode: "Face-to-Face Workshop",
+    body: "Traditional and contemporary weaving with natural and recovered fibres, from fibre preparation and loom work to finished product development.",
+    credits: "8 weeks",
+    alt: "Hands weaving natural fibre on a wooden loom",
+    img: SKILLS_IMG,
+  },
+  {
+    title: "Sustainable Packaging",
+    school: SST,
+    level: "Practical Skills Certificate",
+    mode: "Face-to-Face Workshop",
+    body: "Develop packaging that protects products and the planet — material selection, reuse and refill formats, labelling, costing and compliance.",
+    credits: "8 weeks",
+    alt: "Plastic-free packaging samples laid out on a workbench",
+    img: SKILLS_IMG,
+  },
 ];
 
-const LEVELS = ["Short Course", "Professional Certificate", "Community Programme"];
-const MODES = ["Fully Online", "Online with Optional Face-to-Face"];
+const LEVELS = [
+  "Short Course",
+  "Professional Certificate",
+  "Practical Skills Certificate",
+  "Community Programme",
+];
+const MODES = [
+  "Fully Online",
+  "Online with Optional Face-to-Face",
+  "Face-to-Face Workshop",
+];
+const SCHOOL_FILTERS = [SSPP, SST];
 
 
 export const Route = createFileRoute("/programs")({
@@ -124,6 +195,7 @@ export const Route = createFileRoute("/programs")({
 function ProgramsPage() {
   const [levels, setLevels] = useState<string[]>([]);
   const [modes, setModes] = useState<string[]>([]);
+  const [schools, setSchools] = useState<string[]>([]);
 
   const toggle = (list: string[], set: (v: string[]) => void, value: string) =>
     set(list.includes(value) ? list.filter((v) => v !== value) : [...list, value]);
@@ -131,7 +203,8 @@ function ProgramsPage() {
   const visible = PROGRAMS.filter(
     (p) =>
       (levels.length === 0 || levels.includes(p.level)) &&
-      (modes.length === 0 || modes.includes(p.mode)),
+      (modes.length === 0 || modes.includes(p.mode)) &&
+      (schools.length === 0 || schools.includes(p.school)),
   );
 
   return (
@@ -151,6 +224,24 @@ function ProgramsPage() {
         <section className="container-max grid grid-cols-1 gap-gutter px-margin-mobile pb-section-gap md:px-margin-desktop lg:grid-cols-12">
           <aside className="hidden lg:col-span-3 lg:block">
             <div className="sticky top-[120px] pr-8">
+              <div className="mb-10">
+                <h2 className="label-caps mb-4 text-secondary">School</h2>
+                <div className="space-y-3">
+                  {SCHOOL_FILTERS.map((s) => (
+                    <label key={s} className="group flex cursor-pointer items-start gap-3">
+                      <input
+                        type="checkbox"
+                        checked={schools.includes(s)}
+                        onChange={() => toggle(schools, setSchools, s)}
+                        className="mt-1 size-4 rounded-sm border border-outline-variant accent-secondary"
+                      />
+                      <span className="text-body-md text-on-surface-variant transition-colors group-hover:text-on-surface">
+                        {s}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              </div>
               <div className="mb-10">
                 <h2 className="label-caps mb-4 text-secondary">Academic Level</h2>
                 <div className="space-y-3">
@@ -205,7 +296,8 @@ function ProgramsPage() {
                   />
                 </div>
                 <div className="flex flex-grow flex-col p-8">
-                  <span className="label-caps mb-4 text-secondary">{p.level}</span>
+                  <span className="label-caps mb-2 text-secondary">{p.level}</span>
+                  <span className="mb-4 text-body-md text-on-surface-variant/80">{p.school}</span>
                   <h3 className="mb-4 font-display text-headline-md text-on-surface">{p.title}</h3>
                   <p className="mb-8 flex-grow text-body-md text-on-surface-variant">{p.body}</p>
                   <div className="flex items-center justify-between border-t border-outline-variant/20 pt-4">

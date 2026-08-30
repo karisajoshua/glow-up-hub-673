@@ -22,6 +22,7 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ProgramsRouteImport } from './routes/programs'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SchoolsRouteImport } from './routes/schools'
+import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedApplicationRouteImport } from './routes/_authenticated/application'
@@ -92,6 +93,11 @@ const SchoolsRoute = SchoolsRouteImport.update({
   path: '/schools',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -133,6 +139,7 @@ export interface FileRoutesByFullPath {
   '/programs': typeof ProgramsRoute
   '/reset-password': typeof ResetPasswordRoute
   '/schools': typeof SchoolsRoute
+  '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/application': typeof AuthenticatedApplicationRoute
@@ -152,6 +159,7 @@ export interface FileRoutesByTo {
   '/programs': typeof ProgramsRoute
   '/reset-password': typeof ResetPasswordRoute
   '/schools': typeof SchoolsRoute
+  '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/application': typeof AuthenticatedApplicationRoute
@@ -173,6 +181,7 @@ export interface FileRoutesById {
   '/programs': typeof ProgramsRoute
   '/reset-password': typeof ResetPasswordRoute
   '/schools': typeof SchoolsRoute
+  '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/application': typeof AuthenticatedApplicationRoute
@@ -194,6 +203,7 @@ export interface FileRouteTypes {
     | '/programs'
     | '/reset-password'
     | '/schools'
+    | '/services'
     | '/sitemap.xml'
     | '/admin'
     | '/application'
@@ -213,6 +223,7 @@ export interface FileRouteTypes {
     | '/programs'
     | '/reset-password'
     | '/schools'
+    | '/services'
     | '/sitemap.xml'
     | '/admin'
     | '/application'
@@ -233,6 +244,7 @@ export interface FileRouteTypes {
     | '/programs'
     | '/reset-password'
     | '/schools'
+    | '/services'
     | '/sitemap.xml'
     | '/_authenticated/admin'
     | '/_authenticated/application'
@@ -254,6 +266,7 @@ export interface RootRouteChildren {
   ProgramsRoute: typeof ProgramsRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SchoolsRoute: typeof SchoolsRoute
+  ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
@@ -350,6 +363,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SchoolsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -428,6 +448,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProgramsRoute: ProgramsRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SchoolsRoute: SchoolsRoute,
+  ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport

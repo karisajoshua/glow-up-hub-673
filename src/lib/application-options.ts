@@ -1,8 +1,8 @@
 export const SCHOOLS = [
+  "School of Sustainable Professional Practice",
   "School of Sustainable Skills & Technologies",
-  "School of Fashion & Design",
-  "School of Green Technologies",
-  "School of Agriculture & Food Systems",
+  "School of Digital Literacy",
+  "School of Transitional Skills",
   "Other",
 ] as const;
 
