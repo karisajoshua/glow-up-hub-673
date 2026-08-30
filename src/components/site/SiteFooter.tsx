@@ -99,8 +99,16 @@ export function SiteFooter() {
           <p className="text-body-md text-surface-variant/60">
             © 2026 SustainaSpace Training Center (S-STC). Shaping Green Practice.
           </p>
-          <p className="text-body-md italic text-surface-variant/60">
-            Sustainability is not a subject to be studied but a pathway to be lived.
+          <p className="text-body-md text-surface-variant/60">
+            Powered by{" "}
+            <a
+              href="https://tecortech.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-secondary-fixed-dim transition-colors hover:text-surface-bright"
+            >
+              Tecortech Systems
+            </a>
           </p>
         </div>
       </div>
