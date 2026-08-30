@@ -23,6 +23,7 @@ import { Route as ProgramsRouteImport } from './routes/programs'
 import { Route as SchoolsRouteImport } from './routes/schools'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AuthenticatedApplicationRouteImport } from './routes/_authenticated/application'
+import { Route as AuthenticatedMyApplicationRouteImport } from './routes/_authenticated/my-application'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -94,6 +95,12 @@ const AuthenticatedApplicationRoute =
     path: '/application',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedMyApplicationRoute =
+  AuthenticatedMyApplicationRouteImport.update({
+    id: '/my-application',
+    path: '/my-application',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -109,6 +116,7 @@ export interface FileRoutesByFullPath {
   '/schools': typeof SchoolsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/application': typeof AuthenticatedApplicationRoute
+  '/my-application': typeof AuthenticatedMyApplicationRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -124,6 +132,7 @@ export interface FileRoutesByTo {
   '/schools': typeof SchoolsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/application': typeof AuthenticatedApplicationRoute
+  '/my-application': typeof AuthenticatedMyApplicationRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -141,6 +150,7 @@ export interface FileRoutesById {
   '/schools': typeof SchoolsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/application': typeof AuthenticatedApplicationRoute
+  '/_authenticated/my-application': typeof AuthenticatedMyApplicationRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -158,6 +168,7 @@ export interface FileRouteTypes {
     | '/schools'
     | '/sitemap.xml'
     | '/application'
+    | '/my-application'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -173,6 +184,7 @@ export interface FileRouteTypes {
     | '/schools'
     | '/sitemap.xml'
     | '/application'
+    | '/my-application'
   id:
     | '__root__'
     | '/'
@@ -189,6 +201,7 @@ export interface FileRouteTypes {
     | '/schools'
     | '/sitemap.xml'
     | '/_authenticated/application'
+    | '/_authenticated/my-application'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -307,15 +320,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedApplicationRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/my-application': {
+      id: '/_authenticated/my-application'
+      path: '/my-application'
+      fullPath: '/my-application'
+      preLoaderRoute: typeof AuthenticatedMyApplicationRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedApplicationRoute: typeof AuthenticatedApplicationRoute
+  AuthenticatedMyApplicationRoute: typeof AuthenticatedMyApplicationRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedApplicationRoute: AuthenticatedApplicationRoute,
+  AuthenticatedMyApplicationRoute: AuthenticatedMyApplicationRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

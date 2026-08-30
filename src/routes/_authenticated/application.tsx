@@ -90,7 +90,7 @@ function ApplicationWizard() {
   const [declaration, setDeclaration] = useState(false);
   const [docs, setDocs] = useState<DocRow[]>([]);
 
-  const set = useCallback((key: string, value: string) => {
+  const set = useCallback((key: FieldKey, value: string) => {
     setForm((prev) => ({ ...prev, [key]: value }) as FormState);
   }, []);
 
@@ -539,7 +539,7 @@ function updateRow(
 }
 
 function validateStep(step: number, form: FormState, declaration: boolean): string | null {
-  const need = (key: string, label: string) => (form[key]?.trim() ? null : `${label} is required.`);
+  const need = (key: FieldKey, label: string) => (form[key]?.trim() ? null : `${label} is required.`);
   switch (step) {
     case 0:
       return need("school", "School / training centre");
