@@ -134,7 +134,6 @@ function AdminApplicationDetail() {
   return (
     <AdminShell active="applications" title="Application review">
       <div>
-        <div>
           <Link to="/admin" className="mb-6 inline-block text-body-sm text-secondary hover:underline">
             &larr; Back to dashboard
           </Link>
@@ -263,7 +262,6 @@ function AdminApplicationDetail() {
               </div>
             </>
           )}
-        </div>
         </div>
       </div>
     </AdminShell>
