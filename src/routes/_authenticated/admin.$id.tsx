@@ -2,8 +2,7 @@ import { createFileRoute, Link, useParams } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-import { SiteHeader } from "@/components/site/SiteHeader";
-import { SiteFooter } from "@/components/site/SiteFooter";
+import { AdminShell } from "@/components/admin/AdminShell";
 import { supabase } from "@/integrations/supabase/client";
 import { ADMIN_STATUSES, DOC_TYPES, STATUS_LABELS, type EducationRow } from "@/lib/application-options";
 
@@ -133,10 +132,9 @@ function AdminApplicationDetail() {
   const education = Array.isArray(row?.["education"]) ? (row["education"] as EducationRow[]) : [];
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <SiteHeader />
-      <main className="flex-grow pb-section-gap pt-[120px] md:pt-[140px]">
-        <div className="container-max px-margin-mobile md:px-margin-desktop">
+    <AdminShell active="applications" title="Application review">
+      <div>
+        <div>
           <Link to="/admin" className="mb-6 inline-block text-body-sm text-secondary hover:underline">
             &larr; Back to dashboard
           </Link>
@@ -266,8 +264,8 @@ function AdminApplicationDetail() {
             </>
           )}
         </div>
-      </main>
-      <SiteFooter />
-    </div>
+        </div>
+      </div>
+    </AdminShell>
   );
 }
