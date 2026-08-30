@@ -176,6 +176,25 @@ function ApplicationWizard() {
     })();
   }, [loadDocs, navigate]);
 
+  const progress = useMemo(
+    () => ({
+      form: form as Record<string, string | null | undefined>,
+      education,
+      docTypes: docs.map((doc) => doc.doc_type),
+      declaration,
+    }),
+    [form, education, docs, declaration],
+  );
+  const sections = useMemo(() => sectionStatuses(progress), [progress]);
+
+  const [resumed, setResumed] = useState(false);
+  useEffect(() => {
+    if (loading || resumed) return;
+    setResumed(true);
+    if (stepParam === undefined) setStep(firstIncompleteStep(progress));
+  }, [loading, resumed, stepParam, progress]);
+
+
   const payload = useMemo(() => {
     const out: Record<string, unknown> = {};
     for (const key of TEXT_FIELDS) {
