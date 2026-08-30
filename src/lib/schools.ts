@@ -70,6 +70,11 @@ export const SCHOOL_LIST: School[] = [
         summary:
           "Develop packaging that protects products and the planet — material selection, reuse and refill formats, labelling and compliance.",
       },
+      {
+        title: "Mushroom Farming (theory) and Field Tour",
+        summary:
+          "Learn mushroom cultivation from substrate preparation to harvest, then visit a working farm to see climate control, pest management and post-harvest handling in practice.",
+      },
     ],
     img: IMG_COMMUNITY,
     alt: "Artisans working with recovered materials in a craft workshop",
