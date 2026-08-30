@@ -17,6 +17,7 @@ import {
   SCHOOLS,
   type EducationRow,
 } from "@/lib/application-options";
+import { firstIncompleteStep, sectionStatuses } from "@/lib/application-progress";
 
 export const Route = createFileRoute("/_authenticated/application")({
   validateSearch: (search: Record<string, unknown>): { step?: number } => {
