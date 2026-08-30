@@ -262,8 +262,8 @@ function AdminApplicationDetail() {
               </div>
             </>
           )}
-        </div>
       </div>
+
     </AdminShell>
   );
 }
