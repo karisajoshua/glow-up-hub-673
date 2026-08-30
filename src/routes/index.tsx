@@ -52,7 +52,7 @@ function Index() {
           <div className="container-max relative z-10 w-full px-margin-mobile py-24 md:px-margin-desktop">
             <div className="max-w-5xl">
               <h1 className="mb-8 font-display text-display-lg text-surface-bright md:text-display-xl">
-                Sustainability and Green Skills Training for Professionals
+                S-STC is a knowledge institute that trains and educates for generational impact, balancing profit, social and planetary considerations
               </h1>
 
               <div
