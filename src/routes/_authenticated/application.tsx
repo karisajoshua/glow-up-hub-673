@@ -19,6 +19,12 @@ import {
 } from "@/lib/application-options";
 
 export const Route = createFileRoute("/_authenticated/application")({
+  validateSearch: (search: Record<string, unknown>) => {
+    const raw = Number(search["step"]);
+    return {
+      step: Number.isFinite(raw) && raw >= 0 && raw <= 8 ? Math.floor(raw) : undefined,
+    };
+  },
   head: () => ({
     meta: [
       { title: "Application Wizard | S-STC" },
@@ -27,6 +33,7 @@ export const Route = createFileRoute("/_authenticated/application")({
   }),
   component: ApplicationWizard,
 });
+
 
 type FieldKey = (typeof TEXT_FIELDS)[number];
 type FormState = Partial<Record<FieldKey, string>>;
