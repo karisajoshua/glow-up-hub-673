@@ -87,9 +87,11 @@ type DocRow = { id: string; doc_type: string; file_name: string; storage_path: s
 
 function ApplicationWizard() {
   const navigate = useNavigate();
+  const { step: stepParam } = Route.useSearch();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(stepParam ?? 0);
+
   const [applicationId, setApplicationId] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
   const [form, setForm] = useState<FormState>({} as FormState);
