@@ -10,8 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ApplyRouteImport } from './routes/apply'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DeliveryRouteImport } from './routes/delivery'
 import { Route as FeesRouteImport } from './routes/fees'
@@ -20,10 +22,15 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ProgramsRouteImport } from './routes/programs'
 import { Route as SchoolsRouteImport } from './routes/schools'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as AuthenticatedApplicationRouteImport } from './routes/_authenticated/application'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -34,6 +41,11 @@ const AboutRoute = AboutRouteImport.update({
 const ApplyRoute = ApplyRouteImport.update({
   id: '/apply',
   path: '/apply',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -76,11 +88,18 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedApplicationRoute =
+  AuthenticatedApplicationRouteImport.update({
+    id: '/application',
+    path: '/application',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/apply': typeof ApplyRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/delivery': typeof DeliveryRoute
   '/fees': typeof FeesRoute
@@ -89,11 +108,13 @@ export interface FileRoutesByFullPath {
   '/programs': typeof ProgramsRoute
   '/schools': typeof SchoolsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/application': typeof AuthenticatedApplicationRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/apply': typeof ApplyRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/delivery': typeof DeliveryRoute
   '/fees': typeof FeesRoute
@@ -102,12 +123,15 @@ export interface FileRoutesByTo {
   '/programs': typeof ProgramsRoute
   '/schools': typeof SchoolsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/application': typeof AuthenticatedApplicationRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/apply': typeof ApplyRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/delivery': typeof DeliveryRoute
   '/fees': typeof FeesRoute
@@ -116,6 +140,7 @@ export interface FileRoutesById {
   '/programs': typeof ProgramsRoute
   '/schools': typeof SchoolsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/_authenticated/application': typeof AuthenticatedApplicationRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -123,6 +148,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/apply'
+    | '/auth'
     | '/contact'
     | '/delivery'
     | '/fees'
@@ -131,11 +157,13 @@ export interface FileRouteTypes {
     | '/programs'
     | '/schools'
     | '/sitemap.xml'
+    | '/application'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/apply'
+    | '/auth'
     | '/contact'
     | '/delivery'
     | '/fees'
@@ -144,11 +172,14 @@ export interface FileRouteTypes {
     | '/programs'
     | '/schools'
     | '/sitemap.xml'
+    | '/application'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/about'
     | '/apply'
+    | '/auth'
     | '/contact'
     | '/delivery'
     | '/fees'
@@ -157,12 +188,15 @@ export interface FileRouteTypes {
     | '/programs'
     | '/schools'
     | '/sitemap.xml'
+    | '/_authenticated/application'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   ApplyRoute: typeof ApplyRoute
+  AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
   DeliveryRoute: typeof DeliveryRoute
   FeesRoute: typeof FeesRoute
@@ -182,6 +216,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -194,6 +235,13 @@ declare module '@tanstack/react-router' {
       path: '/apply'
       fullPath: '/apply'
       preLoaderRoute: typeof ApplyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -252,13 +300,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/application': {
+      id: '/_authenticated/application'
+      path: '/application'
+      fullPath: '/application'
+      preLoaderRoute: typeof AuthenticatedApplicationRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedApplicationRoute: typeof AuthenticatedApplicationRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedApplicationRoute: AuthenticatedApplicationRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   ApplyRoute: ApplyRoute,
+  AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
   DeliveryRoute: DeliveryRoute,
   FeesRoute: FeesRoute,

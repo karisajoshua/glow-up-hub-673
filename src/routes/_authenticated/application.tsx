@@ -28,7 +28,8 @@ export const Route = createFileRoute("/_authenticated/application")({
   component: ApplicationWizard,
 });
 
-type FormState = Record<string, string> & { education?: never };
+type FieldKey = (typeof TEXT_FIELDS)[number];
+type FormState = Partial<Record<FieldKey, string>>;
 
 const STEPS = [
   "School",
@@ -119,7 +120,7 @@ function ApplicationWizard() {
 
       if (existing) {
         if (existing.status !== "draft") {
-          navigate({ to: "/my-application", replace: true });
+          navigate({ to: "/my-application" as never, replace: true });
           return;
         }
         setApplicationId(existing.id);
@@ -172,8 +173,8 @@ function ApplicationWizard() {
       const value = form[key];
       out[key] = value === "" || value === undefined ? null : value;
     }
-    out.education = education.filter((row) => row.level || row.institution || row.qualification);
-    out.declaration_accepted = declaration;
+    out["education"] = education.filter((row) => row.level || row.institution || row.qualification);
+    out["declaration_accepted"] = declaration;
     return out;
   }, [form, education, declaration]);
 
@@ -181,7 +182,7 @@ function ApplicationWizard() {
     async (silent = false) => {
       if (!applicationId) return false;
       setSaving(true);
-      const { error } = await supabase.from("applications").update(payload).eq("id", applicationId);
+      const { error } = await supabase.from("applications").update(payload as never).eq("id", applicationId);
       setSaving(false);
       if (error) {
         toast.error(error.message);
@@ -257,7 +258,7 @@ function ApplicationWizard() {
     setSaving(true);
     const { error } = await supabase
       .from("applications")
-      .update({ ...payload, status: "submitted" })
+      .update({ ...payload, status: "submitted" } as never)
       .eq("id", applicationId);
     setSaving(false);
     if (error) {
@@ -265,7 +266,7 @@ function ApplicationWizard() {
       return;
     }
     toast.success("Application submitted.");
-    navigate({ to: "/my-application" });
+    navigate({ to: "/my-application" as never });
   }
 
   if (loading) {
@@ -516,7 +517,7 @@ function ApplicationWizard() {
               >
                 {saving ? "Saving…" : "Save and finish later"}
               </button>
-              <Link to="/my-application" className="ml-auto text-body-sm text-on-surface-variant hover:underline">
+              <Link to={"/my-application" as string} className="ml-auto text-body-sm text-on-surface-variant hover:underline">
                 My application
               </Link>
             </div>
