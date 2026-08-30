@@ -55,10 +55,14 @@ function Index() {
                 Sustainability and Green Skills Training for Professionals
               </h1>
 
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div
+                className="hero-carousel relative min-h-[340px] overflow-hidden md:min-h-[280px]"
+                aria-label="S-STC highlights"
+                role="region"
+              >
                 <div
-                  className="hero-card hero-card-1 rounded-md border border-surface-bright/20 bg-surface-bright/10 p-6 backdrop-blur-sm md:p-8"
-                  style={{ animationDelay: "120ms" }}
+                  className="hero-card hero-card-1 absolute inset-x-0 top-0 rounded-md border border-surface-bright/20 bg-surface-bright/10 p-6 backdrop-blur-sm md:p-8"
+                  style={{ animationDelay: "0s" }}
                 >
                   <span className="material-symbols-outlined mb-4 block text-3xl text-secondary-container">
                     public
@@ -75,8 +79,8 @@ function Index() {
                 </div>
 
                 <div
-                  className="hero-card hero-card-2 rounded-md border border-surface-bright/20 bg-surface-bright/10 p-6 backdrop-blur-sm md:p-8"
-                  style={{ animationDelay: "260ms" }}
+                  className="hero-card hero-card-2 absolute inset-x-0 top-0 rounded-md border border-surface-bright/20 bg-surface-bright/10 p-6 backdrop-blur-sm md:p-8"
+                  style={{ animationDelay: "6s" }}
                 >
                   <span className="material-symbols-outlined mb-4 block text-3xl text-secondary-container">
                     trending_up
@@ -91,8 +95,8 @@ function Index() {
                 </div>
 
                 <div
-                  className="hero-card hero-card-3 rounded-md border border-secondary-container/40 bg-secondary/20 p-6 backdrop-blur-sm md:p-8"
-                  style={{ animationDelay: "400ms" }}
+                  className="hero-card hero-card-3 absolute inset-x-0 top-0 rounded-md border border-secondary-container/40 bg-secondary/20 p-6 backdrop-blur-sm md:p-8"
+                  style={{ animationDelay: "12s" }}
                 >
                   <span className="material-symbols-outlined mb-4 block text-3xl text-secondary-container">
                     workspace_premium
@@ -107,8 +111,8 @@ function Index() {
                 </div>
 
                 <div
-                  className="hero-card hero-card-4 rounded-md border border-surface-bright/20 bg-surface-bright/10 p-6 backdrop-blur-sm md:p-8"
-                  style={{ animationDelay: "540ms" }}
+                  className="hero-card hero-card-4 absolute inset-x-0 top-0 rounded-md border border-surface-bright/20 bg-surface-bright/10 p-6 backdrop-blur-sm md:p-8"
+                  style={{ animationDelay: "18s" }}
                 >
                   <span className="material-symbols-outlined mb-4 block text-3xl text-secondary-container">
                     handshake
@@ -121,6 +125,13 @@ function Index() {
                     reality with sustainability learning pathways that complement existing academic
                     and professional qualifications with missing green competencies.
                   </p>
+                </div>
+
+                <div className="hero-carousel-dots absolute bottom-2 left-0 right-0 flex justify-center gap-2">
+                  <span className="hero-dot hero-dot-1 h-2 w-2 rounded-full bg-surface-bright/40" />
+                  <span className="hero-dot hero-dot-2 h-2 w-2 rounded-full bg-surface-bright/40" />
+                  <span className="hero-dot hero-dot-3 h-2 w-2 rounded-full bg-surface-bright/40" />
+                  <span className="hero-dot hero-dot-4 h-2 w-2 rounded-full bg-surface-bright/40" />
                 </div>
               </div>
 
