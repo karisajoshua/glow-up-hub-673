@@ -120,7 +120,7 @@ function ApplicationWizard() {
 
       if (existing) {
         if (existing.status !== "draft") {
-          navigate({ to: "/my-application" as never, replace: true });
+          navigate({ to: "/my-application", replace: true });
           return;
         }
         setApplicationId(existing.id);
@@ -266,7 +266,7 @@ function ApplicationWizard() {
       return;
     }
     toast.success("Application submitted.");
-    navigate({ to: "/my-application" as never });
+    navigate({ to: "/my-application" });
   }
 
   if (loading) {
@@ -517,7 +517,7 @@ function ApplicationWizard() {
               >
                 {saving ? "Saving…" : "Save and finish later"}
               </button>
-              <Link to={"/my-application" as string} className="ml-auto text-body-sm text-on-surface-variant hover:underline">
+              <Link to="/my-application" className="ml-auto text-body-sm text-on-surface-variant hover:underline">
                 My application
               </Link>
             </div>
