@@ -167,12 +167,12 @@
   transition:
     border-color 150ms ease,
     box-shadow 150ms ease;
-}
 
-@utility form-input:focus {
-  outline: none;
-  border-color: var(--color-secondary);
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-secondary) 20%, transparent);
+  &:focus {
+    outline: none;
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-secondary) 20%, transparent);
+  }
 }
 
 
