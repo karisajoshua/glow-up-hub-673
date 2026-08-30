@@ -227,13 +227,30 @@ button {
   }
 }
 
+/* Hero card staggered entrance — overrides the first-section exclusion */
+.hero-card {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: hero-card-rise 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes hero-card-rise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
 
   main section > *,
-  main section > div > * {
+  main section > div > *,
+  .hero-card {
     animation: none !important;
+    opacity: 1;
+    transform: none;
   }
 }
