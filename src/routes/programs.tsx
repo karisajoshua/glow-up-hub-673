@@ -8,6 +8,7 @@ const CATALOGUE_COVER =
 
 type Program = {
   title: string;
+  school: string;
   level: string;
   mode: string;
   body: string;
@@ -15,6 +16,12 @@ type Program = {
   alt: string;
   img: string;
 };
+
+const SSPP = "School of Sustainable Professional Practice";
+const SST = "School of Sustainable Skills & Technologies";
+
+const SKILLS_IMG =
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuAiRc28byUdcEH6fvY8D8hoac2QQ_O5wz9o2661oZl4I_OP9blSyjUGfG__pLDmmW6_ZC523MpwU6Z6qzbhXCGBhQj-k5EiJ5d8QWgZdwEfdDCTlvP7redXAslOpmmdm81hY4GS4NEK8dtThiXZx_6uAobtYF7zZnPeupf1j0Dy6SP_RxR_pULBVic6BWInE7zX9Tn90ZI8EJZFYyBAbWMnVzuiuWzdWKwk67f6npoz15u3RGomPgIN";
 
 const PROGRAMS: Program[] = [
   {
