@@ -114,6 +114,16 @@ const PROGRAMS: Program[] = [
     alt: "Plastic-free packaging samples laid out on a workbench",
     img: SKILLS_IMG,
   },
+  {
+    title: "Mushroom Farming (theory) and Field Tour",
+    school: SST,
+    level: "Practical Skills Certificate",
+    mode: "Face-to-Face Workshop",
+    body: "Learn mushroom cultivation from substrate preparation to harvest, then visit a working farm to see climate control, pest management and post-harvest handling in practice.",
+    credits: "8 weeks",
+    alt: "Rows of cultivated mushrooms and a guided farm tour group",
+    img: SKILLS_IMG,
+  },
 ];
 
 const LEVELS = [
