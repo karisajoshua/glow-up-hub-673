@@ -26,6 +26,7 @@ const SKILLS_IMG =
 const PROGRAMS: Program[] = [
   {
     title: "Sustainability Foundations for Professionals",
+    school: SSPP,
     level: "Professional Certificate",
     mode: "Fully Online",
     body: "A grounding in Education for Sustainable Development, the UN SDGs and the ILO green skills agenda, translated into practical actions you can apply inside your own profession from week one.",
@@ -35,6 +36,7 @@ const PROGRAMS: Program[] = [
   },
   {
     title: "Climate Risk and Environmental Compliance",
+    school: SSPP,
     level: "Short Course",
     mode: "Fully Online",
     body: "Read climate and environmental risk in operational terms: emissions and resource baselines, regulatory expectations, reporting duties and the evidence organisations need to defend their environmental performance.",
@@ -44,6 +46,7 @@ const PROGRAMS: Program[] = [
   },
   {
     title: "Green Skills for the Built Environment",
+    school: SSPP,
     level: "Professional Certificate",
     mode: "Online with Optional Face-to-Face",
     body: "For engineers, architects, quantity surveyors, project managers and facilities teams — resource-efficient design, materials choices, waste reduction and energy performance across the life of a building.",
@@ -53,6 +56,7 @@ const PROGRAMS: Program[] = [
   },
   {
     title: "Community Based Green Skilling",
+    school: SST,
     level: "Community Programme",
     mode: "Online with Optional Face-to-Face",
     body: "Practical green livelihoods training for community groups, youth cohorts and small enterprises: waste value chains, water stewardship, clean energy basics and income-generating sustainable practice.",
@@ -60,10 +64,70 @@ const PROGRAMS: Program[] = [
     alt: "Macro photograph of solar panel textures blended with leaf patterns",
     img: "https://lh3.googleusercontent.com/aida-public/AB6AXuCOlZqSmYdtOZmMxPrI-DYomMunwmbEApjmwlArsc42N0rhhXTOO7vQ1PW3iIlAfCia9DcTp_tQm9h88EWZkkUYBIFAgKa8a1cAFwQMXY9Bdhsd109CyNHtPXPbUQTTzxeDJ0jMj74RtCxl3OnEdSXA59j_Ok0V51kHYZCGWKIsr2N21oHG4d_dI26ISzNQ8QEYoMijM_1EjivgH4zhhY5I0ExTPTVgCHxMtcW0M0WiIAzn2DrNAr5R",
   },
+  {
+    title: "Upcycled Textile Accessories",
+    school: SST,
+    level: "Practical Skills Certificate",
+    mode: "Face-to-Face Workshop",
+    body: "Turn textile waste into market-ready bags, accessories and homeware using circular design, sorting, cutting and professional finishing techniques.",
+    credits: "8 weeks",
+    alt: "Artisan stitching an upcycled fabric bag in a workshop",
+    img: SKILLS_IMG,
+  },
+  {
+    title: "Eco Footwear",
+    school: SST,
+    level: "Practical Skills Certificate",
+    mode: "Face-to-Face Workshop",
+    body: "Design and craft footwear from reclaimed, plant-based and low-impact materials, covering pattern making, assembly and quality finishing.",
+    credits: "8 weeks",
+    alt: "Handmade footwear crafted from reclaimed materials",
+    img: SKILLS_IMG,
+  },
+  {
+    title: "Solar Dryer Assembling",
+    school: SST,
+    level: "Practical Skills Certificate",
+    mode: "Face-to-Face Workshop",
+    body: "Build, install and maintain solar dryers for food preservation — sizing, airflow, materials, assembly and safe post-harvest handling.",
+    credits: "8 weeks",
+    alt: "A solar food dryer assembled in an open training yard",
+    img: SKILLS_IMG,
+  },
+  {
+    title: "Weave Making",
+    school: SST,
+    level: "Practical Skills Certificate",
+    mode: "Face-to-Face Workshop",
+    body: "Traditional and contemporary weaving with natural and recovered fibres, from fibre preparation and loom work to finished product development.",
+    credits: "8 weeks",
+    alt: "Hands weaving natural fibre on a wooden loom",
+    img: SKILLS_IMG,
+  },
+  {
+    title: "Sustainable Packaging",
+    school: SST,
+    level: "Practical Skills Certificate",
+    mode: "Face-to-Face Workshop",
+    body: "Develop packaging that protects products and the planet — material selection, reuse and refill formats, labelling, costing and compliance.",
+    credits: "8 weeks",
+    alt: "Plastic-free packaging samples laid out on a workbench",
+    img: SKILLS_IMG,
+  },
 ];
 
-const LEVELS = ["Short Course", "Professional Certificate", "Community Programme"];
-const MODES = ["Fully Online", "Online with Optional Face-to-Face"];
+const LEVELS = [
+  "Short Course",
+  "Professional Certificate",
+  "Practical Skills Certificate",
+  "Community Programme",
+];
+const MODES = [
+  "Fully Online",
+  "Online with Optional Face-to-Face",
+  "Face-to-Face Workshop",
+];
+const SCHOOL_FILTERS = [SSPP, SST];
 
 
 export const Route = createFileRoute("/programs")({
