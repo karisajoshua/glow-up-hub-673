@@ -59,6 +59,17 @@ function MyApplication() {
     })();
   }, []);
 
+  const sections = useMemo(() => {
+    const education = Array.isArray(row?.education) ? (row?.education as EducationRow[]) : [];
+    return sectionStatuses({
+      form: (row ?? {}) as Record<string, string | null | undefined>,
+      education,
+      docTypes: docs.map((doc) => doc.doc_type),
+      declaration: Boolean(row?.["declaration_accepted"]),
+    });
+  }, [row, docs]);
+
+
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
