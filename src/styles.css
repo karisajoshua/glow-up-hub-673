@@ -227,19 +227,77 @@ button {
   }
 }
 
-/* Hero card staggered entrance — cards slide in from the right to the left */
-main > section:first-of-type .hero-card,
-.hero-card {
-  opacity: 0;
-  transform: translateX(80px);
-  animation: hero-card-slide-left 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+/* Hero card carousel — cards appear from the right, hold, then disappear to the left, one by one */
+.hero-carousel {
+  --hero-card-cycle: 24s;
 }
 
-@keyframes hero-card-slide-left {
-  to {
+.hero-carousel .hero-card {
+  opacity: 0;
+  transform: translateX(100%);
+  animation: hero-card-cycle var(--hero-card-cycle) linear infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes hero-card-cycle {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  6.25% {
     opacity: 1;
     transform: translateX(0);
   }
+  18.75% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  25% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}
+
+/* Active-dot indicators synced to the carousel cycle */
+.hero-carousel .hero-dot {
+  animation: hero-dot-cycle var(--hero-card-cycle) linear infinite;
+}
+
+.hero-dot-1 { animation-delay: 0s; }
+.hero-dot-2 { animation-delay: 6s; }
+.hero-dot-3 { animation-delay: 12s; }
+.hero-dot-4 { animation-delay: 18s; }
+
+@keyframes hero-dot-cycle {
+  0% {
+    background-color: var(--color-surface-bright);
+    transform: scale(1.25);
+  }
+  6.25% {
+    background-color: var(--color-surface-bright);
+    transform: scale(1.25);
+  }
+  18.75% {
+    background-color: var(--color-surface-bright);
+    transform: scale(1.25);
+  }
+  25% {
+    background-color: color-mix(in oklab, var(--color-surface-bright) 40%, transparent);
+    transform: scale(1);
+  }
+  100% {
+    background-color: color-mix(in oklab, var(--color-surface-bright) 40%, transparent);
+    transform: scale(1);
+  }
+}
+
+.hero-carousel:hover .hero-card,
+.hero-carousel:hover .hero-dot {
+  animation-play-state: paused;
 }
 
 @media (prefers-reduced-motion: reduce) {
