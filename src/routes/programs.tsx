@@ -296,7 +296,8 @@ function ProgramsPage() {
                   />
                 </div>
                 <div className="flex flex-grow flex-col p-8">
-                  <span className="label-caps mb-4 text-secondary">{p.level}</span>
+                  <span className="label-caps mb-2 text-secondary">{p.level}</span>
+                  <span className="mb-4 text-body-md text-on-surface-variant/80">{p.school}</span>
                   <h3 className="mb-4 font-display text-headline-md text-on-surface">{p.title}</h3>
                   <p className="mb-8 flex-grow text-body-md text-on-surface-variant">{p.body}</p>
                   <div className="flex items-center justify-between border-t border-outline-variant/20 pt-4">

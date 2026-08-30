@@ -64,6 +64,14 @@ export function SiteFooter() {
             </li>
             <li>
               <Link
+                to="/services"
+                className="text-surface-variant/80 transition-colors hover:text-secondary-fixed-dim"
+              >
+                Other Services
+              </Link>
+            </li>
+            <li>
+              <Link
                 to="/delivery"
                 className="text-surface-variant/80 transition-colors hover:text-secondary-fixed-dim"
               >
