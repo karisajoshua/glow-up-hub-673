@@ -111,6 +111,50 @@ function MyApplication() {
                   )}
                 </div>
 
+                {row.status === "draft" && (
+                  <div className="rounded-lg border border-outline-variant/30 bg-surface p-8">
+                    <p className="label-caps mb-2 text-on-surface-variant">Sections to complete</p>
+                    <p className="mb-6 text-body-sm text-on-surface-variant">
+                      {sections.filter((s) => s.complete).length} of {sections.length} sections complete.
+                      You can jump straight back into any unfinished section.
+                    </p>
+                    <ul className="divide-y divide-outline-variant/20">
+                      {sections.map((section) => (
+                        <li key={section.label} className="flex items-center justify-between gap-4 py-3">
+                          <span className="flex items-center gap-3 text-body-md text-on-surface">
+                            <span
+                              className={`material-symbols-outlined text-xl ${
+                                section.complete ? "text-secondary" : "text-on-surface-variant"
+                              }`}
+                            >
+                              {section.complete ? "check_circle" : "radio_button_unchecked"}
+                            </span>
+                            {section.index + 1}. {section.label}
+                          </span>
+                          {section.complete ? (
+                            <Link
+                              to="/application"
+                              search={{ step: section.index }}
+                              className="text-body-sm text-on-surface-variant hover:underline"
+                            >
+                              Review
+                            </Link>
+                          ) : (
+                            <Link
+                              to="/application"
+                              search={{ step: section.index }}
+                              className="text-body-sm font-medium text-secondary hover:underline"
+                            >
+                              Finish this section
+                            </Link>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+
                 <div className="rounded-lg border-l-2 border-secondary bg-surface-container-low p-8">
                   <p className="label-caps mb-3 text-on-surface-variant">Next steps from admissions</p>
                   <p className="whitespace-pre-line text-body-md text-on-surface">
