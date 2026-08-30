@@ -17,8 +17,15 @@ import {
   SCHOOLS,
   type EducationRow,
 } from "@/lib/application-options";
+import { firstIncompleteStep, sectionStatuses } from "@/lib/application-progress";
 
 export const Route = createFileRoute("/_authenticated/application")({
+  validateSearch: (search: Record<string, unknown>): { step?: number } => {
+    const raw = Number(search["step"]);
+    if (Number.isFinite(raw) && raw >= 0 && raw <= 8) return { step: Math.floor(raw) };
+    return {};
+  },
+
   head: () => ({
     meta: [
       { title: "Application Wizard | S-STC" },
@@ -27,6 +34,7 @@ export const Route = createFileRoute("/_authenticated/application")({
   }),
   component: ApplicationWizard,
 });
+
 
 type FieldKey = (typeof TEXT_FIELDS)[number];
 type FormState = Partial<Record<FieldKey, string>>;
@@ -80,9 +88,11 @@ type DocRow = { id: string; doc_type: string; file_name: string; storage_path: s
 
 function ApplicationWizard() {
   const navigate = useNavigate();
+  const { step: stepParam } = Route.useSearch();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(stepParam ?? 0);
+
   const [applicationId, setApplicationId] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
   const [form, setForm] = useState<FormState>({} as FormState);
@@ -166,6 +176,25 @@ function ApplicationWizard() {
       setLoading(false);
     })();
   }, [loadDocs, navigate]);
+
+  const progress = useMemo(
+    () => ({
+      form: form as Record<string, string | null | undefined>,
+      education,
+      docTypes: docs.map((doc) => doc.doc_type),
+      declaration,
+    }),
+    [form, education, docs, declaration],
+  );
+  const sections = useMemo(() => sectionStatuses(progress), [progress]);
+
+  const [resumed, setResumed] = useState(false);
+  useEffect(() => {
+    if (loading || resumed) return;
+    setResumed(true);
+    if (stepParam === undefined) setStep(firstIncompleteStep(progress));
+  }, [loading, resumed, stepParam, progress]);
+
 
   const payload = useMemo(() => {
     const out: Record<string, unknown> = {};
@@ -297,16 +326,22 @@ function ApplicationWizard() {
                 key={label}
                 type="button"
                 onClick={() => setStep(i)}
-                className={`rounded-full border px-4 py-2 text-body-sm transition-colors ${
+                className={`flex items-center gap-1.5 rounded-full border px-4 py-2 text-body-sm transition-colors ${
                   i === step
                     ? "border-secondary bg-secondary text-on-primary"
-                    : "border-outline-variant/40 text-on-surface-variant hover:border-secondary"
+                    : sections[i]?.complete
+                      ? "border-secondary/50 text-secondary hover:border-secondary"
+                      : "border-outline-variant/40 text-on-surface-variant hover:border-secondary"
                 }`}
               >
+                {sections[i]?.complete && (
+                  <span className="material-symbols-outlined text-base">check_circle</span>
+                )}
                 {i + 1}. {label}
               </button>
             ))}
           </div>
+
 
           <div className="rounded-lg border border-outline-variant/30 bg-surface p-6 shadow-sm md:p-10">
             {step === 0 && (

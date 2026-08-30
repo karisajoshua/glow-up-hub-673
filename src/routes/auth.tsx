@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { SiteHeader } from "@/components/site/SiteHeader";
@@ -41,11 +41,25 @@ function AuthPage() {
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
 
+  const landing = useCallback(async () => {
+    const { data: userData } = await supabase.auth.getUser();
+    const uid = userData.user?.id;
+    if (!uid) return "/application" as const;
+    const { data: role } = await supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", uid)
+      .eq("role", "admin")
+      .maybeSingle();
+    return role ? ("/admin" as const) : ("/application" as const);
+  }, []);
+
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (data.session) navigate({ to: "/application", replace: true });
+    supabase.auth.getSession().then(async ({ data }) => {
+      if (data.session) navigate({ to: await landing(), replace: true });
     });
-  }, [navigate]);
+  }, [navigate, landing]);
+
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -73,7 +87,7 @@ function AuthPage() {
         });
         if (error) throw error;
         toast.success("Account created. Let's start your application.");
-        navigate({ to: "/application" });
+        navigate({ to: await landing() });
         return;
       }
 
@@ -83,7 +97,7 @@ function AuthPage() {
       });
       if (error) throw error;
       toast.success("Welcome back.");
-      navigate({ to: "/application" });
+      navigate({ to: await landing() });
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Something went wrong.");
     } finally {

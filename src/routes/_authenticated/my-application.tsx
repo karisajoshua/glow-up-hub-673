@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { supabase } from "@/integrations/supabase/client";
-import { DOC_TYPES, STATUS_LABELS } from "@/lib/application-options";
+import { DOC_TYPES, STATUS_LABELS, type EducationRow } from "@/lib/application-options";
+import { sectionStatuses } from "@/lib/application-progress";
 
 export const Route = createFileRoute("/_authenticated/my-application")({
   head: () => ({
@@ -25,6 +26,8 @@ type AppRow = {
   full_name: string | null;
   email: string | null;
   admin_note: string | null;
+  education: unknown;
+  [key: string]: unknown;
 };
 
 function MyApplication() {
@@ -39,9 +42,7 @@ function MyApplication() {
       if (!uid) return;
       const { data } = await supabase
         .from("applications")
-        .select(
-          "id, status, reference_no, submitted_at, school, course, mode_of_study, preferred_intake, full_name, email, admin_note",
-        )
+        .select("*")
         .eq("user_id", uid)
         .order("created_at", { ascending: false })
         .limit(1)
@@ -58,6 +59,17 @@ function MyApplication() {
     })();
   }, []);
 
+  const sections = useMemo(() => {
+    const education = Array.isArray(row?.education) ? (row?.education as EducationRow[]) : [];
+    return sectionStatuses({
+      form: (row ?? {}) as Record<string, string | null | undefined>,
+      education,
+      docTypes: docs.map((doc) => doc.doc_type),
+      declaration: Boolean(row?.["declaration_accepted"]),
+    });
+  }, [row, docs]);
+
+
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
@@ -72,6 +84,7 @@ function MyApplication() {
               <p className="mb-6 text-body-lg text-on-surface">You have not started an application yet.</p>
               <Link
                 to="/application"
+                search={{}}
                 className="inline-flex rounded-md bg-primary px-6 py-3 text-button text-on-primary transition-colors hover:bg-secondary"
               >
                 Start your application
@@ -101,12 +114,57 @@ function MyApplication() {
                   {row.status === "draft" && (
                     <Link
                       to="/application"
+                      search={{}}
                       className="mt-8 inline-flex rounded-md bg-primary px-6 py-3 text-button text-on-primary transition-colors hover:bg-secondary"
                     >
                       Continue your application
                     </Link>
                   )}
                 </div>
+
+                {row.status === "draft" && (
+                  <div className="rounded-lg border border-outline-variant/30 bg-surface p-8">
+                    <p className="label-caps mb-2 text-on-surface-variant">Sections to complete</p>
+                    <p className="mb-6 text-body-sm text-on-surface-variant">
+                      {sections.filter((s) => s.complete).length} of {sections.length} sections complete.
+                      You can jump straight back into any unfinished section.
+                    </p>
+                    <ul className="divide-y divide-outline-variant/20">
+                      {sections.map((section) => (
+                        <li key={section.label} className="flex items-center justify-between gap-4 py-3">
+                          <span className="flex items-center gap-3 text-body-md text-on-surface">
+                            <span
+                              className={`material-symbols-outlined text-xl ${
+                                section.complete ? "text-secondary" : "text-on-surface-variant"
+                              }`}
+                            >
+                              {section.complete ? "check_circle" : "radio_button_unchecked"}
+                            </span>
+                            {section.index + 1}. {section.label}
+                          </span>
+                          {section.complete ? (
+                            <Link
+                              to="/application"
+                              search={{ step: section.index }}
+                              className="text-body-sm text-on-surface-variant hover:underline"
+                            >
+                              Review
+                            </Link>
+                          ) : (
+                            <Link
+                              to="/application"
+                              search={{ step: section.index }}
+                              className="text-body-sm font-medium text-secondary hover:underline"
+                            >
+                              Finish this section
+                            </Link>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
 
                 <div className="rounded-lg border-l-2 border-secondary bg-surface-container-low p-8">
                   <p className="label-caps mb-3 text-on-surface-variant">Next steps from admissions</p>
