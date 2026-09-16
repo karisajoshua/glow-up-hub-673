@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 
+import logoAsset from "@/assets/sstc-logo.jpg.asset.json";
 import { HEARD_ABOUT_OPTIONS, MASTERCLASS } from "@/lib/masterclass";
 import { registerForMasterclass } from "@/lib/masterclass.functions";
 
@@ -15,8 +16,63 @@ type Values = {
 
 const EMPTY: Values = { full_name: "", phone: "", email: "", occupation: "", heard_about: "" };
 
-const BRAND_PRIMARY: [number, number, number] = [12, 61, 92];
-const BRAND_SECONDARY: [number, number, number] = [46, 139, 87];
+const BRAND_PRIMARY_FALLBACK: [number, number, number] = [36, 91, 158];
+const BRAND_SECONDARY_FALLBACK: [number, number, number] = [43, 126, 65];
+
+function readBrandColour(token: "--primary" | "--secondary", fallback: [number, number, number]) {
+  const value = getComputedStyle(document.documentElement).getPropertyValue(token).trim();
+  const canvas = document.createElement("canvas");
+  canvas.width = 1;
+  canvas.height = 1;
+  const context = canvas.getContext("2d");
+  if (!context || !value) return fallback;
+
+  context.fillStyle = value;
+  context.fillRect(0, 0, 1, 1);
+  const colour = context.getImageData(0, 0, 1, 1).data;
+  return [colour[0] ?? fallback[0], colour[1] ?? fallback[1], colour[2] ?? fallback[2]] as [
+    number,
+    number,
+    number,
+  ];
+}
+
+async function loadLogoForPdf() {
+  const response = await fetch(logoAsset.url);
+  if (!response.ok) throw new Error("Unable to load the S-STC logo.");
+  const blob = await response.blob();
+
+  return await new Promise<string>((resolve, reject) => {
+    const image = new Image();
+    const objectUrl = URL.createObjectURL(blob);
+    image.onload = () => {
+      const canvas = document.createElement("canvas");
+      const size = 600;
+      canvas.width = size;
+      canvas.height = size;
+      const context = canvas.getContext("2d");
+      if (!context) {
+        URL.revokeObjectURL(objectUrl);
+        reject(new Error("Unable to prepare the S-STC logo."));
+        return;
+      }
+
+      context.fillStyle = "#ffffff";
+      context.fillRect(0, 0, size, size);
+      const scale = Math.min(size / image.naturalWidth, size / image.naturalHeight);
+      const width = image.naturalWidth * scale;
+      const height = image.naturalHeight * scale;
+      context.drawImage(image, (size - width) / 2, (size - height) / 2, width, height);
+      URL.revokeObjectURL(objectUrl);
+      resolve(canvas.toDataURL("image/jpeg", 0.94));
+    };
+    image.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      reject(new Error("Unable to prepare the S-STC logo."));
+    };
+    image.src = objectUrl;
+  });
+}
 
 function validate(values: Values) {
   const errors: Partial<Record<keyof Values, string>> = {};
@@ -34,24 +90,31 @@ async function buildPdf(values: Values) {
   const { jsPDF } = await import("jspdf");
   const doc = new jsPDF({ unit: "pt", format: "a4" });
   const width = doc.internal.pageSize.getWidth();
+  const height = doc.internal.pageSize.getHeight();
+  const primary = readBrandColour("--primary", BRAND_PRIMARY_FALLBACK);
+  const secondary = readBrandColour("--secondary", BRAND_SECONDARY_FALLBACK);
+  const logo = await loadLogoForPdf();
 
-  doc.setFillColor(...BRAND_PRIMARY);
-  doc.rect(0, 0, width, 110, "F");
-  doc.setFillColor(...BRAND_SECONDARY);
-  doc.rect(0, 110, width, 8, "F");
+  doc.setFillColor(...primary);
+  doc.rect(0, 0, width, 126, "F");
+  doc.setFillColor(...secondary);
+  doc.rect(0, 126, width, 7, "F");
+  doc.setFillColor(255, 255, 255);
+  doc.roundedRect(42, 24, 78, 78, 39, 39, "F");
+  doc.addImage(logo, "JPEG", 47, 29, 68, 68, undefined, "FAST");
 
   doc.setTextColor(255, 255, 255);
   doc.setFont("times", "bold");
-  doc.setFontSize(22);
-  doc.text("S-STC", 48, 52);
+  doc.setFontSize(21);
+  doc.text("SUSTAINASPACE TRAINING CENTER", 138, 53);
   doc.setFont("helvetica", "normal");
-  doc.setFontSize(10);
-  doc.text("Sustainable Skills & Technologies Centre  |  sstc.co.ke", 48, 72);
+  doc.setFontSize(9.5);
+  doc.text("Shaping Green Practice  |  sstc.co.ke", 138, 73);
   doc.setFontSize(9);
-  doc.text("Masterclass Registration", width - 48, 52, { align: "right" });
+  doc.text("OFFICIAL MASTERCLASS REGISTRATION", 138, 91);
 
-  let y = 160;
-  doc.setTextColor(...BRAND_PRIMARY);
+  let y = 172;
+  doc.setTextColor(...primary);
   doc.setFont("times", "bold");
   doc.setFontSize(20);
   doc.text(MASTERCLASS.title, 48, y);
@@ -65,7 +128,7 @@ async function buildPdf(values: Values) {
   y += 48;
   doc.setFont("helvetica", "bold");
   doc.setFontSize(12);
-  doc.setTextColor(...BRAND_SECONDARY);
+  doc.setTextColor(...secondary);
   doc.text("Session details", 48, y);
 
   const details: [string, string][] = [
@@ -81,7 +144,7 @@ async function buildPdf(values: Values) {
   for (const [label, value] of details) {
     y += 20;
     doc.setFont("helvetica", "bold");
-    doc.setTextColor(...BRAND_PRIMARY);
+    doc.setTextColor(...primary);
     doc.text(`${label}:`, 48, y);
     doc.setFont("helvetica", "normal");
     doc.setTextColor(40, 40, 40);
@@ -91,7 +154,7 @@ async function buildPdf(values: Values) {
   y += 40;
   doc.setFont("helvetica", "bold");
   doc.setFontSize(12);
-  doc.setTextColor(...BRAND_SECONDARY);
+  doc.setTextColor(...secondary);
   doc.text("Applicant details", 48, y);
 
   const applicant: [string, string][] = [
@@ -108,7 +171,7 @@ async function buildPdf(values: Values) {
   for (const [label, value] of applicant) {
     y += 20;
     doc.setFont("helvetica", "bold");
-    doc.setTextColor(...BRAND_PRIMARY);
+    doc.setTextColor(...primary);
     doc.text(`${label}:`, 48, y);
     doc.setFont("helvetica", "normal");
     doc.setTextColor(40, 40, 40);
@@ -116,11 +179,11 @@ async function buildPdf(values: Values) {
   }
 
   y += 46;
-  doc.setDrawColor(...BRAND_SECONDARY);
+  doc.setDrawColor(...secondary);
   doc.line(48, y, width - 48, y);
   y += 22;
   doc.setFont("helvetica", "bold");
-  doc.setTextColor(...BRAND_PRIMARY);
+  doc.setTextColor(...primary);
   doc.text("Next steps", 48, y);
   y += 18;
   doc.setFont("helvetica", "normal");
@@ -135,11 +198,14 @@ async function buildPdf(values: Values) {
     y,
   );
 
-  doc.setFillColor(...BRAND_PRIMARY);
-  doc.rect(0, doc.internal.pageSize.getHeight() - 40, width, 40, "F");
+  doc.setFillColor(...primary);
+  doc.rect(0, height - 44, width, 44, "F");
+  doc.setFillColor(...secondary);
+  doc.rect(0, height - 44, width, 5, "F");
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(9);
-  doc.text("S-STC  |  info@sstc.co.ke  |  sstc.co.ke", 48, doc.internal.pageSize.getHeight() - 16);
+  doc.text("S-STC  |  info@sstc.co.ke  |  sstc.co.ke", 48, height - 17);
+  doc.text("Green skills for generational impact", width - 48, height - 17, { align: "right" });
 
   const slug = values.full_name.trim().replace(/[^a-zA-Z0-9]+/g, "-").replace(/^-|-$/g, "") || "Applicant";
   return { doc, filename: `SSTC-Masterclass-${slug}.pdf` };
