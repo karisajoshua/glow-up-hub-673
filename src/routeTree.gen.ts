@@ -26,6 +26,7 @@ import { Route as SchoolsRouteImport } from './routes/schools'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedAdminMasterclassRouteImport } from './routes/_authenticated/admin-masterclass'
 import { Route as AuthenticatedApplicationRouteImport } from './routes/_authenticated/application'
 import { Route as AuthenticatedMyApplicationRouteImport } from './routes/_authenticated/my-application'
 import { Route as AuthenticatedAdminIdRouteImport } from './routes/_authenticated/admin.$id'
@@ -114,6 +115,12 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminMasterclassRoute =
+  AuthenticatedAdminMasterclassRouteImport.update({
+    id: '/admin-masterclass',
+    path: '/admin-masterclass',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedApplicationRoute =
   AuthenticatedApplicationRouteImport.update({
     id: '/application',
@@ -149,6 +156,7 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/admin-masterclass': typeof AuthenticatedAdminMasterclassRoute
   '/application': typeof AuthenticatedApplicationRoute
   '/my-application': typeof AuthenticatedMyApplicationRoute
   '/admin/$id': typeof AuthenticatedAdminIdRoute
@@ -170,6 +178,7 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/admin-masterclass': typeof AuthenticatedAdminMasterclassRoute
   '/application': typeof AuthenticatedApplicationRoute
   '/my-application': typeof AuthenticatedMyApplicationRoute
   '/admin/$id': typeof AuthenticatedAdminIdRoute
@@ -193,6 +202,7 @@ export interface FileRoutesById {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/_authenticated/admin-masterclass': typeof AuthenticatedAdminMasterclassRoute
   '/_authenticated/application': typeof AuthenticatedApplicationRoute
   '/_authenticated/my-application': typeof AuthenticatedMyApplicationRoute
   '/_authenticated/admin/$id': typeof AuthenticatedAdminIdRoute
@@ -216,6 +226,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/admin'
+    | '/admin-masterclass'
     | '/application'
     | '/my-application'
     | '/admin/$id'
@@ -237,6 +248,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/admin'
+    | '/admin-masterclass'
     | '/application'
     | '/my-application'
     | '/admin/$id'
@@ -259,6 +271,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/_authenticated/admin'
+    | '/_authenticated/admin-masterclass'
     | '/_authenticated/application'
     | '/_authenticated/my-application'
     | '/_authenticated/admin/$id'
@@ -404,6 +417,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin-masterclass': {
+      id: '/_authenticated/admin-masterclass'
+      path: '/admin-masterclass'
+      fullPath: '/admin-masterclass'
+      preLoaderRoute: typeof AuthenticatedAdminMasterclassRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/application': {
       id: '/_authenticated/application'
       path: '/application'
@@ -441,12 +461,14 @@ const AuthenticatedAdminRouteWithChildren =
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
+  AuthenticatedAdminMasterclassRoute: typeof AuthenticatedAdminMasterclassRoute
   AuthenticatedApplicationRoute: typeof AuthenticatedApplicationRoute
   AuthenticatedMyApplicationRoute: typeof AuthenticatedMyApplicationRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
+  AuthenticatedAdminMasterclassRoute: AuthenticatedAdminMasterclassRoute,
   AuthenticatedApplicationRoute: AuthenticatedApplicationRoute,
   AuthenticatedMyApplicationRoute: AuthenticatedMyApplicationRoute,
 }
