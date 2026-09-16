@@ -315,11 +315,11 @@ function Field({
 }: {
   label: string;
   value: string;
-  error?: string;
+  error?: string | undefined;
   onChange: (value: string) => void;
   type?: string;
-  autoComplete?: string;
-  placeholder?: string;
+  autoComplete?: string | undefined;
+  placeholder?: string | undefined;
 }) {
   return (
     <label className="block">

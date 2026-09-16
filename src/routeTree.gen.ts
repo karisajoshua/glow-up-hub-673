@@ -18,6 +18,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DeliveryRouteImport } from './routes/delivery'
 import { Route as FeesRouteImport } from './routes/fees'
 import { Route as FrameworksRouteImport } from './routes/frameworks'
+import { Route as MasterclassRouteImport } from './routes/masterclass'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ProgramsRouteImport } from './routes/programs'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
@@ -71,6 +72,11 @@ const FeesRoute = FeesRouteImport.update({
 const FrameworksRoute = FrameworksRouteImport.update({
   id: '/frameworks',
   path: '/frameworks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MasterclassRoute = MasterclassRouteImport.update({
+  id: '/masterclass',
+  path: '/masterclass',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -135,6 +141,7 @@ export interface FileRoutesByFullPath {
   '/delivery': typeof DeliveryRoute
   '/fees': typeof FeesRoute
   '/frameworks': typeof FrameworksRoute
+  '/masterclass': typeof MasterclassRoute
   '/privacy': typeof PrivacyRoute
   '/programs': typeof ProgramsRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -155,6 +162,7 @@ export interface FileRoutesByTo {
   '/delivery': typeof DeliveryRoute
   '/fees': typeof FeesRoute
   '/frameworks': typeof FrameworksRoute
+  '/masterclass': typeof MasterclassRoute
   '/privacy': typeof PrivacyRoute
   '/programs': typeof ProgramsRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -177,6 +185,7 @@ export interface FileRoutesById {
   '/delivery': typeof DeliveryRoute
   '/fees': typeof FeesRoute
   '/frameworks': typeof FrameworksRoute
+  '/masterclass': typeof MasterclassRoute
   '/privacy': typeof PrivacyRoute
   '/programs': typeof ProgramsRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -199,6 +208,7 @@ export interface FileRouteTypes {
     | '/delivery'
     | '/fees'
     | '/frameworks'
+    | '/masterclass'
     | '/privacy'
     | '/programs'
     | '/reset-password'
@@ -219,6 +229,7 @@ export interface FileRouteTypes {
     | '/delivery'
     | '/fees'
     | '/frameworks'
+    | '/masterclass'
     | '/privacy'
     | '/programs'
     | '/reset-password'
@@ -240,6 +251,7 @@ export interface FileRouteTypes {
     | '/delivery'
     | '/fees'
     | '/frameworks'
+    | '/masterclass'
     | '/privacy'
     | '/programs'
     | '/reset-password'
@@ -262,6 +274,7 @@ export interface RootRouteChildren {
   DeliveryRoute: typeof DeliveryRoute
   FeesRoute: typeof FeesRoute
   FrameworksRoute: typeof FrameworksRoute
+  MasterclassRoute: typeof MasterclassRoute
   PrivacyRoute: typeof PrivacyRoute
   ProgramsRoute: typeof ProgramsRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
@@ -333,6 +346,13 @@ declare module '@tanstack/react-router' {
       path: '/frameworks'
       fullPath: '/frameworks'
       preLoaderRoute: typeof FrameworksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/masterclass': {
+      id: '/masterclass'
+      path: '/masterclass'
+      fullPath: '/masterclass'
+      preLoaderRoute: typeof MasterclassRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -444,6 +464,7 @@ const rootRouteChildren: RootRouteChildren = {
   DeliveryRoute: DeliveryRoute,
   FeesRoute: FeesRoute,
   FrameworksRoute: FrameworksRoute,
+  MasterclassRoute: MasterclassRoute,
   PrivacyRoute: PrivacyRoute,
   ProgramsRoute: ProgramsRoute,
   ResetPasswordRoute: ResetPasswordRoute,
