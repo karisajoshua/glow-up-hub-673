@@ -10,6 +10,7 @@ const NAV = [
   { to: "/about", label: "About" },
   { to: "/frameworks", label: "Frameworks" },
   { to: "/programs", label: "Programs" },
+  { to: "/masterclass", label: "Masterclass" },
   { to: "/contact", label: "Contact" },
 ] as const;
 
@@ -170,6 +171,14 @@ export function SiteHeader() {
             >
               Programs
             </Link>
+            <Link
+              to="/masterclass"
+              className="label-caps text-on-surface-variant transition-colors hover:text-secondary"
+              activeProps={{ className: "label-caps text-secondary border-b-2 border-secondary pb-1" }}
+            >
+              Masterclass
+            </Link>
+
 
             <div
               className="relative"
