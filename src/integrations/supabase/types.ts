@@ -187,6 +187,39 @@ export type Database = {
         }
         Relationships: []
       }
+      masterclass_registrations: {
+        Row: {
+          created_at: string
+          email: string
+          full_name: string
+          heard_about: string | null
+          id: string
+          occupation: string
+          phone: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          full_name: string
+          heard_about?: string | null
+          id?: string
+          occupation: string
+          phone: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          full_name?: string
+          heard_about?: string | null
+          id?: string
+          occupation?: string
+          phone?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
