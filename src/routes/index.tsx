@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
+import { MASTERCLASS } from "@/lib/masterclass";
 
 
 const HERO_IMG =
@@ -149,6 +150,42 @@ function Index() {
                   Explore Frameworks
                 </Link>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Masterclass banner */}
+        <section className="container-max px-margin-mobile pt-16 md:px-margin-desktop">
+          <div className="reveal flex flex-col gap-6 rounded-lg border border-secondary/40 bg-secondary/10 p-8 md:flex-row md:items-center md:justify-between">
+            <div>
+              <span className="label-caps mb-2 inline-block text-secondary">
+                Upcoming masterclass
+              </span>
+              <h2 className="mb-2 font-display text-headline-md text-primary">
+                {MASTERCLASS.title}
+              </h2>
+              <p className="mb-3 max-w-2xl text-body-md text-on-surface-variant">
+                {MASTERCLASS.tagline}
+              </p>
+              <p className="text-body-sm text-on-surface">
+                {MASTERCLASS.date} · {MASTERCLASS.time} · {MASTERCLASS.venue} · {MASTERCLASS.fee}
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-4">
+              <Link
+                to="/masterclass"
+                className="inline-flex items-center gap-2 rounded-md border border-secondary px-6 py-3 text-button text-secondary transition-colors hover:bg-secondary/10"
+              >
+                See details
+              </Link>
+              <Link
+                to="/masterclass"
+                hash="apply"
+                className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-button text-on-primary transition-colors hover:bg-secondary"
+              >
+                Apply now
+                <span className="material-symbols-outlined text-sm">arrow_forward</span>
+              </Link>
             </div>
           </div>
         </section>
