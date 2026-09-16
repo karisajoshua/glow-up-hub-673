@@ -84,6 +84,14 @@ export function AdminShell({
 
       <div className="mt-6 border-t border-outline-variant/20 pt-4">
         <Link
+          to="/admin-masterclass"
+          title="Masterclass registrations"
+          className="flex items-center gap-3 rounded-md px-3 py-3 text-body-sm text-on-surface-variant transition-colors hover:text-secondary"
+        >
+          <span className="material-symbols-outlined text-2xl">groups</span>
+          {!collapsed && <span>Masterclass</span>}
+        </Link>
+        <Link
           to="/"
           title="View website"
           className="flex items-center gap-3 rounded-md px-3 py-3 text-body-sm text-on-surface-variant transition-colors hover:text-secondary"
