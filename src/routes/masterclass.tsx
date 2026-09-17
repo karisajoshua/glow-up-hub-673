@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { MasterclassForm } from "@/components/site/MasterclassForm";
 import euniceAsset from "@/assets/eunice-barasa.jpg.asset.json";
-import { MASTERCLASS } from "@/lib/masterclass";
+import { MASTERCLASS, UPCOMING_MASTERCLASSES } from "@/lib/masterclass";
 
 const SOCIAL_IMAGE = `https://sstc.co.ke${euniceAsset.url}`;
 
@@ -111,6 +111,32 @@ function MasterclassPage() {
                 </span>
                 <h3 className="mb-3 font-display text-headline-sm text-primary">{gain.title}</h3>
                 <p className="text-body-md text-on-surface-variant">{gain.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="container-max mb-16 px-margin-mobile md:px-margin-desktop">
+          <h2 className="mb-3 font-display text-headline-lg text-primary">
+            Upcoming Masterclasses
+          </h2>
+          <p className="mb-8 max-w-2xl text-body-md text-on-surface-variant">
+            More masterclasses are being scheduled. Register your interest with us and we will share
+            dates as soon as they are confirmed.
+          </p>
+          <div className="grid grid-cols-1 gap-gutter md:grid-cols-2">
+            {UPCOMING_MASTERCLASSES.map((m) => (
+              <div
+                key={m.title}
+                className="rounded-lg border border-outline-variant/30 bg-surface-container-low p-8"
+              >
+                <span className="material-symbols-outlined mb-4 block text-3xl text-secondary">
+                  {m.icon}
+                </span>
+                <h3 className="mb-2 font-display text-headline-sm text-primary">{m.title}</h3>
+                <p className="mb-3 text-body-md font-medium text-secondary">{m.subtitle}</p>
+                <p className="mb-4 text-body-md text-on-surface-variant">{m.body}</p>
+                <span className="label-caps text-on-surface-variant">Dates coming soon</span>
               </div>
             ))}
           </div>
