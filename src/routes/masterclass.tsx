@@ -152,10 +152,24 @@ function MasterclassPage() {
                 <h3 className="mb-3 font-display text-headline-sm text-primary">
                   How payment works
                 </h3>
-                <p className="text-body-md text-on-surface-variant">
+                <p className="mb-4 text-body-md text-on-surface-variant">
                   The masterclass investment is {MASTERCLASS.fee}. Once you send your registration PDF
-                  on WhatsApp, {MASTERCLASS.facilitator.name} replies with the payment instructions and
-                  your Google Meet joining link. No payment is taken on this website.
+                  on WhatsApp, S-STC sends you the payment instructions and your Google Meet joining
+                  link. You can pay securely through our PayPal link below, or follow the payment
+                  instructions we send you after registration.
+                </p>
+                <a
+                  href="https://www.paypal.com/ncp/payment/CQ3XNRDHUJQJ8"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-button text-on-primary transition-colors hover:bg-secondary"
+                >
+                  <span className="material-symbols-outlined text-sm">credit_card</span>
+                  Pay with PayPal
+                </a>
+                <p className="mt-3 text-body-sm text-on-surface-variant">
+                  Pay {MASTERCLASS.fee} and include your full name as the payment reference so we can
+                  match your payment to your registration.
                 </p>
               </div>
             </aside>
