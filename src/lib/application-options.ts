@@ -3,6 +3,7 @@ export const SCHOOLS = [
   "School of Sustainable Skills & Technologies",
   "School of Digital Literacy",
   "School of Transitional Skills",
+  "School of Academic and Technical Studies",
   "Other",
 ] as const;
 

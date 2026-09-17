@@ -103,6 +103,18 @@ export const SCHOOL_LIST: School[] = [
     img: IMG_CAMPUS,
     alt: "A mentor guiding a small group through a practical training session",
   },
+  {
+    slug: "academic-technical-studies",
+    name: "School of Academic and Technical Studies",
+    short: "Academic & Technical Studies",
+    tagline: "Academic Rigour, Technical Depth",
+    description:
+      "Structured academic and technical study pathways that combine formal knowledge with technical competence, preparing learners for further study, certification and technical roles in a greening economy.",
+    programs: [],
+    note: "Programme details are being finalised and will be published shortly.",
+    img: IMG_SSPP,
+    alt: "Students in a technical study session with instructor guidance",
+  },
 ];
 
 export const SCHOOL_NAMES = SCHOOL_LIST.map((s) => s.name);
