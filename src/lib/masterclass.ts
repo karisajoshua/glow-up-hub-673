@@ -37,6 +37,21 @@ export const MASTERCLASS = {
   ],
 } as const;
 
+export const UPCOMING_MASTERCLASSES = [
+  {
+    title: "Transitional Skills",
+    subtitle: "Preparing for work and life",
+    body: "A practical masterclass for people moving between roles, sectors or livelihoods as the economy greens \u2014 the mindset, workplace habits and skills a just transition demands.",
+    icon: "swap_horiz",
+  },
+  {
+    title: "The Digital Career Compass Masterclass",
+    subtitle: "Finding your pathway through the digital and creative economy",
+    body: "Map the opportunities in the digital and creative economy, identify where your strengths fit and plan a realistic route into paid work or enterprise.",
+    icon: "explore",
+  },
+] as const;
+
 export const HEARD_ABOUT_OPTIONS = [
   "Website",
   "WhatsApp",
