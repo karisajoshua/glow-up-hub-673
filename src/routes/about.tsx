@@ -217,13 +217,20 @@ function AboutPage() {
                   role: "Director",
                   link: "https://www.linkedin.com/in/eunice-bilosio-barasa-0a67973b0",
                 },
-                { name: "Joshua Karisa", role: "Management" },
+                {
+                  name: "Joshua Karisa",
+                  role: "Cybersecurity Validation Engineer",
+                  bio: "Joshua Karisa is a Cybersecurity Validation Engineer and technology professional with a strong interest in cybersecurity, digital systems and emerging technologies. He brings practical technology expertise to S-STC, supporting the institution’s commitment to equipping learners with relevant digital and professional skills for a rapidly evolving world. His work reflects a passion for secure digital transformation, continuous learning and the responsible application of technology to create sustainable impact.",
+                },
                 { name: "Johnstone Telegan Mundia", role: "Community Mobiliser" },
               ].map((p) => (
                 <li key={p.name} className="flex flex-wrap items-center justify-between gap-3 py-4">
-                  <div>
+                  <div className="max-w-prose">
                     <p className="font-display text-title-lg text-primary">{p.name}</p>
                     <p className="text-body-md text-on-surface-variant">{p.role}</p>
+                    {"bio" in p && p.bio ? (
+                      <p className="mt-3 text-body-md text-on-surface-variant">{p.bio}</p>
+                    ) : null}
                   </div>
                   {p.link ? (
                     <a
