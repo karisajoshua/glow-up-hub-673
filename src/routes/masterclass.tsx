@@ -3,10 +3,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { MasterclassForm } from "@/components/site/MasterclassForm";
+import euniceAsset from "@/assets/eunice-barasa.jpg.asset.json";
 import { MASTERCLASS } from "@/lib/masterclass";
 
-const HERO_IMG =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuAiRc28byUdcEH6fvY8D8hoac2QQ_O5wz9o2661oZl4I_OP9blSyjUGfG__pLDmmW6_ZC523MpwU6Z6qzbhXCGBhQj-k5EiJ5d8QWgZdwEfdDCTlvP7redXAslOpmmdm81hY4GS4NEK8dtThiXZx_6uAobtYF7zZnPeupf1j0Dy6SP_RxR_pULBVic6BWInE7zX9Tn90ZI8EJZFYyBAbWMnVzuiuWzdWKwk67f6npoz15u3RGomPgIN";
+const SOCIAL_IMAGE = `https://sstc.co.ke${euniceAsset.url}`;
 
 const DESCRIPTION =
   "A half-day virtual masterclass that takes you from wanting a green job to proving you are ready for one — green job market, employer expectations, four key green skills and your professional profile.";
@@ -18,8 +18,8 @@ export const Route = createFileRoute("/masterclass")({
       { name: "description", content: DESCRIPTION },
       { property: "og:title", content: "Green Job Readiness Masterclass — S-STC" },
       { property: "og:description", content: DESCRIPTION },
-      { property: "og:image", content: HERO_IMG },
-      { name: "twitter:image", content: HERO_IMG },
+      { property: "og:image", content: SOCIAL_IMAGE },
+      { name: "twitter:image", content: SOCIAL_IMAGE },
       { property: "og:url", content: "https://sstc.co.ke/masterclass" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -37,8 +37,8 @@ function MasterclassPage() {
       <SiteHeader />
       <main className="flex-grow pb-section-gap pt-[120px] md:pt-[140px]">
         <header className="container-max mb-16 px-margin-mobile md:px-margin-desktop">
-          <div className="grid grid-cols-1 gap-gutter md:grid-cols-12">
-            <div className="md:col-span-7">
+          <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-12">
+            <div className="md:col-span-7 md:pr-6">
               <span className="label-caps mb-4 inline-block rounded-md border border-secondary/40 bg-secondary/10 px-4 py-2 text-secondary">
                 Masterclass
               </span>
@@ -58,12 +58,33 @@ function MasterclassPage() {
               </a>
             </div>
             <div className="md:col-span-5">
-              <img
-                src={HERO_IMG}
-                alt="Facilitator leading a practical green skills session with learners"
-                loading="lazy"
-                className="h-72 w-full rounded-lg border border-outline-variant/20 object-cover shadow-sm md:h-full"
-              />
+              <div className="overflow-hidden rounded-lg border border-outline-variant/30 bg-surface shadow-sm">
+                <div className="aspect-[4/5] overflow-hidden">
+                  <img
+                    src={euniceAsset.url}
+                    alt="Eunice Barasa, Green Job Readiness Masterclass facilitator"
+                    className="h-full w-full object-cover object-[center_28%]"
+                  />
+                </div>
+                <div className="border-t border-outline-variant/30 p-6">
+                  <p className="label-caps mb-2 text-secondary">Your facilitator</p>
+                  <h2 className="mb-1 font-display text-headline-md text-primary">
+                    {MASTERCLASS.facilitator.name}
+                  </h2>
+                  <p className="mb-4 text-body-md text-on-surface-variant">
+                    {MASTERCLASS.facilitator.role}
+                  </p>
+                  <a
+                    href={`https://wa.me/${MASTERCLASS.whatsappNumber}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-button text-secondary hover:text-primary"
+                  >
+                    <span className="material-symbols-outlined text-sm">chat</span>
+                    {MASTERCLASS.facilitator.phone}
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </header>
@@ -92,27 +113,6 @@ function MasterclassPage() {
                 <p className="text-body-md text-on-surface-variant">{gain.body}</p>
               </div>
             ))}
-          </div>
-        </section>
-
-        <section className="container-max mb-16 px-margin-mobile md:px-margin-desktop">
-          <div className="rounded-lg border border-outline-variant/30 bg-surface p-8">
-            <p className="label-caps mb-2 text-on-surface-variant">Facilitator</p>
-            <h2 className="mb-2 font-display text-headline-md text-primary">
-              {MASTERCLASS.facilitator.name}
-            </h2>
-            <p className="mb-4 text-body-md text-on-surface-variant">
-              {MASTERCLASS.facilitator.role}
-            </p>
-            <a
-              href={`https://wa.me/${MASTERCLASS.whatsappNumber}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-button text-secondary hover:text-primary"
-            >
-              <span className="material-symbols-outlined text-sm">call</span>
-              {MASTERCLASS.facilitator.phone}
-            </a>
           </div>
         </section>
 
