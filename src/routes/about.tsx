@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
+import euniceAsset from "@/assets/eunice-barasa.jpg.asset.json";
 
 const COVER =
   "https://lh3.googleusercontent.com/aida-public/AB6AXuADePia6pOBkj28z5IYkmwSiCpQ9GLdI37ukCtKwp3-DyWV3UVnVcbxDkLwBGkSX1MWC27vYEAQtRJWLV3Y5935K0bdT3GN1kaJDtQYUHgSCY5yNz2-tKUWr6M45u041obhXuBsuc01Mrev9h2TjnbjPeRWW7iq-3wR0LGojs4kr7U3Wege-OX9jWURs7vUsqDloANE3qFlen18-lsdT7dYSHhwABcHpTwolvroIkhXxwN-iThau3tc";
@@ -60,6 +61,66 @@ function AboutPage() {
             role="img"
             aria-label="A sustainable academic building blending with a lush green landscape"
           />
+        </section>
+
+        <section className="container-max px-margin-mobile pb-section-gap md:px-margin-desktop">
+          <div className="grid grid-cols-1 items-start gap-10 md:grid-cols-12 md:gap-gutter">
+            <div className="md:col-span-4">
+              <div className="aspect-[4/5] overflow-hidden rounded-lg border border-outline-variant/30 bg-surface-container-low">
+                <img
+                  src={euniceAsset.url}
+                  alt="Eunice Barasa, Director of SustainaSpace Training Center"
+                  loading="lazy"
+                  className="h-full w-full object-cover object-[center_28%]"
+                />
+              </div>
+              <div className="mt-5 border-l-2 border-secondary pl-4">
+                <p className="font-display text-headline-sm text-primary">Eunice Barasa</p>
+                <p className="text-body-md text-on-surface-variant">Director</p>
+                <a
+                  href="https://www.linkedin.com/in/eunice-bilosio-barasa-0a67973b0"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3 inline-flex items-center gap-2 text-button text-secondary hover:text-primary"
+                >
+                  View LinkedIn profile
+                  <span className="material-symbols-outlined text-sm">open_in_new</span>
+                </a>
+              </div>
+            </div>
+
+            <div className="md:col-span-7 md:col-start-6">
+              <span className="label-caps mb-4 block text-secondary">Message from the Director</span>
+              <blockquote className="mb-8 border-l-2 border-secondary pl-5 font-display text-headline-sm italic text-primary">
+                “Sustainability occurs when solutions emerge from reconfigured values, not just
+                technical fixes.”
+              </blockquote>
+              <div className="space-y-5 text-body-md text-on-surface-variant">
+                <p>
+                  As Director, I am thrilled to welcome you to SustainaSpace Training Center, a
+                  knowledge institute in which we have made a deliberate commitment to educate and
+                  train for generational impact.
+                </p>
+                <p>
+                  We are living at a time when climate change, pollution, biodiversity loss and
+                  unemployment are reshaping government operations, business practices and individual
+                  choices. This transition calls for deliberate action and readiness for the changes
+                  that come with it.
+                </p>
+                <p>
+                  We use sustainability education as a transformational tool to shift mindsets,
+                  values, beliefs and behaviour towards economic prosperity, social inclusion and
+                  environmental stewardship.
+                </p>
+                <p>
+                  Whether you are an inquisitive explorer, prospective student or budding entrepreneur,
+                  you will learn from industry experts as you build your future with us. We trust you
+                  will find a reason to stay and become part of this community as we transform lives
+                  and our planet positively.
+                </p>
+              </div>
+            </div>
+          </div>
         </section>
 
         <section className="container-max grid grid-cols-1 gap-gutter px-margin-mobile pb-section-gap md:grid-cols-12 md:px-margin-desktop">
