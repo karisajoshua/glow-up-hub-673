@@ -8,17 +8,17 @@ const COVER = SCHOOL_LIST[0]!.img;
 export const Route = createFileRoute("/schools")({
   head: () => ({
     meta: [
-      { title: "Our Four Schools | S-STC Green Skills Training" },
+      { title: "Our Five Schools | S-STC Green Skills Training" },
       {
         name: "description",
         content:
-          "Four schools, one mission: Sustainable Professional Practice, Sustainable Skills & Technologies, Digital Literacy and Transitional Skills.",
+          "Five schools, one mission: Sustainable Professional Practice, Sustainable Skills & Technologies, Digital Literacy, Transitional Skills and Academic & Technical Studies.",
       },
       { property: "og:title", content: "S-STC Schools — Centers of Excellence" },
       {
         property: "og:description",
         content:
-          "Professional sustainability pathways, hands-on green making, digital literacy and transitional skills at SustainaSpace Training Center.",
+          "Professional sustainability pathways, hands-on green making, digital literacy, transitional skills and academic & technical studies at SustainaSpace Training Center.",
       },
       { property: "og:image", content: COVER },
       { name: "twitter:image", content: COVER },
@@ -29,7 +29,7 @@ export const Route = createFileRoute("/schools")({
       {
         name: "twitter:description",
         content:
-          "Four schools, one mission: Sustainable Professional Practice, Sustainable Skills & Technologies, Digital Literacy and Transitional Skills.",
+          "Five schools, one mission: Sustainable Professional Practice, Sustainable Skills & Technologies, Digital Literacy, Transitional Skills and Academic & Technical Studies.",
       },
     ],
     links: [{ rel: "canonical", href: "https://sstc.co.ke/schools" }],
