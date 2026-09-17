@@ -147,6 +147,119 @@ function AboutPage() {
         </section>
 
         <section className="container-max px-margin-mobile pb-section-gap md:px-margin-desktop">
+          <h2 className="label-caps mb-8 text-secondary">Mission, Vision and Values</h2>
+          <div className="grid grid-cols-1 gap-gutter md:grid-cols-3">
+            {[
+              {
+                icon: "flag",
+                title: "Mission",
+                body: "To democratise sustainability education, giving opportunity to ALL, appropriating the digital advantage.",
+              },
+              {
+                icon: "visibility",
+                title: "Vision",
+                body: "Be the best institution supporting the green transition, building a workforce equipped with corresponding capacity in skills and intellectual prowess that support the transition.",
+              },
+              {
+                icon: "diversity_3",
+                title: "Values",
+                body: "Economic prosperity, social inclusion and environmental stewardship \u2014 the pillars that guide every programme, partnership and decision we make.",
+              },
+            ].map((c) => (
+              <div
+                key={c.title}
+                className="rounded-lg border border-outline-variant/30 bg-surface-container-lowest p-8"
+              >
+                <span className="material-symbols-outlined mb-4 block text-3xl text-secondary">
+                  {c.icon}
+                </span>
+                <h3 className="mb-3 font-display text-headline-md text-primary">{c.title}</h3>
+                <p className="text-body-md text-on-surface-variant">{c.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="container-max grid grid-cols-1 gap-gutter px-margin-mobile pb-section-gap md:grid-cols-12 md:px-margin-desktop">
+          <div className="md:col-span-4">
+            <h2 className="font-display text-headline-lg text-primary">
+              Accreditation &amp; Membership
+            </h2>
+          </div>
+          <div className="md:col-span-7 md:col-start-6 space-y-8">
+            <div>
+              <h3 className="mb-2 font-display text-headline-sm text-primary">Accreditation</h3>
+              <p className="text-body-md text-on-surface-variant">In progress.</p>
+            </div>
+            <div>
+              <h3 className="mb-2 font-display text-headline-sm text-primary">Membership</h3>
+              <p className="text-body-md text-on-surface-variant">
+                S-STC is a Member of the Greening Education Partnership (GEP), a UNESCO initiative
+                born to help countries worldwide leverage the power of education as a driver of
+                climate action.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="container-max grid grid-cols-1 gap-gutter px-margin-mobile pb-section-gap md:grid-cols-12 md:px-margin-desktop">
+          <div className="md:col-span-4">
+            <h2 className="font-display text-headline-lg text-primary">Governance</h2>
+          </div>
+          <div className="md:col-span-7 md:col-start-6">
+            <h3 className="mb-3 font-display text-headline-sm text-primary">Board of Governors</h3>
+            <p className="mb-10 text-body-md text-on-surface-variant">Coming soon.</p>
+            <h3 className="mb-5 font-display text-headline-sm text-primary">Management</h3>
+            <ul className="divide-y divide-outline-variant/40 border-y border-outline-variant/40">
+              {[
+                {
+                  name: "Eunice Barasa",
+                  role: "Director",
+                  link: "https://www.linkedin.com/in/eunice-bilosio-barasa-0a67973b0",
+                },
+                { name: "Joshua Karisa", role: "Management" },
+                { name: "Johnstone Telegan Mundia", role: "Community Mobiliser" },
+              ].map((p) => (
+                <li key={p.name} className="flex flex-wrap items-center justify-between gap-3 py-4">
+                  <div>
+                    <p className="font-display text-title-lg text-primary">{p.name}</p>
+                    <p className="text-body-md text-on-surface-variant">{p.role}</p>
+                  </div>
+                  {p.link ? (
+                    <a
+                      href={p.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-button text-secondary hover:text-primary"
+                    >
+                      LinkedIn
+                      <span className="material-symbols-outlined text-sm">open_in_new</span>
+                    </a>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section className="container-max grid grid-cols-1 gap-gutter px-margin-mobile pb-section-gap md:grid-cols-12 md:px-margin-desktop">
+          <div className="md:col-span-4">
+            <h2 className="font-display text-headline-lg text-primary">Initiatives</h2>
+          </div>
+          <div className="md:col-span-7 md:col-start-6">
+            <div className="rounded-lg border-l-2 border-secondary bg-surface-container-low p-6">
+              <h3 className="mb-2 font-display text-headline-sm text-primary">
+                Readers Community Library
+              </h3>
+              <p className="text-body-md text-on-surface-variant">
+                A physical library serving the reading needs of the host community &mdash; coming
+                soon.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="container-max px-margin-mobile pb-section-gap md:px-margin-desktop">
           <div className="grid grid-cols-1 gap-gutter md:grid-cols-2">
             {[
               {
