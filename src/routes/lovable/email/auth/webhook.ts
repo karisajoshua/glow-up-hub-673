@@ -9,7 +9,7 @@ import { EmailChangeEmail } from '@/lib/email-templates/email-change'
 import { ReauthenticationEmail } from '@/lib/email-templates/reauthentication'
 
 // Configuration
-const SITE_NAME = "sstc"
+const SITE_NAME = "S-STC"
 const SENDER_DOMAIN = "notify.sstc.co.ke"
 const ROOT_DOMAIN = "sstc.co.ke"
 const FROM_DOMAIN = "sstc.co.ke"
