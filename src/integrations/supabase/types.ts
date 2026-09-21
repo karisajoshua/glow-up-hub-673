@@ -189,6 +189,7 @@ export type Database = {
       }
       masterclass_registrations: {
         Row: {
+          confirmation_email_sent_at: string | null
           created_at: string
           email: string
           full_name: string
@@ -196,10 +197,14 @@ export type Database = {
           id: string
           masterclass: string
           occupation: string
+          paid_at: string | null
+          paid_by: string | null
+          payment_status: string
           phone: string
           updated_at: string
         }
         Insert: {
+          confirmation_email_sent_at?: string | null
           created_at?: string
           email: string
           full_name: string
@@ -207,10 +212,14 @@ export type Database = {
           id?: string
           masterclass?: string
           occupation: string
+          paid_at?: string | null
+          paid_by?: string | null
+          payment_status?: string
           phone: string
           updated_at?: string
         }
         Update: {
+          confirmation_email_sent_at?: string | null
           created_at?: string
           email?: string
           full_name?: string
@@ -218,7 +227,34 @@ export type Database = {
           id?: string
           masterclass?: string
           occupation?: string
+          paid_at?: string | null
+          paid_by?: string | null
+          payment_status?: string
           phone?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      masterclass_sessions: {
+        Row: {
+          created_at: string
+          id: string
+          masterclass: string
+          meet_link: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          masterclass: string
+          meet_link?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          masterclass?: string
+          meet_link?: string | null
           updated_at?: string
         }
         Relationships: []
