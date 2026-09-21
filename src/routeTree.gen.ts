@@ -30,6 +30,7 @@ import { Route as AuthenticatedAdminMasterclassRouteImport } from './routes/_aut
 import { Route as AuthenticatedApplicationRouteImport } from './routes/_authenticated/application'
 import { Route as AuthenticatedMyApplicationRouteImport } from './routes/_authenticated/my-application'
 import { Route as AuthenticatedAdminIdRouteImport } from './routes/_authenticated/admin.$id'
+import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -138,6 +139,12 @@ const AuthenticatedAdminIdRoute = AuthenticatedAdminIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
+const LovableEmailTransactionalPreviewRoute =
+  LovableEmailTransactionalPreviewRouteImport.update({
+    id: '/lovable/email/transactional/preview',
+    path: '/lovable/email/transactional/preview',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -160,6 +167,7 @@ export interface FileRoutesByFullPath {
   '/application': typeof AuthenticatedApplicationRoute
   '/my-application': typeof AuthenticatedMyApplicationRoute
   '/admin/$id': typeof AuthenticatedAdminIdRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -182,6 +190,7 @@ export interface FileRoutesByTo {
   '/application': typeof AuthenticatedApplicationRoute
   '/my-application': typeof AuthenticatedMyApplicationRoute
   '/admin/$id': typeof AuthenticatedAdminIdRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -206,6 +215,7 @@ export interface FileRoutesById {
   '/_authenticated/application': typeof AuthenticatedApplicationRoute
   '/_authenticated/my-application': typeof AuthenticatedMyApplicationRoute
   '/_authenticated/admin/$id': typeof AuthenticatedAdminIdRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -230,6 +240,7 @@ export interface FileRouteTypes {
     | '/application'
     | '/my-application'
     | '/admin/$id'
+    | '/lovable/email/transactional/preview'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -252,6 +263,7 @@ export interface FileRouteTypes {
     | '/application'
     | '/my-application'
     | '/admin/$id'
+    | '/lovable/email/transactional/preview'
   id:
     | '__root__'
     | '/'
@@ -275,6 +287,7 @@ export interface FileRouteTypes {
     | '/_authenticated/application'
     | '/_authenticated/my-application'
     | '/_authenticated/admin/$id'
+    | '/lovable/email/transactional/preview'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -294,6 +307,7 @@ export interface RootRouteChildren {
   SchoolsRoute: typeof SchoolsRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -445,6 +459,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIdRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/lovable/email/transactional/preview': {
+      id: '/lovable/email/transactional/preview'
+      path: '/lovable/email/transactional/preview'
+      fullPath: '/lovable/email/transactional/preview'
+      preLoaderRoute: typeof LovableEmailTransactionalPreviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -493,6 +514,7 @@ const rootRouteChildren: RootRouteChildren = {
   SchoolsRoute: SchoolsRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

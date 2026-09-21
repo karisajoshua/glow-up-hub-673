@@ -97,7 +97,7 @@ export const confirmMasterclassPayment = createServerFn({ method: "POST" })
     }
 
     const sent = await sendConfirmation({
-      registrationId: reg.id,
+      registrationId: data.resend ? `${reg.id}-resend-${Date.now()}` : reg.id,
       masterclass: key,
       fullName: reg.full_name,
       email: reg.email,
@@ -114,13 +114,48 @@ export const confirmMasterclassPayment = createServerFn({ method: "POST" })
     return { ok: true as const, emailSent: sent.sent, emailNote: sent.reason ?? null };
   });
 
-async function sendConfirmation(_input: {
+async function sendConfirmation(input: {
   registrationId: string;
   masterclass: string;
   fullName: string;
   email: string;
   meetLink: string;
 }): Promise<{ sent: boolean; reason?: string }> {
-  // Email sending activates once the sstc.co.ke sender domain is verified.
-  return { sent: false, reason: "Email sending is not active yet — the sender domain is still being set up." };
+  const { MASTERCLASS, DIGITAL_CAREER_COMPASS } = await import("@/lib/masterclass");
+  const session = input.masterclass === "digital-career-compass" ? DIGITAL_CAREER_COMPASS : MASTERCLASS;
+
+  const { sendTemplateEmail } = await import("@/lib/email-templates/send-email");
+
+  try {
+    const result = await sendTemplateEmail("masterclass-confirmation", input.email, {
+      templateData: {
+        fullName: input.fullName,
+        masterclassTitle: session.title,
+        date: session.date,
+        time: session.time,
+        venue: session.venue,
+        meetLink: input.meetLink,
+      },
+      idempotencyKey: `masterclass-confirmation-${input.registrationId}`,
+    });
+
+    if (result.sent) return { sent: true };
+    return {
+      sent: false,
+      reason: "this address previously bounced or unsubscribed, so email cannot be delivered to it",
+    };
+  } catch (error) {
+    console.error("masterclass confirmation email failed", error);
+    const code =
+      error != null && typeof error === "object" && "code" in error
+        ? String((error as { code: unknown }).code)
+        : "";
+    if (code === "domain_not_verified") {
+      return { sent: false, reason: "the sending domain is still being verified" };
+    }
+    if (code === "emails_disabled") {
+      return { sent: false, reason: "email sending is currently switched off for this project" };
+    }
+    return { sent: false, reason: "the email service returned an error" };
+  }
 }
