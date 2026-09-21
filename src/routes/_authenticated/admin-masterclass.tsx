@@ -17,6 +17,7 @@ export const Route = createFileRoute("/_authenticated/admin-masterclass")({
 
 type Row = {
   id: string;
+  masterclass: string | null;
   full_name: string;
   phone: string;
   email: string;
@@ -25,10 +26,20 @@ type Row = {
   created_at: string;
 };
 
+const MASTERCLASS_LABELS: Record<string, string> = {
+  "green-job-readiness": "Green Job Readiness",
+  "digital-career-compass": "Digital Career Compass",
+};
+
+function masterclassLabel(key: string | null) {
+  return (key && MASTERCLASS_LABELS[key]) || "Green Job Readiness";
+}
+
 function AdminMasterclass() {
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [rows, setRows] = useState<Row[]>([]);
   const [search, setSearch] = useState("");
+  const [masterclassFilter, setMasterclassFilter] = useState<"all" | string>("all");
 
   useEffect(() => {
     (async () => {
