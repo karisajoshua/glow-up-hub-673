@@ -186,9 +186,7 @@ function MasterclassPage() {
         </section>
 
         <section id="apply-digital-career-compass" className="container-max mb-16 px-margin-mobile md:px-margin-desktop">
-          <div className="md:col-span-8">
-            <MasterclassForm masterclass="digital-career-compass" />
-          </div>
+          <MasterclassForm masterclass="digital-career-compass" />
         </section>
 
         <section id="apply" className="container-max px-margin-mobile md:px-margin-desktop">
