@@ -25,6 +25,12 @@ export const registerForMasterclass = createServerFn({ method: "POST" })
     });
 
     if (error) {
+      if (error.code === "23505") {
+        return {
+          ok: false as const,
+          error: "This email is already registered for this masterclass.",
+        };
+      }
       console.error("masterclass registration failed", error);
       return { ok: false as const, error: "Could not save your registration. Please try again." };
     }
