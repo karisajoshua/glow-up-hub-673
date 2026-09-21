@@ -1,36 +1,48 @@
-# sstc
+# SSTC Web Platform
 
-Build this app using the HTML files referenced below. You can hotlink the images referenced in the HTML. The attached images are screenshots of the desired screens. Here are public links to the html of the screens which you should read and use to build the app:
+The SSTC web platform is the digital foundation for SSTC's public website and future business operations.
 
-1. https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzAwMDY1OTQ1NTMzMTcyOTgwNDVhZDVlYmRkMDNlZDIzEgsSBxDW3aG1qhAYAZIBIwoKcHJvamVjdF9pZBIVQhMyNTIwNDk1MjU3MDgzMjMwOTU1&filename=&opi=89354086
-2. https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzAwMDY1OTQ0N2UwMzc0MjIwM2IxODBlNWI0MmE5MmIyEgsSBxDW3aG1qhAYAZIBIwoKcHJvamVjdF9pZBIVQhMyNTIwNDk1MjU3MDgzMjMwOTU1&filename=&opi=89354086
-3. https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzAwMDY1OTQ0N2U3MGE1NTMwMzU2ZWQ1Y2ZiMzdlYmRmEgsSBxDW3aG1qhAYAZIBIwoKcHJvamVjdF9pZBIVQhMyNTIwNDk1MjU3MDgzMjMwOTU1&filename=&opi=89354086
-4. https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzAwMDY1OTQ0ODFiNmRjNmIwMzU2ZWQ1Y2ZiMzdlYmRmEgsSBxDW3aG1qhAYAZIBIwoKcHJvamVjdF9pZBIVQhMyNTIwNDk1MjU3MDgzMjMwOTU1&filename=&opi=89354086
-5. https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzAwMDY1OTQ0ODIwZGM5N2YwMzU2ZWNiOGQ4MTM3YzE5EgsSBxDW3aG1qhAYAZIBIwoKcHJvamVjdF9pZBIVQhMyNTIwNDk1MjU3MDgzMjMwOTU1&filename=&opi=89354086
-6. https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzAwMDY1OTQ0ODgxNTkxOWUwNDVhZDU5YTAxMTFhOWE2EgsSBxDW3aG1qhAYAZIBIwoKcHJvamVjdF9pZBIVQhMyNTIwNDk1MjU3MDgzMjMwOTU1&filename=&opi=89354086
-7. https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzAwMDY1OTQ0ODdkNWM5NmIwMjNiZjg2ODA0M2I5MzY4EgsSBxDW3aG1qhAYAZIBIwoKcHJvamVjdF9pZBIVQhMyNTIwNDk1MjU3MDgzMjMwOTU1&filename=&opi=89354086
-8. https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzAwMDY1OTQ0ODc0OGUzODQwMjNiZGM3NGUwMzQ3MzAwEgsSBxDW3aG1qhAYAZIBIwoKcHJvamVjdF9pZBIVQhMyNTIwNDk1MjU3MDgzMjMwOTU1&filename=&opi=89354086
-9. https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzAwMDY1OTQ0ODdmZWM5ZTAwMzU2ZWNiOGQ4MTM3YzE5EgsSBxDW3aG1qhAYAZIBIwoKcHJvamVjdF9pZBIVQhMyNTIwNDk1MjU3MDgzMjMwOTU1&filename=&opi=89354086
+## Stack
 
-This project was built with [Lovable](https://lovable.dev).
+- React 19
+- TypeScript
+- TanStack Router / TanStack Start
+- Vite
+- Tailwind CSS
+- Supabase
+- Lovable
 
-**Live app**: https://glow-up-hub-673.lovable.app
+## Local development
 
-## Build with Lovable
+Requirements: Node.js 22+ and npm.
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/ffab8fa0-bf14-4b8c-874f-36d935739f06).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+```bash
+git clone https://github.com/karisajoshua/glow-up-hub-673.git
+cd glow-up-hub-673
+npm install
+cp .env.example .env
 npm run dev
 ```
+
+## Environment configuration
+
+Do not commit real environment files or privileged credentials. Copy `.env.example` to `.env` and provide the required Supabase values locally or in the deployment provider's environment settings.
+
+Only browser-safe Supabase publishable keys may be exposed to Vite. Never expose a Supabase service-role key in client-side variables.
+
+## Quality checks
+
+```bash
+npm run lint
+npm run build
+```
+
+## Production direction
+
+The platform can be extended from the SSTC public website into an operational system covering client management, projects, leads, proposals and quotations, contracts, invoicing, support, analytics, and AI-assisted workflows.
+
+## Deployment
+
+The project can be developed through Lovable or a standard Git workflow. Production environment variables should be configured in the hosting platform rather than committed to Git.
+
+Live Lovable app: https://glow-up-hub-673.lovable.app
