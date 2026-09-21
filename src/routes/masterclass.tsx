@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { MasterclassForm } from "@/components/site/MasterclassForm";
 import euniceAsset from "@/assets/eunice-barasa.jpg.asset.json";
-import { MASTERCLASS, UPCOMING_MASTERCLASSES } from "@/lib/masterclass";
+import { MASTERCLASS, DIGITAL_CAREER_COMPASS, UPCOMING_MASTERCLASSES } from "@/lib/masterclass";
 
 const SOCIAL_IMAGE = `https://sstc.co.ke${euniceAsset.url}`;
 
@@ -117,6 +117,49 @@ function MasterclassPage() {
         </section>
 
         <section className="container-max mb-16 px-margin-mobile md:px-margin-desktop">
+          <span className="label-caps mb-4 inline-block rounded-md border border-secondary/40 bg-secondary/10 px-4 py-2 text-secondary">
+            Upcoming masterclass
+          </span>
+          <h2 className="mb-6 font-display text-headline-lg text-primary md:text-display-md">
+            {DIGITAL_CAREER_COMPASS.title}
+          </h2>
+          <div className="mb-8 max-w-3xl">
+            {DIGITAL_CAREER_COMPASS.intro.map((paragraph) => (
+              <p key={paragraph.slice(0, 24)} className="mb-4 text-body-lg text-on-surface">
+                {paragraph}
+              </p>
+            ))}
+          </div>
+          <div className="mb-10 grid grid-cols-1 gap-gutter md:grid-cols-2">
+            {DIGITAL_CAREER_COMPASS.points.map((point) => (
+              <div
+                key={point.title}
+                className="rounded-lg border border-outline-variant/30 bg-surface p-8 shadow-sm transition-shadow hover:shadow-md"
+              >
+                <span className="material-symbols-outlined mb-4 block text-3xl text-secondary">
+                  {point.icon}
+                </span>
+                <h3 className="mb-3 font-display text-headline-sm text-primary">{point.title}</h3>
+                <p className="text-body-md text-on-surface-variant">{point.body}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mb-10 grid grid-cols-2 gap-gutter rounded-lg border border-outline-variant/30 bg-surface-container-low p-8 md:grid-cols-4">
+            <Detail icon="event" label="Date" value={DIGITAL_CAREER_COMPASS.date} />
+            <Detail icon="schedule" label="Time" value={DIGITAL_CAREER_COMPASS.time} />
+            <Detail icon="videocam" label="Venue" value={DIGITAL_CAREER_COMPASS.venue} />
+            <Detail icon="payments" label="Investment" value={DIGITAL_CAREER_COMPASS.fee} />
+          </div>
+          <a
+            href="#apply-digital-career-compass"
+            className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-button text-on-primary transition-colors hover:bg-secondary"
+          >
+            Apply now
+            <span className="material-symbols-outlined text-sm">arrow_forward</span>
+          </a>
+        </section>
+
+        <section className="container-max mb-16 px-margin-mobile md:px-margin-desktop">
           <h2 className="mb-3 font-display text-headline-lg text-primary">
             Upcoming Masterclasses
           </h2>
@@ -140,6 +183,10 @@ function MasterclassPage() {
               </div>
             ))}
           </div>
+        </section>
+
+        <section id="apply-digital-career-compass" className="container-max mb-16 px-margin-mobile md:px-margin-desktop">
+          <MasterclassForm masterclass="digital-career-compass" />
         </section>
 
         <section id="apply" className="container-max px-margin-mobile md:px-margin-desktop">

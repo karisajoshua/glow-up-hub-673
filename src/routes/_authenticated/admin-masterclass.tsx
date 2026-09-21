@@ -17,6 +17,7 @@ export const Route = createFileRoute("/_authenticated/admin-masterclass")({
 
 type Row = {
   id: string;
+  masterclass: string | null;
   full_name: string;
   phone: string;
   email: string;
@@ -25,10 +26,20 @@ type Row = {
   created_at: string;
 };
 
+const MASTERCLASS_LABELS: Record<string, string> = {
+  "green-job-readiness": "Green Job Readiness",
+  "digital-career-compass": "Digital Career Compass",
+};
+
+function masterclassLabel(key: string | null) {
+  return (key && MASTERCLASS_LABELS[key]) || "Green Job Readiness";
+}
+
 function AdminMasterclass() {
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [rows, setRows] = useState<Row[]>([]);
   const [search, setSearch] = useState("");
+  const [masterclassFilter, setMasterclassFilter] = useState<"all" | string>("all");
 
   useEffect(() => {
     (async () => {
@@ -48,7 +59,7 @@ function AdminMasterclass() {
       setIsAdmin(true);
       const { data } = await supabase
         .from("masterclass_registrations")
-        .select("id, full_name, phone, email, occupation, heard_about, created_at")
+        .select("id, masterclass, full_name, phone, email, occupation, heard_about, created_at")
         .order("created_at", { ascending: false });
       setRows((data ?? []) as Row[]);
     })();
@@ -56,12 +67,14 @@ function AdminMasterclass() {
 
   const filtered = useMemo(
     () =>
-      rows.filter((r) =>
-        `${r.full_name} ${r.email} ${r.phone} ${r.occupation}`
-          .toLowerCase()
-          .includes(search.toLowerCase()),
+      rows.filter(
+        (r) =>
+          (masterclassFilter === "all" || (r.masterclass ?? "green-job-readiness") === masterclassFilter) &&
+          `${r.full_name} ${r.email} ${r.phone} ${r.occupation}`
+            .toLowerCase()
+            .includes(search.toLowerCase()),
       ),
-    [rows, search],
+    [rows, search, masterclassFilter],
   );
 
   const thisWeek = useMemo(() => {
@@ -70,9 +83,17 @@ function AdminMasterclass() {
   }, [rows]);
 
   function exportCsv() {
-    const header = ["Name", "Phone", "Email", "Occupation", "Heard about", "Registered"];
+    const header = ["Name", "Phone", "Email", "Occupation", "Masterclass", "Heard about", "Registered"];
     const lines = filtered.map((r) =>
-      [r.full_name, r.phone, r.email, r.occupation, r.heard_about ?? "", r.created_at]
+      [
+        r.full_name,
+        r.phone,
+        r.email,
+        r.occupation,
+        masterclassLabel(r.masterclass),
+        r.heard_about ?? "",
+        r.created_at,
+      ]
         .map((v) => `"${String(v).replace(/"/g, '""')}"`)
         .join(","),
     );
@@ -112,6 +133,15 @@ function AdminMasterclass() {
           placeholder="Search name, email, phone or role"
           className="min-w-[260px] flex-1 rounded-md border border-outline-variant/50 bg-surface px-4 py-2.5 text-body-md text-on-surface focus:border-secondary focus:outline-none"
         />
+        <select
+          value={masterclassFilter}
+          onChange={(e) => setMasterclassFilter(e.target.value)}
+          className="rounded-md border border-outline-variant/50 bg-surface px-4 py-2.5 text-body-md text-on-surface focus:border-secondary focus:outline-none"
+        >
+          <option value="all">All masterclasses</option>
+          <option value="green-job-readiness">Green Job Readiness</option>
+          <option value="digital-career-compass">Digital Career Compass</option>
+        </select>
         <button
           type="button"
           onClick={exportCsv}
@@ -130,6 +160,7 @@ function AdminMasterclass() {
               <Th>Phone</Th>
               <Th>Email</Th>
               <Th>Occupation</Th>
+              <Th>Masterclass</Th>
               <Th>Heard about</Th>
               <Th>Registered</Th>
             </tr>
@@ -141,13 +172,14 @@ function AdminMasterclass() {
                 <Td>{r.phone}</Td>
                 <Td>{r.email}</Td>
                 <Td>{r.occupation}</Td>
+                <Td>{masterclassLabel(r.masterclass)}</Td>
                 <Td>{r.heard_about ?? "—"}</Td>
                 <Td>{new Date(r.created_at).toLocaleDateString("en-KE")}</Td>
               </tr>
             ))}
             {filtered.length === 0 && (
               <tr>
-                <td colSpan={6} className="p-6 text-center text-on-surface-variant">
+                <td colSpan={7} className="p-6 text-center text-on-surface-variant">
                   No registrations yet.
                 </td>
               </tr>
