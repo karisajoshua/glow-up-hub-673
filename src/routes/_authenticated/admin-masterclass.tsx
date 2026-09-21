@@ -59,7 +59,7 @@ function AdminMasterclass() {
       setIsAdmin(true);
       const { data } = await supabase
         .from("masterclass_registrations")
-        .select("id, full_name, phone, email, occupation, heard_about, created_at")
+        .select("id, masterclass, full_name, phone, email, occupation, heard_about, created_at")
         .order("created_at", { ascending: false });
       setRows((data ?? []) as Row[]);
     })();
@@ -67,12 +67,14 @@ function AdminMasterclass() {
 
   const filtered = useMemo(
     () =>
-      rows.filter((r) =>
-        `${r.full_name} ${r.email} ${r.phone} ${r.occupation}`
-          .toLowerCase()
-          .includes(search.toLowerCase()),
+      rows.filter(
+        (r) =>
+          (masterclassFilter === "all" || (r.masterclass ?? "green-job-readiness") === masterclassFilter) &&
+          `${r.full_name} ${r.email} ${r.phone} ${r.occupation}`
+            .toLowerCase()
+            .includes(search.toLowerCase()),
       ),
-    [rows, search],
+    [rows, search, masterclassFilter],
   );
 
   const thisWeek = useMemo(() => {
@@ -81,9 +83,17 @@ function AdminMasterclass() {
   }, [rows]);
 
   function exportCsv() {
-    const header = ["Name", "Phone", "Email", "Occupation", "Heard about", "Registered"];
+    const header = ["Name", "Phone", "Email", "Occupation", "Masterclass", "Heard about", "Registered"];
     const lines = filtered.map((r) =>
-      [r.full_name, r.phone, r.email, r.occupation, r.heard_about ?? "", r.created_at]
+      [
+        r.full_name,
+        r.phone,
+        r.email,
+        r.occupation,
+        masterclassLabel(r.masterclass),
+        r.heard_about ?? "",
+        r.created_at,
+      ]
         .map((v) => `"${String(v).replace(/"/g, '""')}"`)
         .join(","),
     );
