@@ -3,7 +3,12 @@ import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 
 import logoAsset from "@/assets/sstc-logo.jpg.asset.json";
-import { HEARD_ABOUT_OPTIONS, MASTERCLASS } from "@/lib/masterclass";
+import {
+  DIGITAL_CAREER_COMPASS,
+  HEARD_ABOUT_OPTIONS,
+  MASTERCLASS,
+  type MasterclassKey,
+} from "@/lib/masterclass";
 import { registerForMasterclass } from "@/lib/masterclass.functions";
 
 type Values = {
@@ -18,6 +23,52 @@ const EMPTY: Values = { full_name: "", phone: "", email: "", occupation: "", hea
 
 const BRAND_PRIMARY_FALLBACK: [number, number, number] = [36, 91, 158];
 const BRAND_SECONDARY_FALLBACK: [number, number, number] = [43, 126, 65];
+
+type Session = {
+  key: MasterclassKey;
+  title: string;
+  quote?: string;
+  date: string;
+  time: string;
+  venue: string;
+  fee: string;
+  contactName: string;
+  contactPhone: string;
+  whatsappNumber: string;
+  facilitatorLine: string;
+  fileLabel?: string;
+};
+
+const SESSIONS: Record<MasterclassKey, Session> = {
+  "green-job-readiness": {
+    key: "green-job-readiness",
+    title: MASTERCLASS.title,
+    quote: MASTERCLASS.quote,
+    date: MASTERCLASS.date,
+    time: MASTERCLASS.time,
+    venue: MASTERCLASS.venue,
+    fee: MASTERCLASS.fee,
+    contactName: MASTERCLASS.facilitator.name,
+    contactPhone: MASTERCLASS.facilitator.phone,
+    whatsappNumber: MASTERCLASS.whatsappNumber,
+    facilitatorLine: `${MASTERCLASS.facilitator.name} — ${MASTERCLASS.facilitator.role}`,
+  },
+  "digital-career-compass": {
+    key: "digital-career-compass",
+    title: DIGITAL_CAREER_COMPASS.title,
+    quote:
+      "Delivered by an industry expert — current in-demand digital skills and their relevance in the green economy and job creation.",
+    date: DIGITAL_CAREER_COMPASS.date,
+    time: DIGITAL_CAREER_COMPASS.time,
+    venue: DIGITAL_CAREER_COMPASS.venue,
+    fee: DIGITAL_CAREER_COMPASS.fee,
+    contactName: DIGITAL_CAREER_COMPASS.facilitator.name,
+    contactPhone: DIGITAL_CAREER_COMPASS.facilitator.phone,
+    whatsappNumber: DIGITAL_CAREER_COMPASS.whatsappNumber,
+    facilitatorLine: "Delivered by an industry expert",
+    fileLabel: "Digital-Career-Compass",
+  },
+};
 
 function readBrandColour(token: "--primary" | "--secondary", fallback: [number, number, number]) {
   const value = getComputedStyle(document.documentElement).getPropertyValue(token).trim();
@@ -86,7 +137,7 @@ function validate(values: Values) {
   return errors;
 }
 
-async function buildPdf(values: Values) {
+async function buildPdf(values: Values, session: Session) {
   const { jsPDF } = await import("jspdf");
   const doc = new jsPDF({ unit: "pt", format: "a4" });
   const width = doc.internal.pageSize.getWidth();
@@ -117,13 +168,13 @@ async function buildPdf(values: Values) {
   doc.setTextColor(...primary);
   doc.setFont("times", "bold");
   doc.setFontSize(20);
-  doc.text(MASTERCLASS.title, 48, y);
+  doc.text(session.title, 48, y);
 
   y += 24;
   doc.setFont("helvetica", "italic");
   doc.setFontSize(11);
   doc.setTextColor(70, 70, 70);
-  doc.text(doc.splitTextToSize(MASTERCLASS.quote, width - 96), 48, y);
+  doc.text(doc.splitTextToSize(session.quote ?? "", width - 96), 48, y);
 
   y += 48;
   doc.setFont("helvetica", "bold");
@@ -132,11 +183,11 @@ async function buildPdf(values: Values) {
   doc.text("Session details", 48, y);
 
   const details: [string, string][] = [
-    ["Date", MASTERCLASS.date],
-    ["Time", MASTERCLASS.time],
-    ["Venue", MASTERCLASS.venue],
-    ["Investment", MASTERCLASS.fee],
-    ["Facilitator", `${MASTERCLASS.facilitator.name} — ${MASTERCLASS.facilitator.role}`],
+    ["Date", session.date],
+    ["Time", session.time],
+    ["Venue", session.venue],
+    ["Investment", session.fee],
+    ["Facilitator", session.facilitatorLine],
   ];
 
   y += 8;
@@ -190,8 +241,8 @@ async function buildPdf(values: Values) {
   doc.setTextColor(40, 40, 40);
   doc.text(
     doc.splitTextToSize(
-      `Send this registration to ${MASTERCLASS.facilitator.name} on WhatsApp (${MASTERCLASS.facilitator.phone}). ` +
-        `You will receive payment instructions for the ${MASTERCLASS.fee} investment and the Google Meet joining link before the session.`,
+      `Send this registration to ${session.contactName} on WhatsApp (${session.contactPhone}). ` +
+        `You will receive payment instructions for the ${session.fee} investment and the Google Meet joining link before the session.`,
       width - 96,
     ),
     48,
@@ -208,19 +259,25 @@ async function buildPdf(values: Values) {
   doc.text("Green skills for generational impact", width - 48, height - 17, { align: "right" });
 
   const slug = values.full_name.trim().replace(/[^a-zA-Z0-9]+/g, "-").replace(/^-|-$/g, "") || "Applicant";
-  return { doc, filename: `SSTC-Masterclass-${slug}.pdf` };
+  return {
+    doc,
+    filename: session.fileLabel
+      ? `SSTC-Masterclass-${session.fileLabel}-${slug}.pdf`
+      : `SSTC-Masterclass-${slug}.pdf`,
+  };
 }
 
-function whatsappUrl(name: string) {
+function whatsappUrl(name: string, session: Session) {
   const text =
-    `Hello ${MASTERCLASS.facilitator.name}, my name is ${name}. ` +
-    `I have registered for the ${MASTERCLASS.title} (${MASTERCLASS.date}). ` +
+    `Hello ${session.contactName}, my name is ${name}. ` +
+    `I have registered for the ${session.title} (${session.date}). ` +
     `My registration PDF has just downloaded to this device — please find it attached. ` +
-    `Kindly share the payment instructions for the ${MASTERCLASS.fee} and the joining link.`;
-  return `https://wa.me/${MASTERCLASS.whatsappNumber}?text=${encodeURIComponent(text)}`;
+    `Kindly share the payment instructions for the ${session.fee} and the joining link.`;
+  return `https://wa.me/${session.whatsappNumber}?text=${encodeURIComponent(text)}`;
 }
 
-export function MasterclassForm() {
+export function MasterclassForm({ masterclass }: { masterclass?: MasterclassKey }) {
+  const session = SESSIONS[masterclass ?? "green-job-readiness"];
   const register = useServerFn(registerForMasterclass);
   const [values, setValues] = useState<Values>(EMPTY);
   const [errors, setErrors] = useState<Partial<Record<keyof Values, string>>>({});
@@ -228,7 +285,7 @@ export function MasterclassForm() {
   const [done, setDone] = useState<Values | null>(null);
 
   async function downloadPdf(v: Values) {
-    const { doc, filename } = await buildPdf(v);
+    const { doc, filename } = await buildPdf(v, session);
     doc.save(filename);
   }
 
@@ -240,13 +297,15 @@ export function MasterclassForm() {
 
     setSubmitting(true);
     try {
-      const result = await register({ data: { ...values, heard_about: values.heard_about } });
+      const result = await register({
+        data: { masterclass: session.key, ...values, heard_about: values.heard_about },
+      });
       if (!result.ok) {
         toast.error(result.error);
         return;
       }
       await downloadPdf(values);
-      window.open(whatsappUrl(values.full_name.trim()), "_blank", "noopener,noreferrer");
+      window.open(whatsappUrl(values.full_name.trim(), session), "_blank", "noopener,noreferrer");
       setDone(values);
       toast.success("Registration saved and your PDF has downloaded.");
     } catch (error) {
@@ -266,8 +325,8 @@ export function MasterclassForm() {
         <h3 className="mb-3 font-display text-headline-md text-primary">You&apos;re registered</h3>
         <p className="mb-4 text-body-md text-on-surface-variant">
           Your branded registration PDF has downloaded and WhatsApp opened with a message ready for{" "}
-          {MASTERCLASS.facilitator.name}. Attach the downloaded PDF to that chat and send it — you will
-          get the {MASTERCLASS.fee} payment instructions and the Google Meet link in reply.
+          {session.contactName}. Attach the downloaded PDF to that chat and send it — you will get the{" "}
+          {session.fee} payment instructions and the Google Meet link in reply.
         </p>
         <div className="flex flex-wrap gap-3">
           <button
@@ -279,7 +338,7 @@ export function MasterclassForm() {
             Download PDF again
           </button>
           <a
-            href={whatsappUrl(done.full_name.trim())}
+            href={whatsappUrl(done.full_name.trim(), session)}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-md bg-secondary px-5 py-2.5 text-button text-on-primary transition-colors hover:bg-primary"
@@ -298,10 +357,12 @@ export function MasterclassForm() {
       className="rounded-lg border border-outline-variant/30 bg-surface p-8 shadow-sm"
       noValidate
     >
-      <h3 className="mb-2 font-display text-headline-md text-primary">Apply for the masterclass</h3>
+      <h3 className="mb-2 font-display text-headline-md text-primary">
+        Apply for {session.title}
+      </h3>
       <p className="mb-6 text-body-sm text-on-surface-variant">
         Complete these details. On submit we create your branded registration PDF and open WhatsApp so
-        you can send it to {MASTERCLASS.facilitator.name}.
+        you can send it to {session.contactName}.
       </p>
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
@@ -363,7 +424,7 @@ export function MasterclassForm() {
         {submitting ? "Preparing your PDF…" : "Submit & send on WhatsApp"}
       </button>
       <p className="mt-4 text-body-sm text-on-surface-variant">
-        Investment {MASTERCLASS.fee}. Payment instructions are shared on WhatsApp after you send your
+        Investment {session.fee}. Payment instructions are shared on WhatsApp after you send your
         registration.
       </p>
     </form>
