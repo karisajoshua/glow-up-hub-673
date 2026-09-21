@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { MasterclassForm } from "@/components/site/MasterclassForm";
 import euniceAsset from "@/assets/eunice-barasa.jpg.asset.json";
-import { MASTERCLASS, UPCOMING_MASTERCLASSES } from "@/lib/masterclass";
+import { MASTERCLASS, DIGITAL_CAREER_COMPASS, UPCOMING_MASTERCLASSES } from "@/lib/masterclass";
 
 const SOCIAL_IMAGE = `https://sstc.co.ke${euniceAsset.url}`;
 
@@ -182,6 +182,12 @@ function MasterclassPage() {
                 <span className="label-caps text-on-surface-variant">Dates coming soon</span>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section id="apply-digital-career-compass" className="container-max mb-16 px-margin-mobile md:px-margin-desktop">
+          <div className="md:col-span-8">
+            <MasterclassForm masterclass="digital-career-compass" />
           </div>
         </section>
 
