@@ -1,239 +1,69 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { SiteHeader } from "@/components/site/SiteHeader";
-import { SiteFooter } from "@/components/site/SiteFooter";
-import { MasterclassForm } from "@/components/site/MasterclassForm";
 import euniceAsset from "@/assets/eunice-barasa.jpg.asset.json";
-import { MASTERCLASS, DIGITAL_CAREER_COMPASS, UPCOMING_MASTERCLASSES } from "@/lib/masterclass";
+import { MasterclassForm } from "@/components/site/MasterclassForm";
+import { SiteFooter } from "@/components/site/SiteFooter";
+import { SiteHeader } from "@/components/site/SiteHeader";
+import { DIGITAL_CAREER_COMPASS, MASTERCLASS, UPCOMING_MASTERCLASSES } from "@/lib/masterclass";
 
 const SOCIAL_IMAGE = `https://sstc.co.ke${euniceAsset.url}`;
-
-const DESCRIPTION =
-  "A half-day virtual masterclass that takes you from wanting a green job to proving you are ready for one — green job market, employer expectations, four key green skills and your professional profile.";
+const DESCRIPTION = "Practical S-STC masterclasses for green and digital careers — build skills, evidence and professional readiness for your next opportunity.";
 
 export const Route = createFileRoute("/masterclass")({
-  head: () => ({
-    meta: [
-      { title: "Green Job Readiness Masterclass | S-STC" },
-      { name: "description", content: DESCRIPTION },
-      { property: "og:title", content: "Green Job Readiness Masterclass — S-STC" },
-      { property: "og:description", content: DESCRIPTION },
-      { property: "og:image", content: SOCIAL_IMAGE },
-      { name: "twitter:image", content: SOCIAL_IMAGE },
-      { property: "og:url", content: "https://sstc.co.ke/masterclass" },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Green Job Readiness Masterclass — S-STC" },
-      { name: "twitter:description", content: DESCRIPTION },
-    ],
-    links: [{ rel: "canonical", href: "https://sstc.co.ke/masterclass" }],
-  }),
+  head: () => ({ meta: [
+    { title: "Career Masterclasses | S-STC" }, { name: "description", content: DESCRIPTION },
+    { property: "og:title", content: "Career Masterclasses — S-STC" }, { property: "og:description", content: DESCRIPTION },
+    { property: "og:image", content: SOCIAL_IMAGE }, { property: "og:url", content: "https://sstc.co.ke/masterclass" },
+    { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+  ], links: [{ rel: "canonical", href: "https://sstc.co.ke/masterclass" }] }),
   component: MasterclassPage,
 });
 
 function MasterclassPage() {
-  return (
-    <div className="flex min-h-screen flex-col">
-      <SiteHeader />
-      <main className="flex-grow pb-section-gap pt-[120px] md:pt-[140px]">
-        <header className="container-max mb-16 px-margin-mobile md:px-margin-desktop">
-          <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-12">
-            <div className="md:col-span-7 md:pr-6">
-              <span className="label-caps mb-4 inline-block rounded-md border border-secondary/40 bg-secondary/10 px-4 py-2 text-secondary">
-                Masterclass
-              </span>
-              <h1 className="mb-6 font-display text-display-lg text-primary md:text-display-xl">
-                {MASTERCLASS.title}
-              </h1>
-              <p className="mb-6 max-w-2xl text-body-lg text-on-surface">{MASTERCLASS.tagline}</p>
-              <blockquote className="max-w-2xl border-l-2 border-secondary pl-5 font-display text-headline-sm italic text-primary">
-                {MASTERCLASS.quote}
-              </blockquote>
-              <a
-                href="#apply"
-                className="mt-8 inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-button text-on-primary transition-colors hover:bg-secondary"
-              >
-                Apply now
-                <span className="material-symbols-outlined text-sm">arrow_forward</span>
-              </a>
-            </div>
-            <div className="md:col-span-5">
-              <div className="overflow-hidden rounded-lg border border-outline-variant/30 bg-surface shadow-sm">
-                <div className="aspect-[4/5] overflow-hidden">
-                  <img
-                    src={euniceAsset.url}
-                    alt="Eunice Barasa, Green Job Readiness Masterclass facilitator"
-                    className="h-full w-full object-cover object-[center_28%]"
-                  />
-                </div>
-                <div className="border-t border-outline-variant/30 p-6">
-                  <p className="label-caps mb-2 text-secondary">Your facilitator</p>
-                  <h2 className="mb-1 font-display text-headline-md text-primary">
-                    {MASTERCLASS.facilitator.name}
-                  </h2>
-                  <p className="mb-4 text-body-md text-on-surface-variant">
-                    {MASTERCLASS.facilitator.role}
-                  </p>
-                  <a
-                    href={`https://wa.me/${MASTERCLASS.whatsappNumber}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-button text-secondary hover:text-primary"
-                  >
-                    <span className="material-symbols-outlined text-sm">chat</span>
-                    {MASTERCLASS.facilitator.phone}
-                  </a>
-                </div>
-              </div>
+  return <div className="flex min-h-screen flex-col bg-background">
+    <SiteHeader />
+    <main className="flex-grow pt-[88px] md:pt-[104px]">
+      <section className="relative overflow-hidden bg-primary text-on-primary">
+        <div className="container-max relative grid items-center gap-10 px-margin-mobile py-14 md:grid-cols-12 md:px-margin-desktop md:py-20">
+          <div className="md:col-span-7">
+            <span className="mb-5 inline-flex rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]">Live virtual masterclass · Limited registration</span>
+            <h1 className="max-w-3xl font-display text-4xl leading-tight md:text-6xl">{MASTERCLASS.title}</h1>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-white/85">{MASTERCLASS.tagline}</p>
+            <div className="mt-8 flex flex-wrap gap-3 text-sm"><Pill icon="event" text={MASTERCLASS.date}/><Pill icon="schedule" text={MASTERCLASS.time}/><Pill icon="videocam" text={MASTERCLASS.venue}/><Pill icon="payments" text={MASTERCLASS.fee}/></div>
+            <div className="mt-9 flex flex-wrap gap-3">
+              <a href="#register" className="inline-flex items-center gap-2 rounded-md bg-secondary px-7 py-3.5 font-semibold text-white">Reserve your place <span className="material-symbols-outlined text-lg">arrow_forward</span></a>
+              <a href="#learn" className="rounded-md border border-white/30 px-7 py-3.5 font-semibold text-white hover:bg-white/10">See what you’ll learn</a>
             </div>
           </div>
-        </header>
+          <div className="md:col-span-5"><div className="mx-auto max-w-md overflow-hidden rounded-2xl border border-white/15 bg-white/10 p-2 shadow-2xl">
+            <img src={euniceAsset.url} alt="Eunice Barasa, masterclass facilitator" className="aspect-[4/5] w-full rounded-xl object-cover object-[center_28%]"/>
+            <div className="p-5"><p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/65">Facilitator</p><p className="mt-1 font-display text-2xl">{MASTERCLASS.facilitator.name}</p><p className="mt-1 text-sm text-white/75">{MASTERCLASS.facilitator.role}</p></div>
+          </div></div>
+        </div>
+      </section>
 
-        <section className="container-max mb-16 px-margin-mobile md:px-margin-desktop">
-          <div className="grid grid-cols-2 gap-gutter rounded-lg border border-outline-variant/30 bg-surface-container-low p-8 md:grid-cols-4">
-            <Detail icon="event" label="Date" value={MASTERCLASS.date} />
-            <Detail icon="schedule" label="Time" value={MASTERCLASS.time} />
-            <Detail icon="videocam" label="Venue" value={MASTERCLASS.venue} />
-            <Detail icon="payments" label="Investment" value={MASTERCLASS.fee} />
-          </div>
-        </section>
+      <section id="learn" className="container-max px-margin-mobile py-16 md:px-margin-desktop md:py-20">
+        <div className="mx-auto mb-10 max-w-3xl text-center"><span className="label-caps text-secondary">Practical. Relevant. Career-focused.</span><h2 className="mt-3 font-display text-3xl text-primary md:text-4xl">Leave with more than information</h2><p className="mt-4 text-body-lg text-on-surface-variant">Build the language, evidence and professional positioning you need to compete for opportunities in the green economy.</p></div>
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">{MASTERCLASS.gains.map((gain,i)=><article key={gain.title} className="rounded-xl border border-outline-variant/30 bg-surface p-7 shadow-sm"><div className="mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-secondary/10 text-secondary"><span className="material-symbols-outlined">{gain.icon}</span></div><p className="mb-2 text-xs font-semibold uppercase tracking-widest text-on-surface-variant">0{i+1}</p><h3 className="font-display text-xl text-primary">{gain.title}</h3><p className="mt-3 text-body-md leading-7 text-on-surface-variant">{gain.body}</p></article>)}</div>
+      </section>
 
-        <section className="container-max mb-16 px-margin-mobile md:px-margin-desktop">
-          <h2 className="mb-8 font-display text-headline-lg text-primary">What You&apos;ll Gain</h2>
-          <div className="grid grid-cols-1 gap-gutter md:grid-cols-2">
-            {MASTERCLASS.gains.map((gain) => (
-              <div
-                key={gain.title}
-                className="rounded-lg border border-outline-variant/30 bg-surface p-8 shadow-sm transition-shadow hover:shadow-md"
-              >
-                <span className="material-symbols-outlined mb-4 block text-3xl text-secondary">
-                  {gain.icon}
-                </span>
-                <h3 className="mb-3 font-display text-headline-sm text-primary">{gain.title}</h3>
-                <p className="text-body-md text-on-surface-variant">{gain.body}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+      <section className="bg-surface-container-low"><div className="container-max grid gap-10 px-margin-mobile py-16 md:grid-cols-2 md:px-margin-desktop">
+        <div><span className="label-caps text-secondary">Who this is for</span><h2 className="mt-3 font-display text-3xl text-primary">For people ready to turn interest into evidence</h2><p className="mt-4 text-body-lg leading-8 text-on-surface-variant">Ideal for students, graduates, professionals changing direction, development practitioners and anyone seeking a credible entry point into green careers.</p></div>
+        <div className="grid gap-4">{["Understand where your existing skills fit in the green economy","Identify gaps employers expect you to close","Position your CV, LinkedIn and experience more convincingly","Leave with clear next actions instead of generic career advice"].map(x=><div key={x} className="flex gap-3 rounded-lg bg-surface p-5"><span className="material-symbols-outlined text-secondary">check_circle</span><p>{x}</p></div>)}</div>
+      </div></section>
 
-        <section className="container-max mb-16 px-margin-mobile md:px-margin-desktop">
-          <span className="label-caps mb-4 inline-block rounded-md border border-secondary/40 bg-secondary/10 px-4 py-2 text-secondary">
-            Upcoming masterclass
-          </span>
-          <h2 className="mb-6 font-display text-headline-lg text-primary md:text-display-md">
-            {DIGITAL_CAREER_COMPASS.title}
-          </h2>
-          <div className="mb-8 max-w-3xl">
-            {DIGITAL_CAREER_COMPASS.intro.map((paragraph) => (
-              <p key={paragraph.slice(0, 24)} className="mb-4 text-body-lg text-on-surface">
-                {paragraph}
-              </p>
-            ))}
-          </div>
-          <div className="mb-10 grid grid-cols-1 gap-gutter md:grid-cols-2">
-            {DIGITAL_CAREER_COMPASS.points.map((point) => (
-              <div
-                key={point.title}
-                className="rounded-lg border border-outline-variant/30 bg-surface p-8 shadow-sm transition-shadow hover:shadow-md"
-              >
-                <span className="material-symbols-outlined mb-4 block text-3xl text-secondary">
-                  {point.icon}
-                </span>
-                <h3 className="mb-3 font-display text-headline-sm text-primary">{point.title}</h3>
-                <p className="text-body-md text-on-surface-variant">{point.body}</p>
-              </div>
-            ))}
-          </div>
-          <div className="mb-10 grid grid-cols-2 gap-gutter rounded-lg border border-outline-variant/30 bg-surface-container-low p-8 md:grid-cols-4">
-            <Detail icon="event" label="Date" value={DIGITAL_CAREER_COMPASS.date} />
-            <Detail icon="schedule" label="Time" value={DIGITAL_CAREER_COMPASS.time} />
-            <Detail icon="videocam" label="Venue" value={DIGITAL_CAREER_COMPASS.venue} />
-            <Detail icon="payments" label="Investment" value={DIGITAL_CAREER_COMPASS.fee} />
-          </div>
-          <a
-            href="#apply-digital-career-compass"
-            className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-button text-on-primary transition-colors hover:bg-secondary"
-          >
-            Apply now
-            <span className="material-symbols-outlined text-sm">arrow_forward</span>
-          </a>
-        </section>
+      <section id="register" className="container-max grid gap-8 px-margin-mobile py-16 md:grid-cols-12 md:px-margin-desktop md:py-20">
+        <div className="md:col-span-8"><MasterclassForm /></div>
+        <aside className="space-y-5 md:col-span-4">
+          <div className="rounded-xl bg-primary p-7 text-on-primary"><span className="material-symbols-outlined text-3xl text-secondary">verified_user</span><h3 className="mt-4 font-display text-2xl">From registration to joining</h3><ol className="mt-5 space-y-4 text-sm text-white/80"><li><strong className="text-white">1.</strong> Complete your registration.</li><li><strong className="text-white">2.</strong> Pay the {MASTERCLASS.fee} investment.</li><li><strong className="text-white">3.</strong> S-STC verifies your payment.</li><li><strong className="text-white">4.</strong> Your Google Meet details are released.</li></ol></div>
+          <div className="rounded-xl border border-outline-variant/30 bg-surface p-7"><p className="label-caps text-secondary">Payment options</p><h3 className="mt-2 font-display text-xl text-primary">M-Pesa & PayPal</h3><p className="mt-3 text-sm leading-6 text-on-surface-variant">Your joining link is only released after payment verification. Automated M-Pesa and PayPal verification is the next integration.</p><a href="https://www.paypal.com/ncp/payment/CQ3XNRDHUJQJ8" target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center gap-2 text-button text-secondary hover:underline">Pay with PayPal <span className="material-symbols-outlined text-sm">open_in_new</span></a></div>
+        </aside>
+      </section>
 
-        <section className="container-max mb-16 px-margin-mobile md:px-margin-desktop">
-          <h2 className="mb-3 font-display text-headline-lg text-primary">
-            Upcoming Masterclasses
-          </h2>
-          <p className="mb-8 max-w-2xl text-body-md text-on-surface-variant">
-            More masterclasses are being scheduled. Register your interest with us and we will share
-            dates as soon as they are confirmed.
-          </p>
-          <div className="grid grid-cols-1 gap-gutter md:grid-cols-2">
-            {UPCOMING_MASTERCLASSES.map((m) => (
-              <div
-                key={m.title}
-                className="rounded-lg border border-outline-variant/30 bg-surface-container-low p-8"
-              >
-                <span className="material-symbols-outlined mb-4 block text-3xl text-secondary">
-                  {m.icon}
-                </span>
-                <h3 className="mb-2 font-display text-headline-sm text-primary">{m.title}</h3>
-                <p className="mb-3 text-body-md font-medium text-secondary">{m.subtitle}</p>
-                <p className="mb-4 text-body-md text-on-surface-variant">{m.body}</p>
-                <span className="label-caps text-on-surface-variant">Dates coming soon</span>
-              </div>
-            ))}
-          </div>
-        </section>
+      <section className="container-max px-margin-mobile pb-16 md:px-margin-desktop"><div className="rounded-2xl border border-outline-variant/30 bg-surface p-8 md:p-10"><span className="label-caps text-secondary">Also open for registration</span><div className="mt-4 grid gap-8 md:grid-cols-2 md:items-start"><div><h2 className="font-display text-3xl text-primary">{DIGITAL_CAREER_COMPASS.title}</h2><p className="mt-4 text-body-md leading-7 text-on-surface-variant">{DIGITAL_CAREER_COMPASS.intro[1]}</p><p className="mt-5 text-sm text-on-surface-variant">{DIGITAL_CAREER_COMPASS.date} · {DIGITAL_CAREER_COMPASS.time} · <strong className="text-primary">{DIGITAL_CAREER_COMPASS.fee}</strong></p></div><div><MasterclassForm masterclass="digital-career-compass"/></div></div></div></section>
 
-        <section id="apply-digital-career-compass" className="container-max mb-16 px-margin-mobile md:px-margin-desktop">
-          <MasterclassForm masterclass="digital-career-compass" />
-        </section>
-
-        <section id="apply" className="container-max px-margin-mobile md:px-margin-desktop">
-          <div className="grid grid-cols-1 gap-gutter md:grid-cols-12">
-            <div className="md:col-span-8">
-              <MasterclassForm />
-            </div>
-            <aside className="md:col-span-4">
-              <div className="rounded-lg border-l-2 border-secondary bg-surface-container-low p-6">
-                <h3 className="mb-3 font-display text-headline-sm text-primary">
-                  How payment works
-                </h3>
-                <p className="mb-4 text-body-md text-on-surface-variant">
-                  The masterclass investment is {MASTERCLASS.fee}. Once you send your registration PDF
-                  on WhatsApp, S-STC sends you the payment instructions and your Google Meet joining
-                  link. You can pay securely through our PayPal link below, or follow the payment
-                  instructions we send you after registration.
-                </p>
-                <a
-                  href="https://www.paypal.com/ncp/payment/CQ3XNRDHUJQJ8"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-button text-on-primary transition-colors hover:bg-secondary"
-                >
-                  <span className="material-symbols-outlined text-sm">credit_card</span>
-                  Pay with PayPal
-                </a>
-                <p className="mt-3 text-body-sm text-on-surface-variant">
-                  Pay {MASTERCLASS.fee} and include your full name as the payment reference so we can
-                  match your payment to your registration.
-                </p>
-              </div>
-            </aside>
-          </div>
-        </section>
-      </main>
-      <SiteFooter />
-    </div>
-  );
+      <section className="container-max px-margin-mobile pb-20 md:px-margin-desktop"><h2 className="font-display text-3xl text-primary">Coming next</h2><div className="mt-6 grid gap-5 md:grid-cols-2">{UPCOMING_MASTERCLASSES.map(m=><div key={m.title} className="rounded-xl border border-outline-variant/30 bg-surface-container-low p-7"><span className="material-symbols-outlined text-3xl text-secondary">{m.icon}</span><h3 className="mt-4 font-display text-xl text-primary">{m.title}</h3><p className="mt-1 font-medium text-secondary">{m.subtitle}</p><p className="mt-3 text-body-md text-on-surface-variant">{m.body}</p></div>)}</div></section>
+    </main><SiteFooter />
+  </div>;
 }
-
-function Detail({ icon, label, value }: { icon: string; label: string; value: string }) {
-  return (
-    <div>
-      <span className="material-symbols-outlined mb-2 block text-2xl text-secondary">{icon}</span>
-      <p className="label-caps mb-1 text-on-surface-variant">{label}</p>
-      <p className="font-display text-title-lg text-primary">{value}</p>
-    </div>
-  );
-}
+function Pill({icon,text}:{icon:string;text:string}){return <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-white/90"><span className="material-symbols-outlined text-base">{icon}</span>{text}</span>;}
