@@ -194,6 +194,7 @@ export type Database = {
           full_name: string
           heard_about: string | null
           id: string
+          masterclass: string
           occupation: string
           phone: string
           updated_at: string
@@ -204,6 +205,7 @@ export type Database = {
           full_name: string
           heard_about?: string | null
           id?: string
+          masterclass?: string
           occupation: string
           phone: string
           updated_at?: string
@@ -214,6 +216,7 @@ export type Database = {
           full_name?: string
           heard_about?: string | null
           id?: string
+          masterclass?: string
           occupation?: string
           phone?: string
           updated_at?: string
