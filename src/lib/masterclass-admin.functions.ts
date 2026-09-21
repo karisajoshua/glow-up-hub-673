@@ -97,7 +97,7 @@ export const confirmMasterclassPayment = createServerFn({ method: "POST" })
     }
 
     const sent = await sendConfirmation({
-      registrationId: reg.id,
+      registrationId: data.resend ? `${reg.id}-resend-${Date.now()}` : reg.id,
       masterclass: key,
       fullName: reg.full_name,
       email: reg.email,
