@@ -133,6 +133,15 @@ function AdminMasterclass() {
           placeholder="Search name, email, phone or role"
           className="min-w-[260px] flex-1 rounded-md border border-outline-variant/50 bg-surface px-4 py-2.5 text-body-md text-on-surface focus:border-secondary focus:outline-none"
         />
+        <select
+          value={masterclassFilter}
+          onChange={(e) => setMasterclassFilter(e.target.value)}
+          className="rounded-md border border-outline-variant/50 bg-surface px-4 py-2.5 text-body-md text-on-surface focus:border-secondary focus:outline-none"
+        >
+          <option value="all">All masterclasses</option>
+          <option value="green-job-readiness">Green Job Readiness</option>
+          <option value="digital-career-compass">Digital Career Compass</option>
+        </select>
         <button
           type="button"
           onClick={exportCsv}
@@ -151,6 +160,7 @@ function AdminMasterclass() {
               <Th>Phone</Th>
               <Th>Email</Th>
               <Th>Occupation</Th>
+              <Th>Masterclass</Th>
               <Th>Heard about</Th>
               <Th>Registered</Th>
             </tr>
@@ -162,13 +172,14 @@ function AdminMasterclass() {
                 <Td>{r.phone}</Td>
                 <Td>{r.email}</Td>
                 <Td>{r.occupation}</Td>
+                <Td>{masterclassLabel(r.masterclass)}</Td>
                 <Td>{r.heard_about ?? "—"}</Td>
                 <Td>{new Date(r.created_at).toLocaleDateString("en-KE")}</Td>
               </tr>
             ))}
             {filtered.length === 0 && (
               <tr>
-                <td colSpan={6} className="p-6 text-center text-on-surface-variant">
+                <td colSpan={7} className="p-6 text-center text-on-surface-variant">
                   No registrations yet.
                 </td>
               </tr>
