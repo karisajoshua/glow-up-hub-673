@@ -1,8 +1,10 @@
 import { createFileRoute, Link, useParams } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { AdminShell } from "@/components/admin/AdminShell";
+import { updateApplicationReview } from "@/lib/admin.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { ADMIN_STATUSES, DOC_TYPES, STATUS_LABELS, type EducationRow } from "@/lib/application-options";
 
