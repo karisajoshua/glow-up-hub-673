@@ -187,6 +187,56 @@ export type Database = {
         }
         Relationships: []
       }
+      masterclass_payment_events: {
+        Row: {
+          amount: number | null
+          created_at: string
+          currency: string | null
+          id: string
+          payload: Json | null
+          processed_at: string | null
+          provider: string
+          provider_event_id: string
+          registration_id: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          amount?: number | null
+          created_at?: string
+          currency?: string | null
+          id?: string
+          payload?: Json | null
+          processed_at?: string | null
+          provider: string
+          provider_event_id: string
+          registration_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number | null
+          created_at?: string
+          currency?: string | null
+          id?: string
+          payload?: Json | null
+          processed_at?: string | null
+          provider?: string
+          provider_event_id?: string
+          registration_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "masterclass_payment_events_registration_id_fkey"
+            columns: ["registration_id"]
+            isOneToOne: false
+            referencedRelation: "masterclass_registrations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       masterclass_registrations: {
         Row: {
           confirmation_email_sent_at: string | null
@@ -199,6 +249,8 @@ export type Database = {
           occupation: string
           paid_at: string | null
           paid_by: string | null
+          payment_provider: string | null
+          payment_reference: string | null
           payment_status: string
           phone: string
           updated_at: string
@@ -214,6 +266,8 @@ export type Database = {
           occupation: string
           paid_at?: string | null
           paid_by?: string | null
+          payment_provider?: string | null
+          payment_reference?: string | null
           payment_status?: string
           phone: string
           updated_at?: string
@@ -229,6 +283,8 @@ export type Database = {
           occupation?: string
           paid_at?: string | null
           paid_by?: string | null
+          payment_provider?: string | null
+          payment_reference?: string | null
           payment_status?: string
           phone?: string
           updated_at?: string

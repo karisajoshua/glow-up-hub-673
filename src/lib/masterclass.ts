@@ -12,9 +12,9 @@ export const MASTERCLASS = {
     phone: "+254 739775180",
   },
   whatsappNumber: "254739775180",
-  date: "Saturday 26th September",
-  time: "9:00 am \u2013 12:00 pm",
-  venue: "Virtual (Google Meet)",
+  date: "Saturday 26 September 2026",
+  time: "09:00 \u2013 12:00 EAT",
+  venue: "Online / Google Meet",
   fee: "KSh 500",
   gains: [
     {

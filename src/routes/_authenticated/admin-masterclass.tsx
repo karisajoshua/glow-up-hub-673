@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import { AdminShell } from "@/components/admin/AdminShell";
 import { supabase } from "@/integrations/supabase/client";
-import { MASTERCLASS } from "@/lib/masterclass";
+import { DIGITAL_CAREER_COMPASS, MASTERCLASS } from "@/lib/masterclass";
 import {
   confirmMasterclassPayment,
   setMasterclassMeetLink,
@@ -31,22 +31,49 @@ type Row = {
   created_at: string;
   payment_status: string | null;
   paid_at: string | null;
+  payment_provider: string | null;
+  payment_reference: string | null;
   confirmation_email_sent_at: string | null;
 };
 
-const MASTERCLASS_LABELS: Record<string, string> = {
-  "green-job-readiness": "Green Job Readiness",
-  "digital-career-compass": "Digital Career Compass",
-};
+const SESSIONS = [
+  {
+    key: "green-job-readiness",
+    label: "Green Job Readiness",
+    title: MASTERCLASS.title,
+    date: MASTERCLASS.date,
+    time: MASTERCLASS.time,
+    venue: MASTERCLASS.venue,
+    fee: MASTERCLASS.fee,
+  },
+  {
+    key: "digital-career-compass",
+    label: "Digital Career Compass",
+    title: DIGITAL_CAREER_COMPASS.title,
+    date: DIGITAL_CAREER_COMPASS.date,
+    time: DIGITAL_CAREER_COMPASS.time,
+    venue: DIGITAL_CAREER_COMPASS.venue,
+    fee: DIGITAL_CAREER_COMPASS.fee,
+  },
+] as const;
 
-const MASTERCLASS_KEYS = ["green-job-readiness", "digital-career-compass"] as const;
+type SessionKey = (typeof SESSIONS)[number]["key"];
 
 function masterclassLabel(key: string | null) {
-  return (key && MASTERCLASS_LABELS[key]) || "Green Job Readiness";
+  return SESSIONS.find((s) => s.key === key)?.label ?? "Green Job Readiness";
+}
+
+function formatDate(value: string | null) {
+  if (!value) return "—";
+  return new Date(value).toLocaleDateString("en-KE", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
 }
 
 const ROW_SELECT =
-  "id, masterclass, full_name, phone, email, occupation, heard_about, created_at, payment_status, paid_at, confirmation_email_sent_at";
+  "id, masterclass, full_name, phone, email, occupation, heard_about, created_at, payment_status, paid_at, payment_provider, payment_reference, confirmation_email_sent_at";
 
 function AdminMasterclass() {
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
@@ -55,6 +82,7 @@ function AdminMasterclass() {
   const [masterclassFilter, setMasterclassFilter] = useState<"all" | string>("all");
   const [paymentFilter, setPaymentFilter] = useState<"all" | "pending" | "paid">("all");
   const [links, setLinks] = useState<Record<string, string>>({});
+  const [savedLinks, setSavedLinks] = useState<Record<string, string>>({});
   const [linkSaving, setLinkSaving] = useState<string | null>(null);
   const [busyId, setBusyId] = useState<string | null>(null);
   const [notice, setNotice] = useState<{ tone: "ok" | "error"; text: string } | null>(null);
@@ -68,6 +96,17 @@ function AdminMasterclass() {
       .select(ROW_SELECT)
       .order("created_at", { ascending: false });
     setRows((data ?? []) as Row[]);
+  }
+
+  async function loadSessions() {
+    const { data: sessions } = await supabase
+      .from("masterclass_sessions")
+      .select("masterclass, meet_link");
+    const next: Record<string, string> = {};
+    for (const s of SESSIONS) next[s.key] = "";
+    for (const s of sessions ?? []) next[s.masterclass] = s.meet_link ?? "";
+    setLinks(next);
+    setSavedLinks(next);
   }
 
   useEffect(() => {
@@ -87,13 +126,7 @@ function AdminMasterclass() {
       }
       setIsAdmin(true);
       await loadRows();
-      const { data: sessions } = await supabase
-        .from("masterclass_sessions")
-        .select("masterclass, meet_link");
-      const next: Record<string, string> = {};
-      for (const key of MASTERCLASS_KEYS) next[key] = "";
-      for (const s of sessions ?? []) next[s.masterclass] = s.meet_link ?? "";
-      setLinks(next);
+      await loadSessions();
     })();
   }, []);
 
@@ -111,9 +144,20 @@ function AdminMasterclass() {
     [rows, search, masterclassFilter, paymentFilter],
   );
 
-  const thisWeek = useMemo(() => {
-    const cutoff = Date.now() - 7 * 24 * 60 * 60 * 1000;
-    return rows.filter((r) => new Date(r.created_at).getTime() >= cutoff).length;
+  const stats = useMemo(() => {
+    const per: Record<string, { registered: number; pending: number; paid: number; sent: number }> =
+      {};
+    for (const s of SESSIONS) per[s.key] = { registered: 0, pending: 0, paid: 0, sent: 0 };
+    for (const r of rows) {
+      const key = r.masterclass ?? "green-job-readiness";
+      const bucket = per[key];
+      if (!bucket) continue;
+      bucket.registered += 1;
+      if ((r.payment_status ?? "pending") === "paid") bucket.paid += 1;
+      else bucket.pending += 1;
+      if (r.confirmation_email_sent_at) bucket.sent += 1;
+    }
+    return per;
   }, [rows]);
 
   const paidCount = useMemo(
@@ -121,18 +165,21 @@ function AdminMasterclass() {
     [rows],
   );
 
-  async function handleSaveLink(key: string) {
+  const sentCount = useMemo(() => rows.filter((r) => r.confirmation_email_sent_at).length, [rows]);
+
+  async function handleSaveLink(key: SessionKey) {
     setLinkSaving(key);
     setNotice(null);
     try {
       const result = await saveLink({
-        data: { masterclass: key as (typeof MASTERCLASS_KEYS)[number], meet_link: links[key] ?? "" },
+        data: { masterclass: key, meet_link: links[key] ?? "" },
       });
-      setNotice(
-        result.ok
-          ? { tone: "ok", text: `Joining link saved for ${masterclassLabel(key)}.` }
-          : { tone: "error", text: result.error },
-      );
+      if (result.ok) {
+        setSavedLinks((prev) => ({ ...prev, [key]: links[key] ?? "" }));
+        setNotice({ tone: "ok", text: `Session link saved for ${masterclassLabel(key)}.` });
+      } else {
+        setNotice({ tone: "error", text: result.error });
+      }
     } catch {
       setNotice({ tone: "error", text: "Could not save the link. Please try again." });
     } finally {
@@ -152,8 +199,8 @@ function AdminMasterclass() {
         setNotice({
           tone: result.emailSent ? "ok" : "error",
           text: result.emailSent
-            ? `${row.full_name} is marked as paid and the joining link was emailed to ${row.email}.`
-            : `${row.full_name} is marked as paid, but the email could not be sent: ${result.emailNote ?? "unknown reason"}`,
+            ? `${row.full_name} is confirmed as paid and the joining details were emailed to ${row.email}.`
+            : `${row.full_name} is marked as paid, but the email was not sent: ${result.emailNote ?? "joining details had already been sent"}`,
         });
       }
     } catch {
@@ -170,11 +217,13 @@ function AdminMasterclass() {
       "Email",
       "Occupation",
       "Masterclass",
-      "Payment",
-      "Paid on",
-      "Email sent",
-      "Heard about",
       "Registered",
+      "Payment status",
+      "Paid on",
+      "Payment method",
+      "Payment reference",
+      "Joining email sent",
+      "Heard about",
     ];
     const lines = filtered.map((r) =>
       [
@@ -183,11 +232,13 @@ function AdminMasterclass() {
         r.email,
         r.occupation,
         masterclassLabel(r.masterclass),
+        r.created_at,
         (r.payment_status ?? "pending") === "paid" ? "Paid" : "Pending payment",
         r.paid_at ?? "",
+        r.payment_provider ?? "",
+        r.payment_reference ?? "",
         r.confirmation_email_sent_at ?? "",
         r.heard_about ?? "",
-        r.created_at,
       ]
         .map((v) => `"${String(v).replace(/"/g, '""')}"`)
         .join(","),
@@ -215,45 +266,72 @@ function AdminMasterclass() {
 
   return (
     <AdminShell title="Masterclass registrations" subtitle={MASTERCLASS.title}>
-      <div className="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-4">
+      <div className="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <Stat label="Total registrations" value={rows.length} />
         <Stat label="Paid" value={paidCount} />
-        <Stat label="New this week" value={thisWeek} />
-        <Stat label="Investment" value={MASTERCLASS.fee} />
+        <Stat label="Pending payment" value={rows.length - paidCount} />
+        <Stat label="Joining details sent" value={sentCount} />
       </div>
 
-      <div className="mb-8 rounded-lg border border-outline-variant/20 bg-surface p-6">
-        <h2 className="mb-1 font-display text-headline-sm text-primary">Joining links</h2>
-        <p className="mb-5 text-body-sm text-on-surface-variant">
-          Paste the Google Meet link for each masterclass. It is included in the confirmation email
-          sent when you mark a payment as paid.
-        </p>
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          {MASTERCLASS_KEYS.map((key) => (
-            <div key={key}>
-              <label className="label-caps mb-2 block text-on-surface-variant" htmlFor={`link-${key}`}>
-                {masterclassLabel(key)}
+      <div className="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
+        {SESSIONS.map((s) => {
+          const configured = Boolean((savedLinks[s.key] ?? "").trim());
+          const stat = stats[s.key] ?? { registered: 0, pending: 0, paid: 0, sent: 0 };
+          return (
+            <div
+              key={s.key}
+              className="rounded-lg border border-outline-variant/20 bg-surface p-6"
+            >
+              <div className="mb-2 flex flex-wrap items-start justify-between gap-3">
+                <h2 className="font-display text-headline-sm text-primary">{s.title}</h2>
+                <span
+                  className={`inline-flex rounded-full px-3 py-1 text-body-sm ${
+                    configured
+                      ? "bg-secondary/15 text-secondary"
+                      : "bg-error/10 text-error"
+                  }`}
+                >
+                  {configured ? "Session link configured" : "Session link not configured"}
+                </span>
+              </div>
+              <p className="mb-4 text-body-sm text-on-surface-variant">
+                {s.date} · {s.time} · {s.venue} · {s.fee}
+              </p>
+
+              <div className="mb-5 grid grid-cols-4 gap-3 text-center">
+                <MiniStat label="Registered" value={stat.registered} />
+                <MiniStat label="Pending" value={stat.pending} />
+                <MiniStat label="Paid" value={stat.paid} />
+                <MiniStat label="Sent" value={stat.sent} />
+              </div>
+
+              <label className="label-caps mb-2 block text-on-surface-variant" htmlFor={`link-${s.key}`}>
+                Google Calendar / Meet session link
               </label>
-              <div className="flex gap-2">
+              <div className="flex flex-col gap-2 sm:flex-row">
                 <input
-                  id={`link-${key}`}
-                  value={links[key] ?? ""}
-                  onChange={(e) => setLinks((prev) => ({ ...prev, [key]: e.target.value }))}
-                  placeholder="https://meet.google.com/..."
+                  id={`link-${s.key}`}
+                  value={links[s.key] ?? ""}
+                  onChange={(e) => setLinks((prev) => ({ ...prev, [s.key]: e.target.value }))}
+                  placeholder="https://calendar.app.google/..."
                   className="flex-1 rounded-md border border-outline-variant/50 bg-surface px-4 py-2.5 text-body-md text-on-surface focus:border-secondary focus:outline-none"
                 />
                 <button
                   type="button"
-                  onClick={() => handleSaveLink(key)}
-                  disabled={linkSaving === key}
+                  onClick={() => handleSaveLink(s.key)}
+                  disabled={linkSaving === s.key}
                   className="rounded-md bg-primary px-5 py-2.5 text-button text-on-primary transition-colors hover:bg-secondary disabled:opacity-60"
                 >
-                  {linkSaving === key ? "Saving…" : "Save"}
+                  {linkSaving === s.key ? "Saving…" : "Save"}
                 </button>
               </div>
+              <p className="mt-2 text-body-sm text-on-surface-variant">
+                One link serves every paid participant in this session. It is never shown publicly —
+                it is only emailed after payment is confirmed.
+              </p>
             </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
 
       {notice && (
@@ -281,8 +359,11 @@ function AdminMasterclass() {
           className="rounded-md border border-outline-variant/50 bg-surface px-4 py-2.5 text-body-md text-on-surface focus:border-secondary focus:outline-none"
         >
           <option value="all">All masterclasses</option>
-          <option value="green-job-readiness">Green Job Readiness</option>
-          <option value="digital-career-compass">Digital Career Compass</option>
+          {SESSIONS.map((s) => (
+            <option key={s.key} value={s.key}>
+              {s.label}
+            </option>
+          ))}
         </select>
         <select
           value={paymentFilter}
@@ -307,13 +388,14 @@ function AdminMasterclass() {
         <table className="w-full text-left text-body-sm">
           <thead className="border-b border-outline-variant/20 text-on-surface-variant">
             <tr>
-              <Th>Name</Th>
-              <Th>Phone</Th>
+              <Th>Participant</Th>
               <Th>Email</Th>
-              <Th>Occupation</Th>
+              <Th>Phone</Th>
               <Th>Masterclass</Th>
-              <Th>Payment</Th>
               <Th>Registered</Th>
+              <Th>Payment</Th>
+              <Th>Paid on</Th>
+              <Th>Joining email</Th>
               <Th>Action</Th>
             </tr>
           </thead>
@@ -322,11 +404,16 @@ function AdminMasterclass() {
               const paid = (r.payment_status ?? "pending") === "paid";
               return (
                 <tr key={r.id} className="border-b border-outline-variant/10 last:border-0">
-                  <Td>{r.full_name}</Td>
-                  <Td>{r.phone}</Td>
+                  <Td>
+                    <span className="block text-on-surface">{r.full_name}</span>
+                    <span className="block text-body-sm text-on-surface-variant">
+                      {r.occupation}
+                    </span>
+                  </Td>
                   <Td>{r.email}</Td>
-                  <Td>{r.occupation}</Td>
+                  <Td>{r.phone}</Td>
                   <Td>{masterclassLabel(r.masterclass)}</Td>
+                  <Td>{formatDate(r.created_at)}</Td>
                   <Td>
                     <span
                       className={`inline-flex rounded-full px-3 py-1 text-body-sm ${
@@ -337,21 +424,32 @@ function AdminMasterclass() {
                     >
                       {paid ? "Paid" : "Pending payment"}
                     </span>
-                    {paid && (
+                    {paid && r.payment_provider && (
                       <span className="mt-1 block text-body-sm text-on-surface-variant">
-                        {r.confirmation_email_sent_at ? "Email sent" : "Email not sent"}
+                        via {r.payment_provider === "manual" ? "admin confirmation" : r.payment_provider}
                       </span>
                     )}
                   </Td>
-                  <Td>{new Date(r.created_at).toLocaleDateString("en-KE")}</Td>
+                  <Td>{formatDate(r.paid_at)}</Td>
+                  <Td>
+                    {r.confirmation_email_sent_at ? (
+                      <span className="text-secondary">Sent {formatDate(r.confirmation_email_sent_at)}</span>
+                    ) : (
+                      <span className="text-on-surface-variant">Not sent</span>
+                    )}
+                  </Td>
                   <Td>
                     <button
                       type="button"
                       onClick={() => handleConfirm(r, paid)}
                       disabled={busyId === r.id}
-                      className="rounded-md border border-secondary px-4 py-2 text-button text-secondary transition-colors hover:bg-secondary/10 disabled:opacity-60"
+                      className="whitespace-nowrap rounded-md border border-secondary px-4 py-2 text-button text-secondary transition-colors hover:bg-secondary/10 disabled:opacity-60"
                     >
-                      {busyId === r.id ? "Working…" : paid ? "Resend email" : "Mark as paid"}
+                      {busyId === r.id
+                        ? "Working…"
+                        : paid
+                          ? "Resend joining details"
+                          : "Mark as paid"}
                     </button>
                   </Td>
                 </tr>
@@ -359,7 +457,7 @@ function AdminMasterclass() {
             })}
             {filtered.length === 0 && (
               <tr>
-                <td colSpan={8} className="p-6 text-center text-on-surface-variant">
+                <td colSpan={9} className="p-6 text-center text-on-surface-variant">
                   No registrations yet.
                 </td>
               </tr>
@@ -380,10 +478,19 @@ function Stat({ label, value }: { label: string; value: string | number }) {
   );
 }
 
+function MiniStat({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="rounded-md bg-surface-container-low p-3">
+      <p className="font-display text-headline-sm text-primary">{value}</p>
+      <p className="text-body-sm text-on-surface-variant">{label}</p>
+    </div>
+  );
+}
+
 function Th({ children }: { children: React.ReactNode }) {
   return <th className="px-4 py-3 font-medium">{children}</th>;
 }
 
 function Td({ children }: { children: React.ReactNode }) {
-  return <td className="px-4 py-3 text-on-surface">{children}</td>;
+  return <td className="px-4 py-3 align-top text-on-surface">{children}</td>;
 }
