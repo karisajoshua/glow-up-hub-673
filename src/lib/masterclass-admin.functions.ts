@@ -13,7 +13,7 @@ async function assertAdmin(context: { supabase: any; userId: string }) {
   if (error || !isAdmin) throw new Error("Forbidden");
 }
 
-/** Saves or updates the Google Meet joining link for a masterclass. */
+/** Saves or updates the Google Calendar / Meet link for a masterclass session. */
 export const setMasterclassMeetLink = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) =>
@@ -47,115 +47,40 @@ export const setMasterclassMeetLink = createServerFn({ method: "POST" })
     return { ok: true as const };
   });
 
-/** Marks a registration as paid and sends the joining-link email. */
+/**
+ * Marks a registration as paid and releases the session joining link by email.
+ * Shares the same server-side confirmation path future M-Pesa / PayPal
+ * webhooks will use.
+ */
 export const confirmMasterclassPayment = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) =>
-    z.object({ id: z.string().uuid(), resend: z.boolean().optional() }).parse(data),
+    z
+      .object({
+        id: z.string().uuid(),
+        resend: z.boolean().optional(),
+        reference: z.string().trim().max(120).optional(),
+      })
+      .parse(data),
   )
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
 
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { markRegistrationPaid } = await import("@/lib/masterclass-payments.server");
 
-    const { data: reg, error: regError } = await supabaseAdmin
-      .from("masterclass_registrations")
-      .select("id, masterclass, full_name, email, payment_status")
-      .eq("id", data.id)
-      .maybeSingle();
-
-    if (regError || !reg) {
-      return { ok: false as const, error: "Registration not found." };
-    }
-
-    const key = reg.masterclass ?? "green-job-readiness";
-
-    const { data: session } = await supabaseAdmin
-      .from("masterclass_sessions")
-      .select("meet_link")
-      .eq("masterclass", key)
-      .maybeSingle();
-
-    const meetLink = session?.meet_link?.trim();
-    if (!meetLink) {
-      return {
-        ok: false as const,
-        error: "Add the Google Meet link for this masterclass first, then mark the payment as paid.",
-      };
-    }
-
-    if (!data.resend) {
-      const { error: updateError } = await supabaseAdmin
-        .from("masterclass_registrations")
-        .update({ payment_status: "paid", paid_at: new Date().toISOString(), paid_by: context.userId })
-        .eq("id", reg.id);
-
-      if (updateError) {
-        console.error("marking paid failed", updateError);
-        return { ok: false as const, error: "Could not save the payment status. Please try again." };
-      }
-    }
-
-    const sent = await sendConfirmation({
-      registrationId: data.resend ? `${reg.id}-resend-${Date.now()}` : reg.id,
-      masterclass: key,
-      fullName: reg.full_name,
-      email: reg.email,
-      meetLink,
+    const result = await markRegistrationPaid({
+      registrationId: data.id,
+      provider: "manual",
+      confirmedBy: context.userId,
+      reference: data.reference ?? null,
+      resendEmail: data.resend === true,
     });
 
-    if (sent.sent) {
-      await supabaseAdmin
-        .from("masterclass_registrations")
-        .update({ confirmation_email_sent_at: new Date().toISOString() })
-        .eq("id", reg.id);
-    }
+    if (!result.ok) return { ok: false as const, error: result.error };
 
-    return { ok: true as const, emailSent: sent.sent, emailNote: sent.reason ?? null };
-  });
-
-async function sendConfirmation(input: {
-  registrationId: string;
-  masterclass: string;
-  fullName: string;
-  email: string;
-  meetLink: string;
-}): Promise<{ sent: boolean; reason?: string }> {
-  const { MASTERCLASS, DIGITAL_CAREER_COMPASS } = await import("@/lib/masterclass");
-  const session = input.masterclass === "digital-career-compass" ? DIGITAL_CAREER_COMPASS : MASTERCLASS;
-
-  const { sendTemplateEmail } = await import("@/lib/email-templates/send-email");
-
-  try {
-    const result = await sendTemplateEmail("masterclass-confirmation", input.email, {
-      templateData: {
-        fullName: input.fullName,
-        masterclassTitle: session.title,
-        date: session.date,
-        time: session.time,
-        venue: session.venue,
-        meetLink: input.meetLink,
-      },
-      idempotencyKey: `masterclass-confirmation-${input.registrationId}`,
-    });
-
-    if (result.sent) return { sent: true };
     return {
-      sent: false,
-      reason: "this address previously bounced or unsubscribed, so email cannot be delivered to it",
+      ok: true as const,
+      emailSent: result.emailSent,
+      emailNote: result.emailNote,
     };
-  } catch (error) {
-    console.error("masterclass confirmation email failed", error);
-    const code =
-      error != null && typeof error === "object" && "code" in error
-        ? String((error as { code: unknown }).code)
-        : "";
-    if (code === "domain_not_verified") {
-      return { sent: false, reason: "the sending domain is still being verified" };
-    }
-    if (code === "emails_disabled") {
-      return { sent: false, reason: "email sending is currently switched off for this project" };
-    }
-    return { sent: false, reason: "the email service returned an error" };
-  }
-}
+  });
