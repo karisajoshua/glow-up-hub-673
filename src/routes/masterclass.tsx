@@ -29,16 +29,25 @@ function MasterclassPage() {
             <span className="mb-5 inline-flex rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]">Live virtual masterclass · Limited registration</span>
             <h1 className="max-w-3xl font-display text-4xl leading-tight md:text-6xl">{MASTERCLASS.title}</h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-white/85">{MASTERCLASS.tagline}</p>
-            <div className="mt-8 flex flex-wrap gap-3 text-sm"><Pill icon="event" text={MASTERCLASS.date}/><Pill icon="schedule" text={MASTERCLASS.time}/><Pill icon="videocam" text={MASTERCLASS.venue}/><Pill icon="payments" text={MASTERCLASS.fee}/></div>
+            <div className="mt-7 flex items-center gap-3">
+              <img src={euniceAsset.url} alt={MASTERCLASS.facilitator.name} className="h-11 w-11 rounded-full border-2 border-white/70 object-cover object-[center_28%]" />
+              <div><p className="text-xs text-white/60">Facilitated by</p><p className="text-sm font-semibold text-white">{MASTERCLASS.facilitator.name}</p><p className="text-xs text-white/70">{MASTERCLASS.facilitator.role}</p></div>
+            </div>
             <div className="mt-9 flex flex-wrap gap-3">
               <a href="#register" className="inline-flex items-center gap-2 rounded-md bg-secondary px-7 py-3.5 font-semibold text-white">Reserve your place <span className="material-symbols-outlined text-lg">arrow_forward</span></a>
               <a href="#learn" className="rounded-md border border-white/30 px-7 py-3.5 font-semibold text-white hover:bg-white/10">See what you’ll learn</a>
             </div>
           </div>
-          <div className="md:col-span-5"><div className="mx-auto max-w-md overflow-hidden rounded-2xl border border-white/15 bg-white/10 p-2 shadow-2xl">
-            <img src={euniceAsset.url} alt="Eunice Barasa, masterclass facilitator" className="aspect-[4/5] w-full rounded-xl object-cover object-[center_28%]"/>
-            <div className="p-5"><p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/65">Facilitator</p><p className="mt-1 font-display text-2xl">{MASTERCLASS.facilitator.name}</p><p className="mt-1 text-sm text-white/75">{MASTERCLASS.facilitator.role}</p></div>
-          </div></div>
+          <div className="md:col-span-5">
+            <div className="mx-auto max-w-md rounded-2xl bg-white p-7 text-on-surface shadow-2xl">
+              <Detail icon="event" label="Date" value={MASTERCLASS.date} />
+              <Detail icon="schedule" label="Time" value={MASTERCLASS.time} />
+              <Detail icon="videocam" label="Location" value={MASTERCLASS.venue} />
+              <Detail icon="payments" label="Investment" value={MASTERCLASS.fee} />
+              <a href="#register" className="mt-6 flex w-full items-center justify-center gap-2 rounded-md bg-secondary px-6 py-3.5 font-semibold text-white">Register Now <span className="material-symbols-outlined text-lg">arrow_forward</span></a>
+              <p className="mt-3 text-center text-xs text-on-surface-variant">Secure your place. Joining details are released after payment verification.</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -66,4 +75,4 @@ function MasterclassPage() {
     </main><SiteFooter />
   </div>;
 }
-function Pill({icon,text}:{icon:string;text:string}){return <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-white/90"><span className="material-symbols-outlined text-base">{icon}</span>{text}</span>;}
+function Detail({icon,label,value}:{icon:string;label:string;value:string}){return <div className="mb-5 flex gap-4"><span className="material-symbols-outlined mt-0.5 text-2xl text-secondary">{icon}</span><div><p className="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">{label}</p><p className="mt-0.5 font-semibold text-primary">{value}</p></div></div>;}
