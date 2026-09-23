@@ -14,6 +14,22 @@ import { loadEnv } from "vite";
 const serverEnv = loadEnv(process.env["NODE_ENV"] ?? "development", process.cwd(), "");
 Object.assign(process.env, serverEnv);
 
+// Publishable (non-secret) backend connection settings. These are safe to ship to the
+// browser and act as a fallback when the build environment does not expose VITE_* vars,
+// which would otherwise leave the deployed bundle without a backend connection.
+const PUBLIC_SUPABASE = {
+  VITE_SUPABASE_URL: "https://rvemzcjfcrrqxizxfhce.supabase.co",
+  VITE_SUPABASE_PUBLISHABLE_KEY: "sb_publishable_8bGFdMBmH1IY4eoYvfLG1g_DDcIbiis",
+  VITE_SUPABASE_PROJECT_ID: "rvemzcjfcrrqxizxfhce",
+} as const;
+
+const publicDefine = Object.fromEntries(
+  Object.entries(PUBLIC_SUPABASE).map(([key, fallback]) => [
+    `import.meta.env.${key}`,
+    JSON.stringify(process.env[key] || fallback),
+  ]),
+);
+
 export default defineConfig({
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
@@ -21,6 +37,7 @@ export default defineConfig({
     server: { entry: "server" },
   },
   vite: {
+    define: publicDefine,
     resolve: {
       alias: {
         "entities/lib/decode.js": path.resolve(
