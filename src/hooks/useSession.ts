@@ -62,13 +62,15 @@ export function useIsAdmin(userId: string | undefined) {
         .eq("user_id", userId)
         .eq("role", "admin")
         .maybeSingle()
-        .then(({ data }) => {
-          if (active) setIsAdmin(Boolean(data));
-        })
-        .catch((error: unknown) => {
-          console.error("Unable to check the account role", error);
-          if (active) setIsAdmin(false);
-        });
+        .then(
+          ({ data }) => {
+            if (active) setIsAdmin(Boolean(data));
+          },
+          (error: unknown) => {
+            console.error("Unable to check the account role", error);
+            if (active) setIsAdmin(false);
+          },
+        );
     } catch (error) {
       console.error("Unable to initialise the account role check", error);
       setIsAdmin(false);
