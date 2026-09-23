@@ -44,12 +44,11 @@ const Email = ({
     <Preview>Your place in {masterclassTitle} is confirmed — here is your joining link.</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Section style={topBar} />
         <Section style={header}>
           <Img
             src={LOGO_URL}
-            width="88"
-            height="88"
+            width="80"
+            height="80"
             alt="S-STC crest"
             style={logo}
           />
@@ -58,37 +57,38 @@ const Email = ({
         </Section>
 
         <Section style={content}>
-          <Text style={eyebrow}>PAYMENT RECEIVED · PLACE RESERVED</Text>
+          <Text style={status}>Payment received · Place reserved</Text>
           <Heading style={heading}>Your place is confirmed</Heading>
           <Text style={text}>{fullName ? `Hello ${fullName},` : 'Hello,'}</Text>
           <Text style={text}>
             Thank you for your payment. Your place in <strong>{masterclassTitle}</strong> is now
-            confirmed. Your session details and secure joining access are below.
+            confirmed.
           </Text>
 
           <Section style={details}>
             <Text style={detailsTitle}>{masterclassTitle}</Text>
             {date ? (
               <Text style={detailRow}>
-                <strong>Date</strong>&nbsp;&nbsp; {date}
+                <strong>Date:</strong> {date}
               </Text>
             ) : null}
             {time ? (
               <Text style={detailRow}>
-                <strong>Time</strong>&nbsp;&nbsp; {time}
+                <strong>Time:</strong> {time}
               </Text>
             ) : null}
             <Text style={detailRow}>
-              <strong>Delivery</strong>&nbsp;&nbsp; {venue}
+              <strong>Venue:</strong> {venue}
             </Text>
           </Section>
 
           {meetLink ? (
             <Section style={joinSection}>
+              <Text style={joinTitle}>Your joining details</Text>
               <Button href={meetLink} style={button}>
-                Open Google Meet / Calendar
+                Join the masterclass
               </Button>
-              <Text style={linkLabel}>If the button does not open, copy this secure link:</Text>
+              <Text style={linkLabel}>If the button does not work, copy and paste this link:</Text>
               <Text style={linkText}>
                 <Link href={meetLink} style={link}>
                   {meetLink}
@@ -99,10 +99,10 @@ const Email = ({
 
           <Section style={instructions}>
             <Text style={instructionsTitle}>Before the session</Text>
-            <Text style={instructionRow}>• Join about five minutes early.</Text>
-            <Text style={instructionRow}>• Use a quiet space and a stable internet connection.</Text>
+            <Text style={instructionRow}>1. Join about five minutes early.</Text>
+            <Text style={instructionRow}>2. Use a quiet space and a stable internet connection.</Text>
             <Text style={instructionRow}>
-              • Bring a notebook and an updated copy of your CV so you can work along.
+              3. Bring a notebook and an updated copy of your CV so you can work along.
             </Text>
           </Section>
 
@@ -114,22 +114,22 @@ const Email = ({
         </Section>
 
         <Section style={footerSection}>
-          <Text style={footerBrand}>S-STC</Text>
           <Text style={footer}>
-            Building skills for economic prosperity, social inclusion and environmental
-            stewardship.
+            <strong>S-STC</strong>
+            <br />
+            Sustainability and Green Skills Training
           </Text>
-          <Hr style={footerRule} />
           <Text style={footerLinks}>
             <Link href="mailto:info@sstc.co.ke" style={footerLink}>
               info@sstc.co.ke
             </Link>
-            {'  ·  '}WhatsApp +254 739 775 180{'  ·  '}
+            <br />
+            WhatsApp +254 739 775 180
+            <br />
             <Link href="https://sstc.co.ke" style={footerLink}>
               sstc.co.ke
             </Link>
           </Text>
-          <Text style={footerNote}>This message was sent because your masterclass payment was confirmed.</Text>
         </Section>
       </Container>
     </Body>
@@ -152,67 +152,71 @@ export const template = {
 } satisfies TemplateEntry
 
 const main = {
-  backgroundColor: '#edf2f5',
+  backgroundColor: '#f3f5f4',
   fontFamily: 'Arial, Helvetica, sans-serif',
   margin: '0',
-  padding: '32px 12px',
+  padding: '24px 10px',
 }
 const container = {
   backgroundColor: '#ffffff',
-  border: '1px solid #dfe6e3',
-  borderRadius: '8px',
+  border: '1px solid #d9e1dd',
   maxWidth: '600px',
   margin: '0 auto',
-  overflow: 'hidden' as const,
 }
-const topBar = { backgroundColor: GREEN, height: '7px', lineHeight: '7px' }
 const header = {
   backgroundColor: '#ffffff',
-  padding: '28px 30px 22px',
+  padding: '24px 24px 20px',
   textAlign: 'center' as const,
-  borderBottom: '1px solid #e2ebe6',
+  borderTop: `6px solid ${GREEN}`,
+  borderBottom: `2px solid ${BLUE}`,
 }
 const logo = {
   border: '0',
-  borderRadius: '50%',
   display: 'block',
-  margin: '0 auto 12px',
-  objectFit: 'cover' as const,
+  margin: '0 auto 10px',
 }
 const brand = {
   margin: '0 0 2px',
-  fontSize: '25px',
+  fontSize: '24px',
   fontWeight: 'bold' as const,
   letterSpacing: '0',
   color: BLUE,
 }
-const brandSub = { margin: '0', fontSize: '12px', color: GREEN, lineHeight: '18px' }
-const content = { padding: '32px 34px 28px' }
-const eyebrow = {
-  margin: '0 0 10px',
-  fontSize: '11px',
+const brandSub = { margin: '0', fontSize: '12px', color: '#244d37', lineHeight: '18px' }
+const content = { padding: '28px 30px 24px' }
+const status = {
+  margin: '0 0 8px',
+  fontSize: '12px',
   fontWeight: 'bold' as const,
-  color: GREEN,
+  color: '#236a43',
   letterSpacing: '0',
 }
-const heading = { margin: '0 0 20px', fontSize: '28px', lineHeight: '35px', color: BLUE }
-const text = { margin: '0 0 14px', fontSize: '15px', lineHeight: '24px', color: '#34424a' }
+const heading = { margin: '0 0 20px', fontSize: '26px', lineHeight: '34px', color: '#102f4c' }
+const text = { margin: '0 0 14px', fontSize: '16px', lineHeight: '25px', color: '#222222' }
 const details = {
-  backgroundColor: PALE_GREEN,
+  backgroundColor: '#ffffff',
   borderLeft: `4px solid ${GREEN}`,
-  borderRadius: '4px',
-  padding: '18px 20px 14px',
-  margin: '24px 0',
+  borderTop: '1px solid #d9e1dd',
+  borderRight: '1px solid #d9e1dd',
+  borderBottom: '1px solid #d9e1dd',
+  padding: '16px 18px 12px',
+  margin: '22px 0',
 }
 const detailsTitle = {
   margin: '0 0 12px',
   fontSize: '17px',
   lineHeight: '24px',
   fontWeight: 'bold' as const,
-  color: BLUE,
+  color: '#102f4c',
 }
-const detailRow = { margin: '7px 0', fontSize: '14px', lineHeight: '21px', color: '#34424a' }
-const joinSection = { margin: '28px 0', textAlign: 'center' as const }
+const detailRow = { margin: '7px 0', fontSize: '15px', lineHeight: '22px', color: '#222222' }
+const joinSection = { margin: '26px 0', textAlign: 'left' as const }
+const joinTitle = {
+  margin: '0 0 16px',
+  fontSize: '17px',
+  fontWeight: 'bold' as const,
+  color: '#102f4c',
+}
 const button = {
   backgroundColor: GREEN,
   color: '#ffffff',
@@ -222,33 +226,28 @@ const button = {
   borderRadius: '6px',
   textDecoration: 'none',
 }
-const linkLabel = { fontSize: '12px', color: '#66737a', margin: '18px 0 5px' }
-const linkText = { fontSize: '12px', lineHeight: '18px', margin: '0', wordBreak: 'break-all' as const }
-const link = { color: BLUE, textDecoration: 'underline' }
+const linkLabel = { fontSize: '13px', color: '#333333', margin: '18px 0 5px' }
+const linkText = { fontSize: '13px', lineHeight: '19px', margin: '0', wordBreak: 'break-all' as const }
+const link = { color: '#0b3a66', textDecoration: 'underline' }
 const instructions = {
-  backgroundColor: '#f7f9fa',
-  border: '1px solid #e2e8eb',
-  borderRadius: '5px',
-  padding: '17px 20px 12px',
-  margin: '26px 0 22px',
+  backgroundColor: PALE_GREEN,
+  padding: '16px 18px 12px',
+  margin: '24px 0 20px',
 }
 const instructionsTitle = {
   margin: '0 0 10px',
   fontSize: '15px',
   fontWeight: 'bold' as const,
-  color: BLUE,
+  color: '#102f4c',
 }
-const instructionRow = { margin: '5px 0', fontSize: '13px', lineHeight: '20px', color: '#45545c' }
-const signoff = { margin: '22px 0 0', fontSize: '14px', lineHeight: '23px', color: '#34424a' }
-const footerSection = { backgroundColor: BLUE, padding: '24px 30px', textAlign: 'center' as const }
-const footerBrand = {
-  margin: '0 0 6px',
-  fontSize: '16px',
-  fontWeight: 'bold' as const,
-  color: '#ffffff',
+const instructionRow = { margin: '6px 0', fontSize: '14px', lineHeight: '21px', color: '#222222' }
+const signoff = { margin: '22px 0 0', fontSize: '15px', lineHeight: '24px', color: '#222222' }
+const footerSection = {
+  backgroundColor: '#f6f8f7',
+  borderTop: `3px solid ${BLUE}`,
+  padding: '20px 28px',
+  textAlign: 'center' as const,
 }
-const footer = { margin: '0', fontSize: '12px', color: '#dce9f2', lineHeight: '19px' }
-const footerRule = { borderColor: '#315a7d', margin: '16px 0 12px' }
-const footerLinks = { margin: '0', fontSize: '11px', color: '#ffffff', lineHeight: '18px' }
-const footerLink = { color: '#ffffff', textDecoration: 'underline' }
-const footerNote = { margin: '10px 0 0', fontSize: '10px', color: '#b9cad7', lineHeight: '16px' }
+const footer = { margin: '0 0 10px', fontSize: '13px', color: '#222222', lineHeight: '20px' }
+const footerLinks = { margin: '0', fontSize: '12px', color: '#333333', lineHeight: '20px' }
+const footerLink = { color: '#0b3a66', textDecoration: 'underline' }
