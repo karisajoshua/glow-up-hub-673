@@ -56,12 +56,11 @@ const Email = ({
         </Section>
 
         <Section style={content}>
-          <Text style={status}>Payment received · Place reserved</Text>
+          <Text style={status}>PAYMENT RECEIVED — REGISTRATION CONFIRMED</Text>
           <Heading style={heading}>Your place is confirmed</Heading>
           <Text style={text}>{fullName ? `Hello ${fullName},` : 'Hello,'}</Text>
           <Text style={text}>
-            Thank you for your payment. Your place in <strong>{masterclassTitle}</strong> is now
-            confirmed.
+            Your payment for <strong>{masterclassTitle}</strong> has been received successfully and your place is confirmed.
           </Text>
 
           <Section style={details}>
@@ -83,9 +82,9 @@ const Email = ({
 
           {meetLink ? (
             <Section style={joinSection}>
-              <Text style={joinTitle}>Your joining details</Text>
+              <Text style={joinTitle}>YOUR JOINING DETAILS</Text>
               <Button href={meetLink} style={button}>
-                Join the masterclass
+                JOIN THE MASTERCLASS
               </Button>
               <Text style={linkLabel}>If the button does not work, copy and paste this link:</Text>
               <Text style={linkText}>
@@ -106,6 +105,7 @@ const Email = ({
           </Section>
 
           <Text style={signoff}>
+            Please join approximately 5 minutes before the session.<br /><br />
             We look forward to welcoming you.
             <br />
             <strong>The S-STC Team</strong>
