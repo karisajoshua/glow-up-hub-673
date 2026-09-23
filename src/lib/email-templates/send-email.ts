@@ -60,6 +60,21 @@ export async function sendTemplateEmail(
   const element = React.createElement(template.component, templateData)
   const html = await render(element)
   const text = await render(element, { plainText: true })
+
+  // Never hand the provider a blank/malformed message. This also makes a
+  // rendering regression visible in server logs instead of delivering an
+  // apparently successful email with no body.
+  const visibleText = text.trim()
+  if (!html.trim() || visibleText.length < 40) {
+    console.error('Email template rendered without usable content', {
+      templateName,
+      recipient,
+      htmlLength: html.length,
+      textLength: text.length,
+    })
+    throw new Error('Email template rendered without usable content')
+  }
+
   const subject =
     typeof template.subject === 'function'
       ? template.subject(templateData)
@@ -72,6 +87,8 @@ export async function sendTemplateEmail(
         from: `${SITE_NAME} <noreply@${FROM_DOMAIN}>`,
         sender_domain: SENDER_DOMAIN,
         subject,
+        // Lovable's email endpoint accepts rendered bodies. Keep both HTML and
+        // plain text populated so clients that suppress HTML still show the message.
         html,
         text,
         purpose: 'transactional',
