@@ -23,13 +23,14 @@ export const updateApplicationReview = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) =>
     z.object({
       id: z.string().uuid(),
-      status: z.enum(["submitted", "under_review", "accepted", "rejected", "waitlisted"]),
+      status: z.enum(["submitted", "under_review", "accepted", "not_accepted", "waitlisted"]),
       admin_note: z.string().max(5000),
     }).parse(data),
   )
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
-    const { error } = await context.supabase
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin
       .from("applications")
       .update({
         status: data.status,
