@@ -100,22 +100,16 @@ function AdminApplicationDetail() {
 
   async function save() {
     setSaving(true);
-    const { data: userData } = await supabase.auth.getUser();
-    const { error } = await supabase
-      .from("applications")
-      .update({
-        status: status as never,
-        admin_note: note,
-        reviewed_by: userData.user?.id ?? null,
-        reviewed_at: new Date().toISOString(),
-      })
-      .eq("id", id);
-    setSaving(false);
-    if (error) {
-      toast.error(error.message);
-      return;
+    try {
+      await saveReview({
+        data: { id, status: status as (typeof ADMIN_STATUSES)[number], admin_note: note },
+      });
+      toast.success("Application updated. The applicant can now see this.");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Could not save the review.");
+    } finally {
+      setSaving(false);
     }
-    toast.success("Application updated. The applicant can now see this.");
   }
 
   async function openDoc(path: string) {
