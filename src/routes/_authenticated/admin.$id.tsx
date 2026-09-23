@@ -81,6 +81,7 @@ function AdminApplicationDetail() {
   const [note, setNote] = useState("");
   const [saving, setSaving] = useState(false);
   const [denied, setDenied] = useState(false);
+  const saveReview = useServerFn(updateApplicationReview);
 
   useEffect(() => {
     (async () => {
