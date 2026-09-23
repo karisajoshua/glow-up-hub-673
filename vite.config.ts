@@ -37,6 +37,7 @@ export default defineConfig({
     server: { entry: "server" },
   },
   vite: {
+    define: publicDefine,
     resolve: {
       alias: {
         "entities/lib/decode.js": path.resolve(
